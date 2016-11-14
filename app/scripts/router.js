@@ -8,12 +8,16 @@ var ReactDOM = require('react-dom');
 // Functions
 var setUpParse = require('./parseUtilities.js').setUpParse;
 // Components
-var Test = require('./components/test.jsx').Test;
+var Template = require('./components/template.jsx').Template;
+var AdminSignUpContainer = require('./components/adminSignUp.jsx').AdminSignUpContainer;
+var TeamSignUpContainer = require('./components/teamSignUp.jsx').TeamSignUpContainer;
 
 
 var AppRouter = Backbone.Router.extend({
   routes: {
-    '': 'index'
+    '': 'index',
+    'sign-up/': 'adminSignUp',
+    'tournaments/:id/sign-up/': 'teamSignUp'
   },
   initialize: function(){
     setUpParse('zugzwang', 'tosche station');
@@ -21,7 +25,20 @@ var AppRouter = Backbone.Router.extend({
   index: function(){
     console.log('index fired');
     ReactDOM.render(
-      React.createElement(Test),
+      React.createElement(Template),
+      document.getElementById('app')
+    );
+  },
+  adminSignUp: function(){
+    ReactDOM.render(
+      React.createElement(AdminSignUpContainer),
+      document.getElementById('app')
+    );
+  },
+  teamSignUp: function(tournamentId){
+    console.log('Team sign up fired');
+    ReactDOM.render(
+      React.createElement(TeamSignUpContainer, {tournamentId: tournamentId}),
       document.getElementById('app')
     );
   }
