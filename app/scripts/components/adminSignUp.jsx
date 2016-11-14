@@ -1,11 +1,13 @@
 var React = require('react');
 var User = require('../models/user.js').User;
+var Tournament = require('../models/tournament.js').Tournament;
 
 var AdminSignUpContainer = React.createClass({
   getInitialState: function(){
-    var admin = new User();
+    var admin = new User(), tournament = new Tournament();
     return{
       'admin': admin,
+      'tournament': tournament,
       'first_name': '',
       'last_name': '',
       'email': '',
