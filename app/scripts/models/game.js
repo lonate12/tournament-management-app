@@ -8,7 +8,7 @@ var GameCollection = Backbone.Collection.extend({
   model: Team,
   url: 'https://zugzwang.herokuapp.com/classes/Games',
   parse: function(data){
-    return data.results
+    return data.results;
   }
 });
 
