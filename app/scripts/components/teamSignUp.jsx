@@ -20,7 +20,7 @@ var TeamSignUpContainer = React.createClass({
                 <input type="text" className="form-control" id="first_name" placeholder="First Name"/>
                 <label htmlFor="last_name">Last Name</label>
                 <input type="text" className="form-control" id="last_name" placeholder="Last Name"/>
-                <label htmlFor="email">Email</label>
+                <label htmlFor="email">Username</label>
                 <input type="email" className="form-control" id="email" placeholder="Email"/>
                 <label htmlFor="phone_number">Contact Number</label>
                 <input type="text" className="form-control" id="phone_number" placeholder="(###) ###-####"/>

@@ -1,38 +1,74 @@
 var React = require('react');
+var User = require('../models/user.js').User;
 
 var AdminSignUpContainer = React.createClass({
+  getInitialState: function(){
+    var admin = new User();
+    return{
+      'admin': admin,
+      'first_name': '',
+      'last_name': '',
+      'email': '',
+      'phone_number': '',
+      'username': '',
+      'password': '',
+      'tournament_name': '',
+      'start_date': '',
+      'end_date': '',
+      'city': '',
+      'state': ''
+    };
+  },
+  handleInputChange: function(e){
+    e.preventDefault();
+    var target = e.target;
+
+    var newState = {};
+    newState[target.name] = target.value;
+
+    this.state.admin.set(target.name, target.value);
+    this.state.admin.set('username', this.state.admin.get('email'));
+    this.setState({admin: this.state.admin});
+  },
+  handleAdminSubmit: function(e){
+    e.preventDefault();
+    console.log(this.state.admin);
+    this.state.admin.signUp();
+  },
   render: function(){
     return(
       <div className="container">
         <div className="row">
           <div className="col-sm-8 col-sm-offset-2">
-            <form className="form" id="captain-sign-up">
+            <form onSubmit={this.handleAdminSubmit} className="form" id="captain-sign-up">
               <h1>Tournament Admin Sign Up</h1>
               <div className="form-group">
                 <label htmlFor="first_name">First Name</label>
-                <input type="text" className="form-control" id="first_name" placeholder="First Name"/>
+                <input onChange={this.handleInputChange} type="text" className="form-control" name="first_name" id="first_name" placeholder="First Name"/>
                 <label htmlFor="last_name">Last Name</label>
-                <input type="text" className="form-control" id="last_name" placeholder="Last Name"/>
-                <label htmlFor="email">Email</label>
-                <input type="email" className="form-control" id="email" placeholder="Email"/>
+                <input onChange={this.handleInputChange} type="text" className="form-control" name="last_name" id="last_name" placeholder="Last Name"/>
                 <label htmlFor="phone_number">Contact Number</label>
-                <input type="text" className="form-control" id="phone_number" placeholder="(###) ###-####"/>
+                <input onChange={this.handleInputChange} type="text" className="form-control" name="phone_number" id="phone_number" placeholder="(###) ###-####"/>
+                <label htmlFor="email">Email</label>
+                <input onChange={this.handleInputChange} type="email" className="form-control" name="email" id="email" placeholder="Enter email"/>
+                <label htmlFor="password">Password</label>
+                <input onChange={this.handleInputChange} type="password" className="form-control" name="password" id="password" placeholder="Password"/>
               </div>
               <button type="submit" className="btn btn-default">Sign Up</button>
             </form>
             <form className="form" id="captain-sign-up">
               <h1>Create Your Tournament</h1>
               <div className="form-group">
-                <label htmlFor="name">Tournament Name</label>
-                <input type="text" className="form-control" id="name" placeholder="Tournament Name"/>
+                <label htmlFor="tournament_name">Tournament Name</label>
+                <input onChange={this.handleInputChange} type="text" className="form-control" name="tournament_name" id="tournament_name" placeholder="Tournament Name"/>
                 <label htmlFor="start_date">Start Date</label>
-                <input type="date" className="form-control" id="start_date"/>
+                <input onChange={this.handleInputChange} type="date" className="form-control" name="start_date" id="start_date"/>
                 <label htmlFor="end_date">End Date</label>
-                <input type="date" className="form-control" id="end_date"/>
+                <input onChange={this.handleInputChange} type="date" className="form-control" name="end_date" id="end_date"/>
                 <label htmlFor="city">Tournament City</label>
-                <input type="text" className="form-control" id="city" placeholder="Clemson"/>
+                <input onChange={this.handleInputChange} type="text" className="form-control" name="city" id="city" placeholder="Clemson"/>
                 <label htmlFor="state">Tournament State</label>
-                <select className="form-control" id="state">
+                <select onChange={this.handleInputChange} className="form-control" name="state" id="state">
                   <option value="AL">Alabama</option>
                 	<option value="AK">Alaska</option>
                 	<option value="AZ">Arizona</option>
@@ -86,7 +122,7 @@ var AdminSignUpContainer = React.createClass({
                 	<option value="WY">Wyoming</option>
                 </select>
               </div>
-              <button type="submit" className="btn btn-default">Sign Up</button>
+              <button type="submit" className="btn btn-default">Create Tournament</button>
             </form>
           </div>
         </div>
