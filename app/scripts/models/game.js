@@ -1,7 +1,7 @@
 var Backbone = require('backbone');
 
 var Game = Backbone.Model.extend({
-  idAttribute = 'objectId'
+  idAttribute: 'objectId'
 });
 
 var GameCollection = Backbone.Collection.extend({

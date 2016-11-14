@@ -1,7 +1,7 @@
 var Backbone = require('backbone');
 
 var Team = Backbone.Model.extend({
-  idAttribute = 'objectId'
+  idAttribute: 'objectId'
 });
 
 var TeamCollection = Backbone.Collection.extend({
