@@ -15,8 +15,10 @@ var Tournament = ParseModel.extend({
   },
   urlRoot: 'https://zugzwang.herokuapp.com/classes/Tournaments/',
   createTournament: function(tournament){
+    var self = this;
     $.post(this.urlRoot, tournament).then(function(response){
       console.log(response);
+      self.getCoordinates();
     });
   },
   getCoordinates: function(){

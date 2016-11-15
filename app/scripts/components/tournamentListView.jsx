@@ -10,7 +10,8 @@ var ModalView = React.createClass({
 
     return{
       modalIsOpen: false,
-      tournamentId: ''
+      currentTournament: currentTournament,
+      teams: []
     }
   },
   openModal: function(){
@@ -23,14 +24,15 @@ var ModalView = React.createClass({
     this.setState({modalIsOpen: false});
   },
   componentWillReceiveProps: function(nextProps){
-    this.setState({tournamentId: nextProps.tournamentId, modalIsOpen: nextProps.modalIsOpen});
+    this.setState({currentTournament: nextProps.currentTournament, modalIsOpen: nextProps.modalIsOpen});
+    console.log(nextProps.currentTournament.get('teams'));
+    $.ajax({url: 'https://zugzwang.herokuapp.com/classes/Teams/'})
   },
   render: function(){
     return(
       <Modal isOpen={this.state.modalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.closeModal}>
         <ul>
-          <li>Hey</li>
-          <li>You</li>
+
         </ul>
       </Modal>
     );
@@ -40,10 +42,10 @@ var ModalView = React.createClass({
 var TournamentListView = React.createClass({
   getInitialState: function(){
     var tournamentCollection = new TournamentCollection();
-
+    var currentTournament = new Tournament();
     return{
       tournamentCollection: tournamentCollection,
-      tournamentId: '',
+      currentTournament: currentTournament,
       modalIsOpen: false
     }
   },
@@ -58,8 +60,8 @@ var TournamentListView = React.createClass({
       self.setState({tournamentCollection: tournamentCollection});
     });
   },
-  setCurrentTournament: function(tournamentId){
-    this.setState({tournamentId: tournamentId, modalIsOpen: true});
+  setCurrentTournament: function(tournament){
+    this.setState({currentTournament: tournament, modalIsOpen: true});
     console.log(this.state);
   },
   render: function(){
@@ -68,7 +70,7 @@ var TournamentListView = React.createClass({
     var tournaments = this.state.tournamentCollection.map(function(tournament){
       console.log(tournament);
       return (
-        <li onClick={function(){self.setCurrentTournament(tournament.get('objectId'))}} key={tournament.cid} id={tournament.get('objectId')}>{tournament.get('tournament_name')}</li>
+        <li onClick={function(){self.setCurrentTournament(tournament)}} key={tournament.cid} id={tournament.get('objectId')}>{tournament.get('tournament_name')}</li>
       );
     });
     return(
@@ -76,7 +78,7 @@ var TournamentListView = React.createClass({
         <ul>
           {tournaments}
         </ul>
-        <ModalView modalIsOpen={this.state.modalIsOpen} tournamentId={this.state.tournamentId}/>
+        <ModalView modalIsOpen={this.state.modalIsOpen} currentTournament={this.state.currentTournament}/>
       </div>
     );
   }

@@ -7,7 +7,7 @@ var Team = ParseModel.extend({
 
 var TeamCollection = ParseCollection.extend({
   model: Team,
-  url: 'https://zugzwang.herokuapp.com/classes/Teams',
+  baseUrl: 'https://zugzwang.herokuapp.com/classes/Teams',
 });
 
 module.exports = {
