@@ -1,21 +1,20 @@
 var $ = require('jquery');
 var Backbone = require('backbone');
 var setUpParse = require('../parseUtilities.js').setUpParse;
+var ParseModel = require('./parseModels.js').ParseModel;
 
-var User = Backbone.Model.extend({
+var User = ParseModel.extend({
   defaults: {
     'first_name': '',
     'last_name': '',
     'email': '',
     'phone_number': '',
     'password': '',
-    'username': ''
+    'username': '',
+    'isAdmin': false
   },
   idAttribute: 'objectId',
   urlRoot: 'https://zugzwang.herokuapp.com/',
-  parse: function(data){
-    return data.results;
-  },
   login: function(username, password){
     var url = this.urlRoot + 'login?username=' + username + '&password=' + encodeURI(password);
     var self = this;
@@ -38,7 +37,8 @@ var User = Backbone.Model.extend({
       'first_name': this.get('first_name'),
       'last_name': this.get('last_name'),
       'email': this.get('email'),
-      'phone_number': this.get('phone_number')
+      'phone_number': this.get('phone_number'),
+      'isAdmin': this.get('isAdmin')
     }).then(function(){
       self.login(self.get('username'), self.get('password'));
     });

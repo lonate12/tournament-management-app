@@ -1,16 +1,18 @@
 var $ = require('jquery');
 var Backbone = require('backbone');
+var ParseModel = require('./parseModels.js').ParseModel;
+var ParseCollection = require('./parseModels.js').ParseCollection;
 
-var Tournament = Backbone.Model.extend({
+var Tournament = ParseModel.extend({
   default: {
     'tournament_name': '',
     'start_date': '',
     'end_date': '',
     'city': '',
     'state': '',
-    'owner': {}
+    'owner': {},
+    'teams': []
   },
-  idAttribute: 'objectId',
   urlRoot: 'https://zugzwang.herokuapp.com/classes/Tournaments/',
   createTournament: function(tournament){
     $.post(this.urlRoot, tournament).then(function(response){
@@ -24,6 +26,12 @@ var Tournament = Backbone.Model.extend({
   }
 });
 
+var TournamentCollection = ParseCollection.extend({
+  model: Tournament,
+  url: 'https://zugzwang.herokuapp.com/classes/Tournaments/'
+});
+
 module.exports = {
-  Tournament: Tournament
+  Tournament: Tournament,
+  TournamentCollection: TournamentCollection
 };

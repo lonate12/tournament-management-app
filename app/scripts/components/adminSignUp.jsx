@@ -20,8 +20,9 @@ var AdminSignUpContainer = React.createClass({
     e.preventDefault();
     var target = e.target;
 
-    // var newState = {};
-    // newState[target.name] = target.value;
+    var newState = {};
+    newState[target.name] = target.value;
+    this.setState(newState);
 
     this.state.admin.set(target.name, target.value);
     this.state.admin.set('username', this.state.admin.get('email'));

@@ -15,6 +15,7 @@ var AddTournamentContainer = require('./components/addTournament.jsx').AddTourna
 var TeamAdminSignUpContainer = require('./components/teamAdminSignUp.jsx').TeamAdminSignUpContainer;
 var TeamAdminLoginContainer = require('./components/teamAdminLogin.jsx').TeamAdminLoginContainer;
 var TeamAddContainer = require('./components/teamAdd.jsx').TeamAddContainer;
+var TournamentListView = require('./components/tournamentListView.jsx').TournamentListView;
 
 
 var AppRouter = Backbone.Router.extend({
@@ -25,7 +26,8 @@ var AppRouter = Backbone.Router.extend({
     'login/': 'adminLogin',
     'tournaments/:id/sign-up/': 'teamAdminSignUp',
     'tournaments/:id/login/': 'teamAdminLogin',
-    'tournaments/:id/add-team/': 'teamAdd'
+    'tournaments/:id/add-team/': 'teamAdd',
+    'tournaments/': 'tournamentView'
   },
   initialize: function(){
     setUpParse('zugzwang', 'tosche station');
@@ -70,6 +72,12 @@ var AppRouter = Backbone.Router.extend({
   teamAdd: function(tournamentId){
     ReactDOM.render(
       React.createElement(TeamAddContainer, {tournamentId: tournamentId}),
+      document.getElementById('app')
+    );
+  },
+  tournamentView: function(){
+    ReactDOM.render(
+      React.createElement(TournamentListView),
       document.getElementById('app')
     );
   }

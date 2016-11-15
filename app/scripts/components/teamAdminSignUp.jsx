@@ -1,25 +1,54 @@
 var React = require('react');
+var User = require('../models/user.js').User;
 
 var TeamAdminSignUpContainer = React.createClass({
-  handleSubmit: function(e){
+  getInitialState: function(){
+    var teamAdmin = new User();
+    return{
+      'teamAdmin': teamAdmin,
+      'first_name': '',
+      'last_name': '',
+      'email': '',
+      'phone_number': '',
+      'username': '',
+      'password': '',
+    };
+  },
+  handleInputChangeAdmin: function(e){
     e.preventDefault();
+    var target = e.target;
+
+    var newState = {};
+    newState[target.name] = target.value;
+    this.setState(newState);
+
+    this.state.admin.set(target.name, target.value);
+    this.state.admin.set('username', this.state.admin.get('email'));
+    this.setState({admin: this.state.admin});
+  },
+  handleAdminSubmit: function(e){
+    e.preventDefault();
+    console.log(this.state.admin);
+    this.state.admin.signUp();
   },
   render: function(){
     return(
-      <div className="container team-sign-up-component">
+      <div className="container">
         <div className="row">
           <div className="col-sm-8 col-sm-offset-2">
-            <h1>Sign Up Your Team!</h1>
-            <form onSubmit={this.handleSubmit} className="form" id="captain-sign-up">
+            <form onSubmit={this.handleAdminSubmit} className="form" id="captain-sign-up">
+              <h1>Sign up to register your team</h1>
               <div className="form-group">
                 <label htmlFor="first_name">First Name</label>
-                <input type="text" className="form-control" id="first_name" placeholder="First Name"/>
+                <input onChange={this.handleInputChangeAdmin} type="text" className="form-control" name="first_name" id="first_name" placeholder="First Name"/>
                 <label htmlFor="last_name">Last Name</label>
-                <input type="text" className="form-control" id="last_name" placeholder="Last Name"/>
-                <label htmlFor="email">Username</label>
-                <input type="email" className="form-control" id="email" placeholder="Email"/>
+                <input onChange={this.handleInputChangeAdmin} type="text" className="form-control" name="last_name" id="last_name" placeholder="Last Name"/>
                 <label htmlFor="phone_number">Contact Number</label>
-                <input type="text" className="form-control" id="phone_number" placeholder="(###) ###-####"/>
+                <input onChange={this.handleInputChangeAdmin} type="text" className="form-control" name="phone_number" id="phone_number" placeholder="(###) ###-####"/>
+                <label htmlFor="email">Email</label>
+                <input onChange={this.handleInputChangeAdmin} type="email" className="form-control" name="email" id="email" placeholder="Enter email"/>
+                <label htmlFor="password">Password</label>
+                <input onChange={this.handleInputChangeAdmin} type="password" className="form-control" name="password" id="password" placeholder="Password"/>
               </div>
               <button type="submit" className="btn btn-default">Sign Up</button>
             </form>

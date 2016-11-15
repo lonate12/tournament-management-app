@@ -1,15 +1,13 @@
 var Backbone = require('backbone');
+var ParseModel = require('./parseModels.js').ParseModel;
+var ParseCollection = require('./parseModels.js').ParseCollection;
 
-var Team = Backbone.Model.extend({
-  idAttribute: 'objectId'
+var Team = ParseModel.extend({
 });
 
-var TeamCollection = Backbone.Collection.extend({
+var TeamCollection = ParseCollection.extend({
   model: Team,
   url: 'https://zugzwang.herokuapp.com/classes/Teams',
-  parse: function(data){
-    return data.results;
-  }
 });
 
 module.exports = {
