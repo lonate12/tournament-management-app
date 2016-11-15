@@ -11,9 +11,9 @@ var ParseCollection = Backbone.Collection.extend({
   parseWhere: function(field, className, objectId){
     this.whereClause = {
       field: field,
+      '__type': 'Pointer',
       className: className,
-      objectId: objectId,
-      '__type': 'Pointer'
+      objectId: objectId
     };
     return this;
   },
