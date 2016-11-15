@@ -1,6 +1,36 @@
 var React = require('react');
+var Tournament = require('../models/tournament.js').Tournament;
 
 var AddTournamentContainer = React.createClass({
+  getInitialState: function(){
+    var tournament = new Tournament();
+
+    return{
+      'tournament': tournament,
+      'tournament_name': '',
+      'start_date': '',
+      'end_date': '',
+      'city': '',
+      'state': ''
+    }
+  },
+  handleInputChangeTournament: function(e){
+    e.preventDefault();
+    var target = e.target;
+
+    console.log(this.state.tournament);
+
+    this.state.tournament.set(target.name, target.value);
+    this.setState({tournament: this.state.tournament});
+  },
+  handleTournamentSubmit: function(e){
+    e.preventDefault();
+    var objectId = localStorage.getItem('userID');
+    this.state.tournament.set({"owner":{"__type":"Pointer", "classname": "_User", "objectId": objectId}});
+
+    var tournament = this.state.tournament.toJSON();
+    this.state.tournament.createTournament(tournament);
+  },
   render: function(){
     return(
       <div className="container">

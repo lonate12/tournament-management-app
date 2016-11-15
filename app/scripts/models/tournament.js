@@ -7,13 +7,13 @@ var Tournament = Backbone.Model.extend({
     'start_date': '',
     'end_date': '',
     'city': '',
-    'state': ''
+    'state': '',
+    'owner': {}
   },
   idAttribute: 'objectId',
   urlRoot: 'https://zugzwang.herokuapp.com/classes/Tournaments/',
-  createTournament: function(){
-    console.log(this.toJSON());
-    $.post(this.urlRoot, this.toJSON()).then(function(response){
+  createTournament: function(tournament){
+    $.post(this.urlRoot, tournament).then(function(response){
       console.log(response);
     });
   },

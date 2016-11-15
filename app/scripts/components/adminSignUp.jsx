@@ -4,21 +4,16 @@ var Tournament = require('../models/tournament.js').Tournament;
 
 var AdminSignUpContainer = React.createClass({
   getInitialState: function(){
-    var admin = new User(), tournament = new Tournament();
+    var admin = new User();
     return{
       'admin': admin,
-      'tournament': tournament,
       'first_name': '',
       'last_name': '',
       'email': '',
       'phone_number': '',
       'username': '',
       'password': '',
-      'tournament_name': '',
-      'start_date': '',
-      'end_date': '',
-      'city': '',
-      'state': ''
+
     };
   },
   handleInputChangeAdmin: function(e){
@@ -32,29 +27,10 @@ var AdminSignUpContainer = React.createClass({
     this.state.admin.set('username', this.state.admin.get('email'));
     this.setState({admin: this.state.admin});
   },
-  handleInputChangeTournament: function(e){
-    e.preventDefault();
-    var target = e.target;
-
-    console.log(this.state.tournament);
-
-    this.state.tournament.set(target.name, target.value);
-    this.setState({tournament: this.state.tournament});
-  },
   handleAdminSubmit: function(e){
     e.preventDefault();
     console.log(this.state.admin);
     this.state.admin.signUp();
-  },
-  handleTournamentSubmit: function(e){
-    e.preventDefault();
-    var objectId = localStorage.getItem('userID');
-    var owner = this.state.admin.userToPointer(objectId);
-
-    this.state.tournament.set('owner', owner);
-    console.log(this.state.tournament.toJSON());
-
-    this.state.tournament.createTournament();
   },
   render: function(){
     return(

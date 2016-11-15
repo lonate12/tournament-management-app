@@ -12,16 +12,20 @@ var Template = require('./components/template.jsx').Template;
 var AdminSignUpContainer = require('./components/adminSignUp.jsx').AdminSignUpContainer;
 var AdminLoginContainer = require('./components/adminLogin.jsx').AdminLoginContainer;
 var AddTournamentContainer = require('./components/addTournament.jsx').AddTournamentContainer;
-var TeamSignUpContainer = require('./components/teamSignUp.jsx').TeamSignUpContainer;
+var TeamAdminSignUpContainer = require('./components/teamAdminSignUp.jsx').TeamAdminSignUpContainer;
+var TeamAdminLoginContainer = require('./components/teamAdminLogin.jsx').TeamAdminLoginContainer;
+var TeamAddContainer = require('./components/teamAdd.jsx').TeamAddContainer;
 
 
 var AppRouter = Backbone.Router.extend({
   routes: {
     '': 'index',
-    'add/': 'addTournament',
+    'add-tournament/': 'addTournament',
     'sign-up/': 'adminSignUp',
     'login/': 'adminLogin',
-    'tournaments/:id/sign-up/': 'teamSignUp'
+    'tournaments/:id/sign-up/': 'teamAdminSignUp',
+    'tournaments/:id/login/': 'teamAdminLogin',
+    'tournaments/:id/add-team/': 'teamAdd'
   },
   initialize: function(){
     setUpParse('zugzwang', 'tosche station');
@@ -51,10 +55,21 @@ var AppRouter = Backbone.Router.extend({
       document.getElementById('app')
     );
   },
-  teamSignUp: function(tournamentId){
-    console.log('Team sign up fired');
+  teamAdminSignUp: function(tournamentId){
     ReactDOM.render(
-      React.createElement(TeamSignUpContainer, {tournamentId: tournamentId}),
+      React.createElement(TeamAdminSignUpContainer, {tournamentId: tournamentId}),
+      document.getElementById('app')
+    );
+  },
+  teamAdminLogin: function(tournamentId){
+    ReactDOM.render(
+      React.createElement(TeamAdminLoginContainer, {tournamentId: tournamentId}),
+      document.getElementById('app')
+    );
+  },
+  teamAdd: function(tournamentId){
+    ReactDOM.render(
+      React.createElement(TeamAddContainer, {tournamentId: tournamentId}),
       document.getElementById('app')
     );
   }

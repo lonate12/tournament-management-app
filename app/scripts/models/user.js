@@ -43,13 +43,6 @@ var User = Backbone.Model.extend({
       self.login(self.get('username'), self.get('password'));
     });
   },
-  userToPointer: function(objectId){
-    return{
-      '__type': 'Pointer',
-      'className': '_User',
-      'objectId': objectId
-    }
-  },
 });
 
 module.exports = {
