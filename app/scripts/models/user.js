@@ -24,7 +24,7 @@ var User = Backbone.Model.extend({
       localStorage.setItem('sessionToken', response.sessionToken);
       localStorage.setItem('userSession', JSON.stringify(response));
       localStorage.setItem('userID', response.objectId);
-      localStorage.setItem('name', self.get('first_name'));
+      localStorage.setItem('name', response.first_name);
 
       setUpParse('zugzwang', 'tosche station', response.sessionToken);
     });
@@ -42,6 +42,13 @@ var User = Backbone.Model.extend({
     }).then(function(){
       self.login(self.get('username'), self.get('password'));
     });
+  },
+  userToPointer: function(objectId){
+    return{
+      '__type': 'Pointer',
+      'className': '_User',
+      'objectId': objectId
+    }
   },
 });
 

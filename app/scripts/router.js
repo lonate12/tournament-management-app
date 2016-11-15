@@ -10,13 +10,17 @@ var setUpParse = require('./parseUtilities.js').setUpParse;
 // Components
 var Template = require('./components/template.jsx').Template;
 var AdminSignUpContainer = require('./components/adminSignUp.jsx').AdminSignUpContainer;
+var AdminLoginContainer = require('./components/adminLogin.jsx').AdminLoginContainer;
+var AddTournamentContainer = require('./components/addTournament.jsx').AddTournamentContainer;
 var TeamSignUpContainer = require('./components/teamSignUp.jsx').TeamSignUpContainer;
 
 
 var AppRouter = Backbone.Router.extend({
   routes: {
     '': 'index',
+    'add/': 'addTournament',
     'sign-up/': 'adminSignUp',
+    'login/': 'adminLogin',
     'tournaments/:id/sign-up/': 'teamSignUp'
   },
   initialize: function(){
@@ -29,9 +33,21 @@ var AppRouter = Backbone.Router.extend({
       document.getElementById('app')
     );
   },
+  addTournament: function(){
+    ReactDOM.render(
+      React.createElement(AddTournamentContainer),
+      document.getElementById('app')
+    );
+  },
   adminSignUp: function(){
     ReactDOM.render(
       React.createElement(AdminSignUpContainer),
+      document.getElementById('app')
+    );
+  },
+  adminLogin: function(){
+    ReactDOM.render(
+      React.createElement(AdminLoginContainer),
       document.getElementById('app')
     );
   },
