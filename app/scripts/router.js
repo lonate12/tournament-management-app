@@ -90,9 +90,9 @@ var AppRouter = Backbone.Router.extend({
       document.getElementById('app')
     );
   },
-  tournamentDashboard: function(){
+  tournamentDashboard: function(tournamentId){
     ReactDOM.render(
-      React.createElement(TournamentDashboardContainer),
+      React.createElement(TournamentDashboardContainer, {tournamentId: tournamentId}),
       document.getElementById('app')
     );
   }
