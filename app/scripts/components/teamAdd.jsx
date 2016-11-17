@@ -32,7 +32,19 @@ var TeamAddContainer = React.createClass({
     var currentUser = this.state.currentUser;
     var userData = localStorage.getItem('userSession');
 
-    console.log(JSON.parse(userData));
+    currentUser.set(JSON.parse(userData));
+  },
+  hanleCheckedInput: function(e){
+    if(e.target.checked){
+      this.setState(this.state.currentUser.toJSON());
+    }else{
+      this.setState({
+        'first_name': '',
+        'last_name': '',
+        'email': '',
+        'phone_number':''
+      });
+    }
   },
   render: function(){
     return(
@@ -46,7 +58,7 @@ var TeamAddContainer = React.createClass({
               </div>
               <div className="form-group">
                 <h3>Primary Team Contact Info</h3>
-                <label><input type="checkbox"/> I am the primary contact</label>
+                <label><input onChange={this.hanleCheckedInput} type="checkbox"/> I am the primary contact</label>
                 <br/>
                 <label htmlFor="first_name">First Name</label>
                 <input onChange={this.handleInput} type="text" className="form-control" id="first_name" placeholder="First Name" value={this.state.first_name}/>
