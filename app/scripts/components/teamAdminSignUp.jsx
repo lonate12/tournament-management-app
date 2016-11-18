@@ -52,15 +52,15 @@ var TeamAdminSignUpContainer = React.createClass({
               <h1>Sign up to register your team</h1>
               <div className="form-group">
                 <label htmlFor="first_name">First Name</label>
-                <input onChange={this.handleInputChangeAdmin} type="text" className="form-control" name="first_name" id="first_name" placeholder="First Name" value={this.state.first_name}/>
+                <input onChange={this.handleInputChangeAdmin} type="text" className="form-control" name="first_name" id="first_name" placeholder="First Name" value={this.state.first_name} required="required"/>
                 <label htmlFor="last_name">Last Name</label>
-                <input onChange={this.handleInputChangeAdmin} type="text" className="form-control" name="last_name" id="last_name" placeholder="Last Name" value={this.state.last_name}/>
+                <input onChange={this.handleInputChangeAdmin} type="text" className="form-control" name="last_name" id="last_name" placeholder="Last Name" value={this.state.last_name} required="required"/>
                 <label htmlFor="phone_number">Contact Number</label>
-                <input onChange={this.handleInputChangeAdmin} type="text" className="form-control" name="phone_number" id="phone_number" placeholder="(###) ###-####" value={this.state.phone_number}/>
+                <input onChange={this.handleInputChangeAdmin} type="text" className="form-control" name="phone_number" id="phone_number" placeholder="(###) ###-####" value={this.state.phone_number} required="required"/>
                 <label htmlFor="email">Email</label>
-                <input onChange={this.handleInputChangeAdmin} type="email" className="form-control" name="email" id="email" placeholder="Enter email" value={this.state.email}/>
+                <input onChange={this.handleInputChangeAdmin} type="email" className="form-control" name="email" id="email" placeholder="Enter email" value={this.state.email} required="required"/>
                 <label htmlFor="password">Password</label>
-                <input onChange={this.handleInputChangeAdmin} type="password" className="form-control" name="password" id="password" placeholder="Password" value={this.state.password}/>
+                <input onChange={this.handleInputChangeAdmin} type="password" className="form-control" name="password" id="password" placeholder="Password" value={this.state.password} required="required"/>
               </div>
               <button type="submit" className="btn btn-default">Sign Up</button>
             </form>

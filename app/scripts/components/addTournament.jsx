@@ -38,15 +38,15 @@ var AddTournamentContainer = React.createClass({
             <h1>Create Your Tournament</h1>
             <div className="form-group">
               <label htmlFor="tournament_name">Tournament Name</label>
-              <input onChange={this.handleInputChangeTournament} type="text" className="form-control" name="tournament_name" id="tournament_name" placeholder="Tournament Name"/>
+              <input onChange={this.handleInputChangeTournament} type="text" className="form-control" name="tournament_name" id="tournament_name" placeholder="Tournament Name" required="required"/>
               <label htmlFor="start_date">Start Date</label>
-              <input onChange={this.handleInputChangeTournament} type="date" className="form-control" name="start_date" id="start_date"/>
+              <input onChange={this.handleInputChangeTournament} type="date" className="form-control" name="start_date" id="start_date" required="required"/>
               <label htmlFor="end_date">End Date</label>
-              <input onChange={this.handleInputChangeTournament} type="date" className="form-control" name="end_date" id="end_date"/>
+              <input onChange={this.handleInputChangeTournament} type="date" className="form-control" name="end_date" id="end_date" required="required"/>
               <label htmlFor="city">Tournament City</label>
-              <input onChange={this.handleInputChangeTournament} type="text" className="form-control" name="city" id="city" placeholder="Clemson"/>
+              <input onChange={this.handleInputChangeTournament} type="text" className="form-control" name="city" id="city" placeholder="Clemson" required="required"/>
               <label htmlFor="state">Tournament State</label>
-              <select onChange={this.handleInputChangeTournament} className="form-control" name="state" id="state">
+              <select onChange={this.handleInputChangeTournament} className="form-control" name="state" id="state" required="required">
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
                 <option value="AZ">Arizona</option>

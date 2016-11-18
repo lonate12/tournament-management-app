@@ -37,9 +37,9 @@ var TeamAdminLoginContainer = React.createClass({
             <h1>Login</h1>
             <div className="form-group">
               <label htmlFor="username">Email</label>
-              <input onChange={this.handleInput} type="email" value={this.state.username} className="form-control" name="username" id="username" placeholder="Enter email"/>
+              <input onChange={this.handleInput} type="email" value={this.state.username} className="form-control" name="username" id="username" placeholder="Enter email" required="required"/>
               <label htmlFor="password">Password</label>
-              <input onChange={this.handleInput} type="password" value={this.state.password} className="form-control" name="password" id="password" placeholder="Password"/>
+              <input onChange={this.handleInput} type="password" value={this.state.password} className="form-control" name="password" id="password" placeholder="Password" required="required"/>
             </div>
             <button type="submit" className="btn btn-default">Login</button>
           </form>
