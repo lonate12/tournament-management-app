@@ -3,9 +3,6 @@ var ParseModel = require('./parseModels.js').ParseModel;
 var ParseCollection = require('./parseModels.js').ParseCollection;
 
 var Team = ParseModel.extend({
-  defualts: {
-
-  },
   urlRoot: 'https://zugzwang.herokuapp.com/classes/Teams'
 });
 

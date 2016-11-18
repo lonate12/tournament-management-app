@@ -46,11 +46,33 @@ var TeamAddContainer = React.createClass({
       });
     }
   },
+  handleSubmit: function(e){
+    e.preventDefault();
+    var newTeam = this.state.newTeam;
+
+    newTeam.set({
+      owner: newTeam.toPointer('_User', localStorage.getItem('userID')),
+      tournament: newTeam.toPointer('Tournaments', this.props.tournamentId),
+      name: this.state.name,
+      primary_contact: {
+        first_name: this.state.first_name,
+        last_name: this.state.last_name,
+        email: this.state.email,
+        phone_number: this.state.phone_number
+      }
+    });
+
+    this.setState({newTeam: newTeam});
+
+    newTeam.save().then(function(response){
+      console.log(response);
+    });
+  },
   render: function(){
     return(
       <div className="container">
         <div className="row">
-            <form className="form team-info-form col-sm-8 col-sm-offset-2">
+            <form onSubmit={this.handleSubmit} className="form team-info-form col-sm-8 col-sm-offset-2">
               <h1>Register your team!</h1>
               <div className="form-group">
                 <label htmlFor="name"><h3>Team Name</h3></label>

@@ -84,9 +84,9 @@ var AppRouter = Backbone.Router.extend({
       document.getElementById('app')
     );
   },
-  teamView: function(){
+  teamView: function(tournamentId, teamId){
     ReactDOM.render(
-      React.createElement(TeamViewContainer),
+      React.createElement(TeamViewContainer, {tournamentId: tournamentId, teamId: teamId}),
       document.getElementById('app')
     );
   },

@@ -2,6 +2,15 @@ var Backbone = require('backbone');
 
 var ParseModel = Backbone.Model.extend({
   idAttribute: 'objectId',
+  toPointer: function(className, objectId){
+    var pointerObject = {
+      '__type': 'Pointer',
+      className: className,
+      objectId: objectId
+    };
+
+    return pointerObject;
+  }
 });
 
 var ParseCollection = Backbone.Collection.extend({
