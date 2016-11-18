@@ -1,6 +1,6 @@
 var React = require('react');
 
-var Template = React.createClass({
+var LandingPage = React.createClass({
   render: function(){
     return(
       <ul>
@@ -20,5 +20,5 @@ var Template = React.createClass({
 });
 
 module.exports = {
-  Template: Template
+  LandingPage: LandingPage
 };

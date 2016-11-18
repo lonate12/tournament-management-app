@@ -8,7 +8,6 @@ var ReactDOM = require('react-dom');
 // Functions
 var setUpParse = require('./parseUtilities.js').setUpParse;
 // Components
-var Template = require('./components/template.jsx').Template;
 var AdminSignUpContainer = require('./components/adminSignUp.jsx').AdminSignUpContainer;
 var AdminLoginContainer = require('./components/adminLogin.jsx').AdminLoginContainer;
 var AddTournamentContainer = require('./components/addTournament.jsx').AddTournamentContainer;
@@ -19,6 +18,7 @@ var TournamentListView = require('./components/tournamentListView.jsx').Tourname
 var TeamViewContainer = require('./components/teamView.jsx').TeamViewContainer;
 var TournamentDashboardContainer = require('./components/tournamentDashboard.jsx').TournamentDashboardContainer;
 var AdminTournamentDash = require('./components/adminTournamentDash.jsx').AdminTournamentDash;
+var LandingPage = require('./components/landingPage.jsx').LandingPage;
 
 var AppRouter = Backbone.Router.extend({
   routes: {
@@ -37,10 +37,20 @@ var AppRouter = Backbone.Router.extend({
   initialize: function(){
     setUpParse('zugzwang', 'tosche station');
   },
+  adminSessionCheck: function(){
+    if (!localStorage.getItem('sessionToken')){
+      this.navigate('/login/', {trigger: true});
+    }
+  },
+  sessionCheck: function(tournamentId){
+    if (!localStorage.getItem('sessionToken')){
+      this.navigate('/tournaments/'+tournamentId+'/sign-up/', {trigger: true});
+    }
+  },
   index: function(){
     console.log('index fired');
     ReactDOM.render(
-      React.createElement(Template),
+      React.createElement(LandingPage),
       document.getElementById('app')
     );
   },
@@ -49,6 +59,8 @@ var AppRouter = Backbone.Router.extend({
       React.createElement(AddTournamentContainer),
       document.getElementById('app')
     );
+
+    this.adminSessionCheck();
   },
   adminSignUp: function(){
     ReactDOM.render(
@@ -79,6 +91,8 @@ var AppRouter = Backbone.Router.extend({
       React.createElement(TeamAddContainer, {tournamentId: tournamentId}),
       document.getElementById('app')
     );
+
+    this.sessionCheck(tournamentId);
   },
   tournamentView: function(){
     ReactDOM.render(

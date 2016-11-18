@@ -26,7 +26,7 @@ var AddTournamentContainer = React.createClass({
   handleTournamentSubmit: function(e){
     e.preventDefault();
     var objectId = localStorage.getItem('userID');
-    this.state.tournament.set({"owner":{"__type":"Pointer", "className": "_User", "objectId": objectId}});
+    this.state.tournament.set({"tournament_admin":{"__type":"Pointer", "className": "_User", "objectId": objectId}});
     this.state.tournament.createTournament();
   },
   render: function(){

@@ -56,7 +56,7 @@ var TeamAddContainer = React.createClass({
     setUpParse('zugzwang', 'tosche station', localStorage.getItem('sessionToken'));
 
     newTeam.set({
-      owner: newTeam.toPointer('_User', localStorage.getItem('userID')),
+      team_admin: newTeam.toPointer('_User', localStorage.getItem('userID')),
       tournament: newTeam.toPointer('Tournaments', this.props.tournamentId),
       name: this.state.name,
       primary_contact: {
