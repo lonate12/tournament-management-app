@@ -14,9 +14,10 @@ var User = ParseModel.extend({
     'isAdmin': false
   },
   idAttribute: 'objectId',
-  urlRoot: 'https://zugzwang.herokuapp.com/',
+  urlRoot: 'https://zugzwang.herokuapp.com/users',
+  baseUrl: 'https://zugzwang.herokuapp.com/',
   login: function(username, password){
-    var url = this.urlRoot + 'login?username=' + username + '&password=' + encodeURI(password);
+    var url = this.baseUrl + 'login?username=' + username + '&password=' + encodeURI(password);
     var self = this;
 
     $.ajax(url).then(function(response){
@@ -29,7 +30,7 @@ var User = ParseModel.extend({
     });
   },
   signUp: function(){
-    var self = this, url = this.urlRoot + 'users';
+    var self = this, url = this.baseUrl + 'users';
     console.log(this.get('email'));
     $.post(url, {
       'username': this.get('email'),
@@ -43,6 +44,13 @@ var User = ParseModel.extend({
       self.login(self.get('username'), self.get('password'));
     });
   },
+},{
+  logout: function(){
+    var url = baseUrl + 'logout/';
+    $.post(url).then(function(){
+      localStorage.clear();
+    });
+  }
 });
 
 module.exports = {

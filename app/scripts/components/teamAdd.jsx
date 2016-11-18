@@ -1,6 +1,8 @@
+var Backbone = require('backbone');
 var React = require('react');
 var User = require('../models/user.js').User;
 var Team = require('../models/team.js').Team;
+var setUpParse = require('../parseUtilities.js').setUpParse;
 
 var TeamAddContainer = React.createClass({
   getInitialState: function(){
@@ -49,6 +51,9 @@ var TeamAddContainer = React.createClass({
   handleSubmit: function(e){
     e.preventDefault();
     var newTeam = this.state.newTeam;
+    var self = this;
+
+    setUpParse('zugzwang', 'tosche station', localStorage.getItem('sessionToken'));
 
     newTeam.set({
       owner: newTeam.toPointer('_User', localStorage.getItem('userID')),
@@ -65,7 +70,16 @@ var TeamAddContainer = React.createClass({
     this.setState({newTeam: newTeam});
 
     newTeam.save().then(function(response){
-      console.log(response);
+      var teamId = response.objectId;
+      var currentUser = self.state.currentUser;
+
+      currentUser.set({team: currentUser.toPointer('Teams', teamId)});
+      currentUser.unset('createdAt');
+      currentUser.unset('updatedAt');
+      currentUser.save().then(function(response){
+        console.log(currentUser.get('team').objectId);
+        Backbone.history.navigate('/tournaments/'+self.props.tournamentId+'/'+currentUser.get('team').objectId+'/', {trigger: true});
+      });
     });
   },
   render: function(){
