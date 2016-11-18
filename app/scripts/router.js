@@ -18,6 +18,7 @@ var TeamAddContainer = require('./components/teamAdd.jsx').TeamAddContainer;
 var TournamentListView = require('./components/tournamentListView.jsx').TournamentListView;
 var TeamViewContainer = require('./components/teamView.jsx').TeamViewContainer;
 var TournamentDashboardContainer = require('./components/tournamentDashboard.jsx').TournamentDashboardContainer;
+var AdminTournamentDash = require('./components/adminTournamentDash.jsx').AdminTournamentDash;
 
 var AppRouter = Backbone.Router.extend({
   routes: {
@@ -25,6 +26,7 @@ var AppRouter = Backbone.Router.extend({
     'add-tournament/': 'addTournament',
     'sign-up/': 'adminSignUp',
     'login/': 'adminLogin',
+    'tournaments/:id/admin/': 'adminDash',
     'tournaments/:id/sign-up/': 'teamAdminSignUp',
     'tournaments/:id/login/': 'teamAdminLogin',
     'tournaments/:id/add-team/': 'teamAdd',
@@ -93,6 +95,12 @@ var AppRouter = Backbone.Router.extend({
   tournamentDashboard: function(tournamentId){
     ReactDOM.render(
       React.createElement(TournamentDashboardContainer, {tournamentId: tournamentId}),
+      document.getElementById('app')
+    );
+  },
+  adminDash: function(tournamentId){
+    ReactDOM.render(
+      React.createElement(AdminTournamentDash, {tournamentId: tournamentId}),
       document.getElementById('app')
     );
   }
