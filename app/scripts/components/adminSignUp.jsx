@@ -1,3 +1,4 @@
+var Backbone = require('backbone');
 var React = require('react');
 var User = require('../models/user.js').User;
 var Tournament = require('../models/tournament.js').Tournament;
@@ -30,8 +31,17 @@ var AdminSignUpContainer = React.createClass({
   },
   handleAdminSubmit: function(e){
     e.preventDefault();
-    console.log(this.state.admin);
-    this.state.admin.signUp();
+
+    if (e.target[4].value != e.target[5].value){
+      alert("Passwords do not match, please re-enter password.")
+
+      return;
+    }
+
+    this.state.admin.signUp(function(){
+      Backbone.history.navigate('/add-tournament/', {trigger: true});
+    });
+
   },
   render: function(){
     return(
@@ -42,15 +52,17 @@ var AdminSignUpContainer = React.createClass({
               <h1>Tournament Admin Sign Up</h1>
               <div className="form-group">
                 <label htmlFor="first_name">First Name</label>
-                <input onChange={this.handleInputChangeAdmin} type="text" className="form-control" name="first_name" id="first_name" placeholder="First Name"/>
+                <input onChange={this.handleInputChangeAdmin} type="text" className="form-control" name="first_name" id="first_name" placeholder="First Name" required="required"/>
                 <label htmlFor="last_name">Last Name</label>
-                <input onChange={this.handleInputChangeAdmin} type="text" className="form-control" name="last_name" id="last_name" placeholder="Last Name"/>
+                <input onChange={this.handleInputChangeAdmin} type="text" className="form-control" name="last_name" id="last_name" placeholder="Last Name" required="required"/>
                 <label htmlFor="phone_number">Contact Number</label>
-                <input onChange={this.handleInputChangeAdmin} type="text" className="form-control" name="phone_number" id="phone_number" placeholder="(###) ###-####"/>
+                <input onChange={this.handleInputChangeAdmin} type="text" className="form-control" name="phone_number" id="phone_number" placeholder="(###) ###-####" required="required"/>
                 <label htmlFor="email">Email</label>
-                <input onChange={this.handleInputChangeAdmin} type="email" className="form-control" name="email" id="email" placeholder="Enter email"/>
+                <input onChange={this.handleInputChangeAdmin} type="email" className="form-control" name="email" id="email" placeholder="Enter email" required="required"/>
                 <label htmlFor="password">Password</label>
-                <input onChange={this.handleInputChangeAdmin} type="password" className="form-control" name="password" id="password" placeholder="Password"/>
+                <input onChange={this.handleInputChangeAdmin} type="password" className="form-control" name="password" id="password" placeholder="Password" required="required"/>
+                <label htmlFor="password2">Re-enter Password</label>
+                <input onChange={this.handleInputChangeAdmin} type="password" className="form-control" name="password2" id="password2" placeholder="Re-enter password" required="required"/>
               </div>
               <button type="submit" className="btn btn-default">Sign Up</button>
             </form>

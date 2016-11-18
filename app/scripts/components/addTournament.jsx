@@ -1,3 +1,4 @@
+var Backbone = require('backbone');
 var React = require('react');
 var Tournament = require('../models/tournament.js').Tournament;
 

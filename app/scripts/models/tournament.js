@@ -31,7 +31,9 @@ var Tournament = ParseModel.extend({
       });
 
       setUpParse('zugzwang', 'tosche station', localStorage.getItem('sessionToken'));
-      self.save();
+      self.save().then(function(response){
+        Backbone.history.navigate('/tournaments/'+response.objectId+'/', {trigger: true});
+      });
     });
   },
   getWeather: function(callback){

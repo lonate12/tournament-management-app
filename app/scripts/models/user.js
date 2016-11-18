@@ -16,7 +16,7 @@ var User = ParseModel.extend({
   idAttribute: 'objectId',
   urlRoot: 'https://zugzwang.herokuapp.com/users',
   baseUrl: 'https://zugzwang.herokuapp.com/',
-  login: function(username, password){
+  login: function(username, password, callback){
     var url = this.baseUrl + 'login?username=' + username + '&password=' + encodeURI(password);
     var self = this;
 
@@ -27,9 +27,11 @@ var User = ParseModel.extend({
       localStorage.setItem('name', response.first_name);
 
       setUpParse('zugzwang', 'tosche station', response.sessionToken);
+
+      callback();
     });
   },
-  signUp: function(){
+  signUp: function(callback){
     var self = this, url = this.baseUrl + 'users';
     console.log(this.get('email'));
     $.post(url, {
@@ -41,7 +43,7 @@ var User = ParseModel.extend({
       'phone_number': this.get('phone_number'),
       'isAdmin': this.get('isAdmin')
     }).then(function(){
-      self.login(self.get('username'), self.get('password'));
+      self.login(self.get('username'), self.get('password'), callback);
     });
   },
 },{
