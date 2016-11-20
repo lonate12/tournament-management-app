@@ -3,11 +3,13 @@ var React = require('react');
 var User = require('../models/user.js').User;
 var Team = require('../models/team.js').Team;
 var setUpParse = require('../parseUtilities.js').setUpParse;
+var FileModel = require('../models/file.js').FileModel;
 
 var TeamAddContainer = React.createClass({
   getInitialState: function(){
     var currentUser = new User();
     var newTeam = new Team();
+    var logo = new FileModel();
 
     return{
       currentUser: currentUser,
@@ -16,7 +18,8 @@ var TeamAddContainer = React.createClass({
       'first_name': '',
       'last_name': '',
       'email': '',
-      'phone_number':''
+      'phone_number':'',
+      'logo': logo
     }
   },
   handleInput: function(e){
@@ -55,32 +58,46 @@ var TeamAddContainer = React.createClass({
 
     setUpParse('zugzwang', 'tosche station', localStorage.getItem('sessionToken'));
 
-    newTeam.set({
-      team_admin: newTeam.toPointer('_User', localStorage.getItem('userID')),
-      tournament: newTeam.toPointer('Tournaments', this.props.tournamentId),
-      name: this.state.name,
-      primary_contact: {
-        first_name: this.state.first_name,
-        last_name: this.state.last_name,
-        email: this.state.email,
-        phone_number: this.state.phone_number
-      }
-    });
+    this.state.logo.save().then(function(response){
+      newTeam.set({
+        team_admin: newTeam.toPointer('_User', localStorage.getItem('userID')),
+        tournament: newTeam.toPointer('Tournaments', self.props.tournamentId),
+        name: self.state.name,
+        primary_contact: {
+          first_name: self.state.first_name,
+          last_name: self.state.last_name,
+          email: self.state.email,
+          phone_number: self.state.phone_number
+        },
+        logo: response.url
+      });
 
-    this.setState({newTeam: newTeam});
+      self.setState({newTeam: newTeam});
 
-    newTeam.save().then(function(response){
-      var teamId = response.objectId;
-      var currentUser = self.state.currentUser;
+      newTeam.save().then(function(response){
+        var teamId = response.objectId;
+        var currentUser = self.state.currentUser;
 
-      currentUser.set({team: currentUser.toPointer('Teams', teamId)});
-      currentUser.unset('createdAt');
-      currentUser.unset('updatedAt');
-      currentUser.save().then(function(response){
-        console.log(currentUser.get('team').objectId);
-        Backbone.history.navigate('/tournaments/'+self.props.tournamentId+'/'+currentUser.get('team').objectId+'/', {trigger: true});
+        currentUser.set({team: currentUser.toPointer('Teams', teamId)});
+        currentUser.unset('createdAt');
+        currentUser.unset('updatedAt');
+        currentUser.save().then(function(response){
+          console.log(currentUser.get('team').objectId);
+          Backbone.history.navigate('/tournaments/'+self.props.tournamentId+'/'+currentUser.get('team').objectId+'/', {trigger: true});
+        });
       });
     });
+
+  },
+  handleLogo: function(e){
+    e.preventDefault();
+    var attachedLogo = e.target.files[0];
+    var logo = this.state.logo;
+
+    logo.set('name', attachedLogo.name);
+    logo.set('data', attachedLogo);
+
+    this.setState({logo: logo});
   },
   render: function(){
     return(
@@ -104,6 +121,10 @@ var TeamAddContainer = React.createClass({
                 <input onChange={this.handleInput} type="email" className="form-control" id="email" placeholder="Email" value={this.state.email} required="required"/>
                 <label htmlFor="phone_number">Contact Number</label>
                 <input onChange={this.handleInput} type="text" className="form-control" id="phone_number" placeholder="(###) ###-####" value={this.state.phone_number} required="required"/>
+              </div>
+              <div className="form-group">
+                <label htmlFor="team_logo"><h3>Team Logo</h3></label>
+                <input onChange={this.handleLogo} type="file" id="team_logo" name="team_logo"/>
               </div>
               <button type="submit" className="btn btn-success">Submit Team Info</button>
             </form>
