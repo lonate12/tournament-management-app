@@ -1,10 +1,12 @@
 var Backbone = require('backbone');
 var React = require('react');
 var Tournament = require('../models/tournament.js').Tournament;
+var FileModel = require('../models/file.js').FileModel;
 
 var AddTournamentContainer = React.createClass({
   getInitialState: function(){
     var tournament = new Tournament();
+    var logo = new FileModel();
 
     return{
       'tournament': tournament,
@@ -12,29 +14,47 @@ var AddTournamentContainer = React.createClass({
       'start_date': '',
       'end_date': '',
       'city': '',
-      'state': ''
+      'state': '',
+      'logo': logo
     }
   },
   handleInputChangeTournament: function(e){
     e.preventDefault();
     var target = e.target;
 
-    console.log(this.state.tournament);
-
     this.state.tournament.set(target.name, target.value);
     this.setState({tournament: this.state.tournament});
   },
   handleTournamentSubmit: function(e){
     e.preventDefault();
-    var objectId = localStorage.getItem('userID');
-    this.state.tournament.set({"tournament_admin":{"__type":"Pointer", "className": "_User", "objectId": objectId}});
-    this.state.tournament.createTournament();
+    var self = this;
+
+    this.state.logo.save().then(function(response){
+      var tournament = self.state.tournament;
+      var objectId = localStorage.getItem('userID');
+      tournament.set('logo', response.url);
+      tournament.set({"tournament_admin":{"__type":"Pointer", "className": "_User", "objectId": objectId}});
+      tournament.createTournament();
+    });
+
+
+
+  },
+  handleLogo: function(e){
+    e.preventDefault();
+    var attachedLogo = e.target.files[0];
+    var logo = this.state.logo;
+
+    logo.set('name', attachedLogo.name);
+    logo.set('data', attachedLogo);
+
+    this.setState({logo: logo});
   },
   render: function(){
     return(
       <div className="container">
         <div className="row">
-          <form onSubmit={this.handleTournamentSubmit} className="form col-sm-8 col-sm-offset-2" id="captain-sign-up">
+          <form onSubmit={this.handleTournamentSubmit} encType="multipart/form-data" className="form col-sm-8 col-sm-offset-2" id="captain-sign-up">
             <h1>Create Your Tournament</h1>
             <div className="form-group">
               <label htmlFor="tournament_name">Tournament Name</label>
@@ -44,7 +64,7 @@ var AddTournamentContainer = React.createClass({
               <label htmlFor="end_date">End Date</label>
               <input onChange={this.handleInputChangeTournament} type="date" className="form-control" name="end_date" id="end_date" required="required"/>
               <label htmlFor="city">Tournament City</label>
-              <input onChange={this.handleInputChangeTournament} type="text" className="form-control" name="city" id="city" placeholder="Clemson" required="required"/>
+              <input onChange={this.handleInputChangeTournament} type="text" className="form-control" name="city" id="city" placeholder="city" required="required"/>
               <label htmlFor="state">Tournament State</label>
               <select onChange={this.handleInputChangeTournament} className="form-control" name="state" id="state" required="required">
                 <option value="AL">Alabama</option>
@@ -99,6 +119,8 @@ var AddTournamentContainer = React.createClass({
                 <option value="WI">Wisconsin</option>
                 <option value="WY">Wyoming</option>
               </select>
+              <label htmlFor="tournament_logo">Tournament Logo</label>
+              <input onChange={this.handleLogo} type="file" id="tournament_logo" name="tournament_logo"/>
             </div>
             <button type="submit" className="btn btn-default">Create Tournament</button>
           </form>
