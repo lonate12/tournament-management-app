@@ -1,6 +1,7 @@
 var Backbone = require('backbone');
 var React = require('react');
 var User = require('../models/user.js').User;
+var TournamentCollection = require('../models/tournament.js').TournamentCollection;
 
 var AdminLoginContainer = React.createClass({
   getInitialState: function(){
@@ -23,8 +24,18 @@ var AdminLoginContainer = React.createClass({
   },
   handleSubmit: function(e){
     e.preventDefault();
-    this.state.currentUser.login(this.state.username, this.state.password, function(){
-      Backbone.history.navigate('/admin/tournaments/',{trigger: true});
+    var tournaments = new TournamentCollection();
+    this.state.currentUser.login(this.state.username, this.state.password, function(response){
+      console.log(response);
+      tournaments.parseWhere('tournament_admin', '_User', response.objectId).fetch().then(function(){
+        console.log(tournaments.first());
+        if (tournaments.length == 1) {
+          Backbone.history.navigate('/tournaments/'+tournaments.first().get('objectId')+'/admin/',{trigger: true});
+        } else {
+          Backbone.history.navigate('/admin/tournaments/',{trigger: true});
+        }
+      });
+
     });
   },
   render: function(){

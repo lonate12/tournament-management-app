@@ -28,7 +28,7 @@ var User = ParseModel.extend({
 
       setUpParse('zugzwang', 'tosche station', response.sessionToken);
 
-      callback();
+      callback(response);
     });
   },
   signUp: function(callback){
