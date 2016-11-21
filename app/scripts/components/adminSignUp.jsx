@@ -43,6 +43,9 @@ var AdminSignUpContainer = React.createClass({
     });
 
   },
+  componentWillMount: function(){
+    this.state.admin.set('isAdmin', true);
+  },
   render: function(){
     return(
       <div className="container">

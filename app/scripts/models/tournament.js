@@ -70,7 +70,7 @@ var Tournament = ParseModel.extend({
 
 var TournamentCollection = ParseCollection.extend({
   model: Tournament,
-  url: 'https://zugzwang.herokuapp.com/classes/Tournaments/'
+  baseUrl: 'https://zugzwang.herokuapp.com/classes/Tournaments/'
 });
 
 module.exports = {

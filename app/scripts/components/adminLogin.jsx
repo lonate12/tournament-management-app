@@ -1,3 +1,4 @@
+var Backbone = require('backbone');
 var React = require('react');
 var User = require('../models/user.js').User;
 
@@ -22,7 +23,9 @@ var AdminLoginContainer = React.createClass({
   },
   handleSubmit: function(e){
     e.preventDefault();
-    this.state.currentUser.login(this.state.username, this.state.password)
+    this.state.currentUser.login(this.state.username, this.state.password, function(){
+      Backbone.history.navigate('/admin/tournaments/',{trigger: true});
+    });
   },
   render: function(){
     return(

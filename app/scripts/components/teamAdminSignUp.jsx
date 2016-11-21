@@ -29,8 +29,17 @@ var TeamAdminSignUpContainer = React.createClass({
   },
   handleAdminSubmit: function(e){
     e.preventDefault();
+    var self = this;
 
-    this.state.teamAdmin.signUp();
+    if (e.target[4].value != e.target[5].value){
+      alert("Passwords do not match, please re-enter password.")
+
+      return;
+    }
+
+    this.state.teamAdmin.signUp(function(){
+      Backbone.history.navigate('/tournaments/'+self.props.tournamentId+'/add-team/', {trigger: true});
+    });
 
     this.setState({
       'first_name': '',
@@ -40,8 +49,6 @@ var TeamAdminSignUpContainer = React.createClass({
       'username': '',
       'password': ''
     });
-
-    Backbone.history.navigate('/tournaments/'+this.props.tournamentId+'/add-team/', {trigger: true});
   },
   render: function(){
     return(
@@ -61,6 +68,8 @@ var TeamAdminSignUpContainer = React.createClass({
                 <input onChange={this.handleInputChangeAdmin} type="email" className="form-control" name="email" id="email" placeholder="Enter email" value={this.state.email} required="required"/>
                 <label htmlFor="password">Password</label>
                 <input onChange={this.handleInputChangeAdmin} type="password" className="form-control" name="password" id="password" placeholder="Password" value={this.state.password} required="required"/>
+                <label htmlFor="password2">Re-enter Password</label>
+                <input onChange={this.handleInputChangeAdmin} type="password" className="form-control" name="password2" id="password2" placeholder="Re-enter password" value={this.state.password2} required="required"/>
               </div>
               <button type="submit" className="btn btn-default">Sign Up</button>
             </form>
