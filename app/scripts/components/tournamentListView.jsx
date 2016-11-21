@@ -1,3 +1,4 @@
+var Backbone = require('backbone');
 var React = require('react');
 var Modal = require('react-modal');
 var Tournament = require('../models/tournament.js').Tournament;
@@ -10,11 +11,11 @@ var ModalComponent = React.createClass({
     return {
       teamCollection: this.props.teamCollection,
       modalIsOpen: false,
-
+      tournamentId: null
     }
   },componentWillReceiveProps: function(nextProps){
     console.log(nextProps);
-    this.setState({teamCollection: nextProps.teamCollection});
+    this.setState({teamCollection: nextProps.teamCollection, tournamentId: nextProps.tournamentId});
 
     if(nextProps.teamCollection){
       this.openModal();
@@ -25,6 +26,11 @@ var ModalComponent = React.createClass({
   },
   closeModal: function(){
     this.setState({modalIsOpen: false});
+  },
+  handleClick: function(e){
+    e.preventDefault();
+
+    Backbone.history.navigate('/tournaments/'+this.state.tournamentId+'/add-team/', {trigger: true});
   },
   render: function(){
     var teams;
@@ -47,6 +53,7 @@ var ModalComponent = React.createClass({
           <h1>Choose your team</h1>
           {teams ? teams : null}
         </ul>
+        <button type="button" onClick={this.handleClick} className="btn btn-success">Register Team</button>
       </Modal>
     );
   }
