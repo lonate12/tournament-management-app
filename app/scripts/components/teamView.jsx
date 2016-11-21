@@ -1,30 +1,49 @@
 var React = require('react');
 var TournamentDashTemplate = require('../display/tournamentDashTemplate.jsx').TournamentDashTemplate;
 var Tournament = require('../models/tournament.js').Tournament;
+var Team = require('../models/team.js').Team;
 
 var TeamViewContainer = React.createClass({
   getInitialState: function(){
     var tournament = new Tournament();
+    var currentTeam = new Team();
 
     return{
-      tournament: tournament
+      tournament: tournament,
+      currentTeam: currentTeam
     }
   },
   componentWillMount: function(){
-    var self = this;
+    var self = this, tournament = this.state.tournament, team = this.state.currentTeam;
 
-    this.state.tournament.set('objectId', this.props.tournamentId);
-    this.state.tournament.fetch().then(function(response){
-      console.log(self.state.tournament);
-      self.state.tournament.getWeather(function(){
-        self.setState({tournament: self.state.tournament});
+    tournament.set('objectId', this.props.tournamentId);
+    tournament.fetch().then(function(response){
+      console.log(tournament);
+      tournament.getWeather(function(){
+        self.setState({tournament: tournament});
       });
     });
+
+    team.set('objectId', this.props.teamId);
+    team.fetch().then(function(response){
+      console.log(response);
+    });
+
+
   },
   render: function(){
+    var currentTeam = this.state.currentTeam;
+
     return(
       <TournamentDashTemplate tournament={this.state.tournament}>
-        <h1>TeamViewContainer</h1>
+        <div className="row">
+          <div className="col-md-4">
+            <img src={currentTeam.get('logo') ? currentTeam.get('logo') : '../../dist/images/default-logo.png'} />
+          </div>
+          <div className="col-md-8">
+
+          </div>
+        </div>
       </TournamentDashTemplate>
     );
   }
