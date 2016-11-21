@@ -14,7 +14,6 @@ var ModalComponent = React.createClass({
       tournamentId: null
     }
   },componentWillReceiveProps: function(nextProps){
-    console.log(nextProps);
     this.setState({teamCollection: nextProps.teamCollection, tournamentId: nextProps.tournamentId});
 
     if(nextProps.teamCollection){
@@ -66,7 +65,6 @@ var TournamentListView = React.createClass({
     return{
       tournamentCollection: tournamentCollection,
       teamCollection: null,
-      modalIsOpen: false,
       tournamentId: null
     }
   },

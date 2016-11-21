@@ -10,6 +10,12 @@ var ParseModel = Backbone.Model.extend({
     };
 
     return pointerObject;
+  },
+  save: function(key, val, options){
+    delete this.attributes.createdAt;
+    delete this.attributes.updatedAt;
+
+    return Backbone.Model.prototype.save.apply(this, arguments);
   }
 });
 
@@ -27,9 +33,11 @@ var ParseCollection = Backbone.Collection.extend({
     return this;
   },
   url: function(){
+    var self = this;
     var url = this.baseUrl;
+    console.log(this.whereClause);
 
-    if(this.whereClause.field){
+    if (this.whereClause) {
       var field = this.whereClause.field;
       delete this.whereClause.field;
       url += '?where={"' + field + '":' + JSON.stringify(this.whereClause) + '}';

@@ -56,15 +56,6 @@ var Tournament = ParseModel.extend({
 
       callback();
     });
-
-    // $.ajax({
-    //   url: 'https://api.darksky.net/forecast/03ef0b3a68e2f7e02eb43ca0bd30e60c/'+this.get('lat')+','+this.get('lng'),
-    //   beforeSend: function(xhr){
-    //     xhr.setRequestHeader('Access-Control-Allow-Origin', '*')
-    //   }
-    // }).then(function(response){
-    //   console.log(response);
-    // });
   }
 });
 
