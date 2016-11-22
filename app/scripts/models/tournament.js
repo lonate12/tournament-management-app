@@ -42,7 +42,7 @@ var Tournament = ParseModel.extend({
     var lat = this.get('lat');
     var lng = this.get('lng');
 
-    $.get('http://localhost:3000/forecast/?lat='+ lat +'&lng='+ lng, function(forecastData){
+    $.get('https://localhost:3000/forecast/?lat='+ lat +'&lng='+ lng, function(forecastData){
       console.log(JSON.parse(forecastData));
       var forecastInfo = JSON.parse(forecastData);
       var todayWeather = forecastInfo.daily.data[0];
