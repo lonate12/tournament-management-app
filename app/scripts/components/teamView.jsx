@@ -39,7 +39,7 @@ var TeamViewContainer = React.createClass({
         <div className="row">
           <div className="col-md-4">
             <h2 className="team-name">{currentTeam.get('name')}</h2>
-            <img src={currentTeam.get('logo') ? currentTeam.get('logo') : '../../dist/images/default-logo.png'} />
+            <img src={currentTeam.get('logo') ? currentTeam.get('logo') : '../../images/default-logo.png'} />
           </div>
           <div className="col-md-8">
 
