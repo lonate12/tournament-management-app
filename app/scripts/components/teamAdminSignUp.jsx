@@ -1,6 +1,8 @@
+var $ = require('jquery');
 var React = require('react');
 var User = require('../models/user.js').User;
 var Backbone = require('backbone');
+require('../3rd-party-plugins/masks.js');
 
 var TeamAdminSignUpContainer = React.createClass({
   getInitialState: function(){
@@ -49,6 +51,9 @@ var TeamAdminSignUpContainer = React.createClass({
       'username': '',
       'password': ''
     });
+  },
+  componentWillMount: function(){
+    $('#phone_number').mask('(000) 000-0000');
   },
   render: function(){
     return(

@@ -1,9 +1,11 @@
+var $ = require('jquery');
 var Backbone = require('backbone');
 var React = require('react');
 var User = require('../models/user.js').User;
 var Team = require('../models/team.js').Team;
 var setUpParse = require('../parseUtilities.js').setUpParse;
 var FileModel = require('../models/file.js').FileModel;
+require('../3rd-party-plugins/masks.js');
 
 var TeamAddContainer = React.createClass({
   getInitialState: function(){
@@ -98,6 +100,9 @@ var TeamAddContainer = React.createClass({
     logo.set('data', attachedLogo);
 
     this.setState({logo: logo});
+  },
+  componentDidMount: function(){
+    $('#phone_number').mask('(000) 000-0000');
   },
   render: function(){
     return(

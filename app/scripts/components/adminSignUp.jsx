@@ -1,7 +1,9 @@
+var $ = require('jquery');
 var Backbone = require('backbone');
 var React = require('react');
 var User = require('../models/user.js').User;
 var Tournament = require('../models/tournament.js').Tournament;
+require('../3rd-party-plugins/masks.js');
 
 var AdminSignUpContainer = React.createClass({
   getInitialState: function(){
@@ -45,6 +47,9 @@ var AdminSignUpContainer = React.createClass({
   },
   componentWillMount: function(){
     this.state.admin.set('isAdmin', true);
+  },
+  componentDidMount: function(){
+    $('#phone_number').mask('(000) 000-0000');
   },
   render: function(){
     return(
