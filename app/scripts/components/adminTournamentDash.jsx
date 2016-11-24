@@ -148,6 +148,14 @@ var TeamsTable = React.createClass({
 ********************************************************************************
 */
 
+var FormOption = React.createClass({
+  render: function(){
+    return(
+      <option>{this.props.team.get('name')}</option>
+    );
+  }
+});
+
 var AddGameModal = React.createClass({
   getInitialState: function(){
     return {
@@ -171,13 +179,41 @@ var AddGameModal = React.createClass({
 
   },
   render: function(){
+    var teams = 'Teams Loading...', locations = 'Locations Loading...';
+
+    teams = this.props.teams.map(function(team){
+      return(
+        <FormOption key={team.get('objectId')} team={team}/>
+      );
+    });
+
     return(
       <Modal
         isOpen={this.state.modalIsOpen}
         onRequestClose={this.closeModal} >
         <form onSubmit={this.addGame}>
-          <label htmlFor="test">Test</label>
-          <input type="text" name="test" placeholder="Test"/>
+          <div className="form-group">
+            <label htmlFor="home_team">Home Team</label>
+            <select className="form-control" name="home_team">
+              {teams}
+            </select>
+          </div>
+          <div className="form-group">
+            <label htmlFor="away_team">Away Team</label>
+            <select className="form-control" name="away_team">
+              {teams}
+            </select>
+          </div>
+          <div className="form-group">
+            <label htmlFor="location">Location</label>
+            <select className="form-control" name="location">
+              {locations}
+            </select>
+          </div>
+          <div className="form-group">
+            <label htmlFor="time">Date and Time</label>
+            <input className="form-control" type="datetime-local" name="time" />
+          </div>
           <button type="submit" className="btn btn-success">Add Game</button>
         </form>
       </Modal>
@@ -236,7 +272,12 @@ var GamesTable = React.createClass({
             </table>
           </div>
         </div>
-        <AddGameModal modalIsOpen={this.state.modalIsOpen} addGame={this.props.addGame}/>
+        <AddGameModal
+          modalIsOpen={this.state.modalIsOpen}
+          addGame={this.props.addGame}
+          teams={this.props.teams}
+          locations={this.props.locations}
+        />
       </div>
     );
   }
@@ -495,7 +536,7 @@ var AdminTournamentDash = React.createClass({
           <TeamsTable teams={this.state.teams} updateSelected={this.updateSelected}/>
         </div>
         <div className="row">
-          <GamesTable games={this.state.games} addGame={this.addGame}/>
+          <GamesTable teams={this.state.teams} locations={this.state.locations} games={this.state.games} addGame={this.addGame}/>
         </div>
         <div className="row">
           <LocationsTable locations={this.state.locations} addLocation={this.addLocation}/>
