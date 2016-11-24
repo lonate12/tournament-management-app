@@ -8,6 +8,15 @@ var LocationModels = require('../models/location.js'), LocationModel = LocationM
 var TournamentDashTemplate = require('../display/tournamentDashTemplate.jsx').TournamentDashTemplate;
 var Modal = require('react-modal');
 
+
+/*
+********************************************************************************
+********************************************************************************
+  Teams Component and Modal
+********************************************************************************
+********************************************************************************
+*/
+
 var TeamUpdateModal = React.createClass({
   getInitialState: function(){
     return {
@@ -68,7 +77,7 @@ var TeamUpdateModal = React.createClass({
 });
 
 
-var TeamsComponent = React.createClass({
+var TeamsTable = React.createClass({
   getInitialState: function(){
     return {
       teams: this.props.teams,
@@ -131,6 +140,14 @@ var TeamsComponent = React.createClass({
   }
 });
 
+/*
+********************************************************************************
+********************************************************************************
+  Games Component and Modal
+********************************************************************************
+********************************************************************************
+*/
+
 var AddGameModal = React.createClass({
   getInitialState: function(){
     return {
@@ -167,6 +184,71 @@ var AddGameModal = React.createClass({
     );
   }
 });
+
+var GamesTable = React.createClass({
+  getInitialState: function(){
+    return{
+      games: this.props.games,
+      modalIsOpen: false
+    }
+  },
+  componentWillReceiveProps: function(nextProps){
+    this.setState({games: nextProps.games});
+  },
+  openModal: function(){
+    this.setState({modalIsOpen: true});
+  },
+  render: function(){
+    var games = this.state.games, gamesList;
+
+    if (games) {
+      gamesList = games.map(function(game){
+        return(
+          <tr key={game.get('objectId')}>
+            <td>{game.get('objectId')}</td>
+            <td>{game.get('home_team_name')}</td>
+            <td>{game.get('away_team_name')}</td>
+            <td>{game.get('location_name')}</td>
+            <td>{game.get('time')}</td>
+          </tr>
+        );
+      });
+    }
+    return(
+      <div className="col-sm-12">
+        <div className="row">
+          <div className="col-sm-12">
+            <h3>Games</h3>
+            <p onClick={this.openModal}>+</p>
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Game ID</th>
+                  <th>Home Team</th>
+                  <th>Away Team</th>
+                  <th>Game Location</th>
+                  <th>Game Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                {gamesList ? gamesList : <tr><td colspan="5"><h1>Games Loading...</h1></td></tr>}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <AddGameModal modalIsOpen={this.state.modalIsOpen} addGame={this.props.addGame}/>
+      </div>
+    );
+  }
+});
+
+/*
+********************************************************************************
+********************************************************************************
+  Locations Component and Modal
+********************************************************************************
+********************************************************************************
+*/
 
 var AddLocationModal = React.createClass({
   getInitialState: function(){
@@ -280,65 +362,7 @@ var AddLocationModal = React.createClass({
   }
 });
 
-
-var ScheduleComponent = React.createClass({
-  getInitialState: function(){
-    return{
-      games: this.props.games,
-      modalIsOpen: false
-    }
-  },
-  componentWillReceiveProps: function(nextProps){
-    this.setState({games: nextProps.games});
-  },
-  openModal: function(){
-    this.setState({modalIsOpen: true});
-  },
-  render: function(){
-    var games = this.state.games, gamesList;
-
-    if (games) {
-      gamesList = games.map(function(game){
-        return(
-          <tr key={game.get('objectId')}>
-            <td>{game.get('objectId')}</td>
-            <td>{game.get('home_team_name')}</td>
-            <td>{game.get('away_team_name')}</td>
-            <td>{game.get('location_name')}</td>
-            <td>{game.get('time')}</td>
-          </tr>
-        );
-      });
-    }
-    return(
-      <div className="col-sm-12">
-        <div className="row">
-          <div className="col-sm-12">
-            <h3>Games</h3>
-            <p onClick={this.openModal}>+</p>
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Game ID</th>
-                  <th>Home Team</th>
-                  <th>Away Team</th>
-                  <th>Game Location</th>
-                  <th>Game Time</th>
-                </tr>
-              </thead>
-              <tbody>
-                {gamesList ? gamesList : <tr><td colspan="5"><h1>Games Loading...</h1></td></tr>}
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <AddGameModal modalIsOpen={this.state.modalIsOpen} addGame={this.props.addGame}/>
-      </div>
-    );
-  }
-});
-
-var LocationComponent = React.createClass({
+var LocationsTable = React.createClass({
   getInitialState: function(){
     return{
       locations: this.props.locations,
@@ -468,13 +492,13 @@ var AdminTournamentDash = React.createClass({
       <TournamentDashTemplate tournament={this.state.tournament}>
         <h1>AdminTournamentDash</h1>
         <div className="row">
-          <TeamsComponent teams={this.state.teams} updateSelected={this.updateSelected}/>
+          <TeamsTable teams={this.state.teams} updateSelected={this.updateSelected}/>
         </div>
         <div className="row">
-          <ScheduleComponent games={this.state.games} addGame={this.addGame}/>
+          <GamesTable games={this.state.games} addGame={this.addGame}/>
         </div>
         <div className="row">
-          <LocationComponent locations={this.state.locations} addLocation={this.addLocation}/>
+          <LocationsTable locations={this.state.locations} addLocation={this.addLocation}/>
         </div>
       </TournamentDashTemplate>
     );
