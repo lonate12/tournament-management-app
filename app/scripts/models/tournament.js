@@ -21,7 +21,7 @@ var Tournament = ParseModel.extend({
   createTournament: function(){
     var self = this;
     $.ajax({
-      url: 'https://maps.googleapis.com/maps/api/geocode/json?address=' + this.get('city')+ ',+' + this.get('state') +'&key=AIzaSyDNYfO_C-Ok2iMSLiCUf_5nT8Ftuu5rAKU',
+      url: 'https://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURI(this.get('city'))+ ',+' + encodeURI(this.get('state')) +'&key=AIzaSyDNYfO_C-Ok2iMSLiCUf_5nT8Ftuu5rAKU',
       beforeSend: function(xhr){
       }
     }).then(function(response){

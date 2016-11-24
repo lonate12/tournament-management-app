@@ -453,10 +453,15 @@ var AdminTournamentDash = React.createClass({
   },
   addLocation: function(newLocation){
     var locations = this.state.locations
-    , tournamentPointer = newLocation.toPointer('Tournaments', this.props.tournamentId);
+    , tournamentPointer = newLocation.toPointer('Tournaments', this.props.tournamentId)
+    , self = this;
+
     newLocation.set({tournament: tournamentPointer});
-    locations.create(newLocation);
-    this.setState({locations: locations});
+
+    newLocation.setCoordinates(function(){
+      locations.create(newLocation);
+      self.setState({locations: locations});
+    });
   },
   render: function(){
     return(

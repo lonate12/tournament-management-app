@@ -10,23 +10,24 @@ var TeamViewContainer = React.createClass({
 
     return{
       tournament: tournament,
-      currentTeam: currentTeam
+      currentTeam: currentTeam,
+      isLoadingWeather: true,
+      isLoadingTeam: true
     }
   },
   componentWillMount: function(){
     var self = this, tournament = this.state.tournament, team = this.state.currentTeam;
 
     tournament.set('objectId', this.props.tournamentId);
-    tournament.fetch().then(function(response){
-      console.log(tournament);
+    tournament.fetch().then(function(){
       tournament.getWeather(function(){
-        self.setState({tournament: tournament});
+        self.setState({tournament: tournament, isLoadingWeather: false});
       });
     });
 
     team.set('objectId', this.props.teamId);
     team.fetch().then(function(response){
-      console.log(response);
+      self.setState({isLoadingTeam: false});
     });
 
 
@@ -36,6 +37,7 @@ var TeamViewContainer = React.createClass({
 
     return(
       <TournamentDashTemplate tournament={this.state.tournament}>
+        <div><img src="../../dist/images/ring-alt.gif"/></div>
         <div className="row">
           <div className="col-md-4">
             <h2 className="team-name">{currentTeam.get('name')}</h2>
