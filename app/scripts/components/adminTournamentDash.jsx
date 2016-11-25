@@ -148,13 +148,13 @@ var TeamsTable = React.createClass({
 ********************************************************************************
 */
 
-var FormOption = React.createClass({
-  render: function(){
-    return(
-      <option>{this.props.team.get('name')}</option>
-    );
-  }
-});
+// var FormOption = React.createClass({
+//   render: function(){
+//     return(
+//       <option>{this.props.team.get('name')}</option>
+//     );
+//   }
+// });
 
 var AddGameModal = React.createClass({
   getInitialState: function(){
@@ -172,7 +172,20 @@ var AddGameModal = React.createClass({
     this.setState({modalIsOpen: false});
   },
   handleChange: function(e){
+    var target = e.target, newGame = this.state.newGame;
 
+    if (target.name == 'home_team' || 'away_team') {
+      var pointer = newGame.toPointer('Teams', target.value);
+      newGame.set(target.name, pointer);
+      newGame.set(target.name + '_name', target.options[target.options.selectedIndex].text);
+    }else if (target.name == 'location'){
+      var pointer = newGame.toPointer('Locations', target.value);
+      newGame.set(target.name == pointer);
+    }else{
+      newGame.set(target.name, target.value);
+    }
+
+    console.log(newGame);
   },
   addGame: function(e){
     e.preventDefault();
@@ -183,7 +196,13 @@ var AddGameModal = React.createClass({
 
     teams = this.props.teams.map(function(team){
       return(
-        <FormOption key={team.get('objectId')} team={team}/>
+        <option key={team.get('objectId')} value={team.get('objectId')}>{team.get('name')}</option>
+      );
+    });
+
+    locations = this.props.locations.map(function(location){
+      return(
+        <option key={location.get('objectId')} value={location.get('objectId')}>{location.get('name')}</option>
       );
     });
 
@@ -194,25 +213,25 @@ var AddGameModal = React.createClass({
         <form onSubmit={this.addGame}>
           <div className="form-group">
             <label htmlFor="home_team">Home Team</label>
-            <select className="form-control" name="home_team">
+            <select onChange={this.handleChange} className="form-control" name="home_team">
               {teams}
             </select>
           </div>
           <div className="form-group">
             <label htmlFor="away_team">Away Team</label>
-            <select className="form-control" name="away_team">
+            <select onChange={this.handleChange} className="form-control" name="away_team">
               {teams}
             </select>
           </div>
           <div className="form-group">
             <label htmlFor="location">Location</label>
-            <select className="form-control" name="location">
+            <select onChange={this.handleChange} className="form-control" name="location">
               {locations}
             </select>
           </div>
           <div className="form-group">
             <label htmlFor="time">Date and Time</label>
-            <input className="form-control" type="datetime-local" name="time" />
+            <input onChange={this.handleChange} className="form-control" type="datetime-local" name="time" />
           </div>
           <button type="submit" className="btn btn-success">Add Game</button>
         </form>
