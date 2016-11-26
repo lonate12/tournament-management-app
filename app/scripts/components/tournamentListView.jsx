@@ -65,7 +65,8 @@ var TournamentListView = React.createClass({
     return{
       tournamentCollection: tournamentCollection,
       teamCollection: null,
-      tournamentId: null
+      tournamentId: null,
+      isLoading: true
     }
   },
   componentWillMount: function(){
@@ -87,7 +88,6 @@ var TournamentListView = React.createClass({
     teams.parseWhere('tournament', 'Tournaments', tournamentId).fetch().then(function(){
       self.setState({teamCollection: teams, tournamentId: tournamentId});
     });
-
 
   },
   render: function(){

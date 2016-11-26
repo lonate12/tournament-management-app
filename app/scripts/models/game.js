@@ -6,9 +6,10 @@ var Game = ParseModel.extend({
   defaults: {
     'home_team': {},
     'away_team': {},
-    'field': {},
+    'location': {},
     'time': ''
-  }
+  },
+  urlRoot: 'https://zugzwang.herokuapp.com/classes/Games/'
 });
 
 var GameCollection = ParseCollection.extend({

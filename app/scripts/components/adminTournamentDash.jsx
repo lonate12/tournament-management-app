@@ -171,25 +171,47 @@ var AddGameModal = React.createClass({
   closeModal: function(){
     this.setState({modalIsOpen: false});
   },
-  handleChange: function(e){
-    var target = e.target, newGame = this.state.newGame;
+  // handleChange: function(e){
+  //   var target = e.target, newGame = this.state.newGame;
+  //
+  //   if (target.name === 'home_team' || target.name === 'away_team') {
+  //     var pointer = newGame.toPointer('Teams', target.value);
+  //
+  //     newGame.set(target.name, pointer);
+  //     newGame.set(target.name + '_name', target.options[target.options.selectedIndex].text);
+  //   }
+  //
+  //   if (target.name === 'location') {
+  //     var pointer = newGame.toPointer('Locations', target.value);
+  //
+  //     newGame.set(target.name === pointer);
+  //     newGame.set(target.name + '_name', target.options[target.options.selectedIndex].text);
+  //   }
+  // },
+  handleTeam: function(e){
+    var target = e.target, newGame = this.state.newGame, pointer;
+    pointer = newGame.toPointer('Teams', target.value);
 
-    if (target.name == 'home_team' || 'away_team') {
-      var pointer = newGame.toPointer('Teams', target.value);
-      newGame.set(target.name, pointer);
-      newGame.set(target.name + '_name', target.options[target.options.selectedIndex].text);
-    }else if (target.name == 'location'){
-      var pointer = newGame.toPointer('Locations', target.value);
-      newGame.set(target.name == pointer);
-    }else{
-      newGame.set(target.name, target.value);
-    }
+    newGame.set(target.name, pointer);
+    newGame.set(target.name + '_name', target.options[target.options.selectedIndex].text);
+  },
+  handleLocation: function(e){
+    var target = e.target, newGame = this.state.newGame, pointer;
+    pointer = newGame.toPointer('Locations', target.value);
 
+    newGame.set(target.name, pointer)
+    newGame.set(target.name + '_name', target.options[target.options.selectedIndex].text);
+  },
+  handleDate: function(e){
+    var target = e.target, newGame=this.state.newGame;
+
+    newGame.set(target.name, target.value);
     console.log(newGame);
   },
-  addGame: function(e){
+  handleSubmit: function(e){
     e.preventDefault();
 
+    this.props.addGame(this.state.newGame);
   },
   render: function(){
     var teams = 'Teams Loading...', locations = 'Locations Loading...';
@@ -210,28 +232,31 @@ var AddGameModal = React.createClass({
       <Modal
         isOpen={this.state.modalIsOpen}
         onRequestClose={this.closeModal} >
-        <form onSubmit={this.addGame}>
+        <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <label htmlFor="home_team">Home Team</label>
-            <select onChange={this.handleChange} className="form-control" name="home_team">
+            <select onChange={this.handleTeam} className="form-control" name="home_team">
+              <option>--Home Team--</option>
               {teams}
             </select>
           </div>
           <div className="form-group">
             <label htmlFor="away_team">Away Team</label>
-            <select onChange={this.handleChange} className="form-control" name="away_team">
+            <select onChange={this.handleTeam} className="form-control" name="away_team">
+              <option>--Away Team--</option>
               {teams}
             </select>
           </div>
           <div className="form-group">
             <label htmlFor="location">Location</label>
-            <select onChange={this.handleChange} className="form-control" name="location">
+            <select onChange={this.handleLocation} className="form-control" name="location">
+              <option>--Location--</option>
               {locations}
             </select>
           </div>
           <div className="form-group">
             <label htmlFor="time">Date and Time</label>
-            <input onChange={this.handleChange} className="form-control" type="datetime-local" name="time" />
+            <input onChange={this.handleDate} className="form-control" type="datetime-local" name="time" />
           </div>
           <button type="submit" className="btn btn-success">Add Game</button>
         </form>
@@ -252,6 +277,10 @@ var GamesTable = React.createClass({
   },
   openModal: function(){
     this.setState({modalIsOpen: true});
+  },
+  addGame: function(newGame){
+    this.props.addGame(newGame);
+    this.setState({modalIsOpen: false});
   },
   render: function(){
     var games = this.state.games, gamesList;
@@ -293,7 +322,7 @@ var GamesTable = React.createClass({
         </div>
         <AddGameModal
           modalIsOpen={this.state.modalIsOpen}
-          addGame={this.props.addGame}
+          addGame={this.addGame}
           teams={this.props.teams}
           locations={this.props.locations}
         />
@@ -526,14 +555,17 @@ var AdminTournamentDash = React.createClass({
     });
   },
   updateSelected: function(selectedTeam){
-    var teams = this.state.teams, self = this;
+    var teams = this.state.teams;
     teams.set(selectedTeam, {remove: false});
     this.setState({teams: teams});
   },
   addGame: function(newGame){
-    var games = this.state.games;
-    games.create(newGame);
-    this.setState({games: games});
+    var games = this.state.games, self = this;
+    newGame.set('tournament', newGame.toPointer('Tournaments', this.props.tournamentId));
+    newGame.save().then(function(){
+      games.set(newGame, {remove: false});
+      self.setState({games: games});
+    });
   },
   addLocation: function(newLocation){
     var locations = this.state.locations
