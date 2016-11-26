@@ -43,7 +43,6 @@ var Tournament = ParseModel.extend({
     var lng = this.get('lng');
 
     $.get('https://proxy-for-final.herokuapp.com/forecast/?lat='+ lat +'&lng='+ lng, function(forecastData){
-      console.log(JSON.parse(forecastData));
       var forecastInfo = JSON.parse(forecastData);
       var todayWeather = forecastInfo.daily.data[0];
       var todayWeatherDate = moment.unix(todayWeather.time).format('dddd, MMMM Do YYYY');

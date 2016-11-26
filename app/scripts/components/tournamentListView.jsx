@@ -94,7 +94,6 @@ var TournamentListView = React.createClass({
     var self = this;
 
     var tournaments = this.state.tournamentCollection.map(function(tournament){
-      console.log(tournament);
       return (
         <li onClick={self.loadTeams} key={tournament.cid} id={tournament.get('objectId')}>{tournament.get('tournament_name')}</li>
       );

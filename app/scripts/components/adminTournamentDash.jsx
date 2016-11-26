@@ -115,6 +115,7 @@ var TeamsTable = React.createClass({
             <td onClick={self.selectTeam} id={team.get('objectId')}>{team.get('name')}</td>
             <td className={team.get('have_paid') ? 'success' : 'danger'}>{team.get('have_paid') ? 'Have Paid' : 'Have Not Paid'}</td>
             <td className={team.get('have_waiver') ? 'success' : 'danger'}>{team.get('have_waiver') ? 'Have Turned in Waiver' : 'Have not turned in Waiver'}</td>
+            <td><button onClick={function(){self.props.deleteTeam(team)}} className="btn btn-danger">Delete Team</button></td>
           </tr>
         );
       });
@@ -206,7 +207,6 @@ var AddGameModal = React.createClass({
     var target = e.target, newGame=this.state.newGame;
 
     newGame.set(target.name, target.value);
-    console.log(newGame);
   },
   handleSubmit: function(e){
     e.preventDefault();
@@ -283,7 +283,7 @@ var GamesTable = React.createClass({
     this.setState({modalIsOpen: false});
   },
   render: function(){
-    var games = this.state.games, gamesList;
+    var games = this.state.games, gamesList, self=this;
 
     if (games) {
       gamesList = games.map(function(game){
@@ -294,6 +294,7 @@ var GamesTable = React.createClass({
             <td>{game.get('away_team_name')}</td>
             <td>{game.get('location_name')}</td>
             <td>{game.get('time')}</td>
+            <td><button className="btn btn-danger" onClick={function(){self.props.deleteGame(game)}}>Delete Game</button></td>
           </tr>
         );
       });
@@ -472,7 +473,7 @@ var LocationsTable = React.createClass({
     this.props.addLocation(newLocation);
   },
   render: function(){
-    var locations = this.state.locations, locationsList;
+    var locations = this.state.locations, locationsList, self = this;
 
     if (locations) {
       locationsList = locations.map(function(location){
@@ -483,6 +484,7 @@ var LocationsTable = React.createClass({
             <td>{location.get('city')}</td>
             <td>{location.get('state')}</td>
             <td>{location.get('zip_code')}</td>
+            <td><button className="btn btn-danger" onClick={function(){self.props.deleteLocation(location)}}>Delete Location</button></td>
           </tr>
         );
       });
@@ -579,18 +581,30 @@ var AdminTournamentDash = React.createClass({
       self.setState({locations: locations});
     });
   },
+  deleteTeam: function(team){
+    team.destroy();
+    this.setState({teams: this.state.teams});
+  },
+  deleteLocation: function(location){
+    location.destroy();
+    this.setState({locations: this.state.locations});
+  },
+  deleteGame: function(game){
+    game.destroy();
+    this.setState({games: this.state.games});
+  },
   render: function(){
     return(
       <TournamentDashTemplate tournament={this.state.tournament}>
         <h1>AdminTournamentDash</h1>
         <div className="row">
-          <TeamsTable teams={this.state.teams} updateSelected={this.updateSelected}/>
+          <TeamsTable deleteTeam={this.deleteTeam} teams={this.state.teams} updateSelected={this.updateSelected}/>
         </div>
         <div className="row">
-          <GamesTable teams={this.state.teams} locations={this.state.locations} games={this.state.games} addGame={this.addGame}/>
+          <GamesTable deleteGame={this.deleteGame} teams={this.state.teams} locations={this.state.locations} games={this.state.games} addGame={this.addGame}/>
         </div>
         <div className="row">
-          <LocationsTable locations={this.state.locations} addLocation={this.addLocation}/>
+          <LocationsTable deleteLocation={this.deleteLocation} locations={this.state.locations} addLocation={this.addLocation}/>
         </div>
       </TournamentDashTemplate>
     );

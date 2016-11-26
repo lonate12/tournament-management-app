@@ -16,6 +16,15 @@ var ParseModel = Backbone.Model.extend({
     delete this.attributes.updatedAt;
 
     return Backbone.Model.prototype.save.apply(this, arguments);
+  },
+  deleteModel: function(){
+    $.ajax({
+      url: urlRoot + encodeURI(this.objectId) +'/',
+      method: 'DELETE',
+      success: function(){
+        alert('Game Deleted');
+      }
+    });
   }
 });
 
@@ -35,7 +44,6 @@ var ParseCollection = Backbone.Collection.extend({
   url: function(){
     var self = this;
     var url = this.baseUrl;
-    console.log(this.whereClause);
 
     if (this.whereClause) {
       var field = this.whereClause.field;
