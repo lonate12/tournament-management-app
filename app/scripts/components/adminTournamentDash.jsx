@@ -374,8 +374,8 @@ var AddLocationModal = React.createClass({
         onRequestClose={this.closeModal} >
         <form onSubmit={this.addLocation}>
           <div className="form-group">
-            <label htmlFor="name">Name</label>
-            <input onChange={this.handleChange} className="form-control" type="text" name="name" placeholder="Name of Location" required="required"/>
+            <label htmlFor="name">Name and Sub-Location</label>
+            <input onChange={this.handleChange} className="form-control" type="text" name="name" placeholder="Name of Location and Sub-Location (i.e. Nettles Park, Field 1)" required="required"/>
           </div>
           <div className="form-group">
             <label htmlFor="street_address">Street Address</label>
@@ -472,6 +472,9 @@ var LocationsTable = React.createClass({
     this.setState({modalIsOpen: false});
     this.props.addLocation(newLocation);
   },
+  toEdit: function(location){
+    Backbone.history.navigate('tournaments/' + this.props.tournamentId + '/admin/edit-location/' + location.get('objectId') + '/', {trigger: true});
+  },
   render: function(){
     var locations = this.state.locations, locationsList, self = this;
 
@@ -485,6 +488,7 @@ var LocationsTable = React.createClass({
             <td>{location.get('state')}</td>
             <td>{location.get('zip_code')}</td>
             <td><button className="btn btn-danger" onClick={function(){self.props.deleteLocation(location)}}>Delete Location</button></td>
+            <td><button className="btn btn-success" onClick={function(){self.toEdit(location)}}>Edit Location</button></td>
           </tr>
         );
       });
@@ -604,7 +608,7 @@ var AdminTournamentDash = React.createClass({
           <GamesTable deleteGame={this.deleteGame} teams={this.state.teams} locations={this.state.locations} games={this.state.games} addGame={this.addGame}/>
         </div>
         <div className="row">
-          <LocationsTable deleteLocation={this.deleteLocation} locations={this.state.locations} addLocation={this.addLocation}/>
+          <LocationsTable tournamentId={this.props.tournamentId} deleteLocation={this.deleteLocation} locations={this.state.locations} addLocation={this.addLocation}/>
         </div>
       </TournamentDashTemplate>
     );

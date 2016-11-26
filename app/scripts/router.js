@@ -20,6 +20,8 @@ var TournamentDashboardContainer = require('./components/tournamentDashboard.jsx
 var AdminTournamentDash = require('./components/adminTournamentDash.jsx').AdminTournamentDash;
 var LandingPage = require('./components/landingPage.jsx').LandingPage;
 var AdminTournamentList = require('./components/adminTournamentList.jsx').AdminTournamentList;
+var EditGame = require('./components/editGame.jsx').EditGame;
+var EditLocation = require('./components/editLocation.jsx').EditLocation;
 
 var AppRouter = Backbone.Router.extend({
   routes: {
@@ -32,6 +34,8 @@ var AppRouter = Backbone.Router.extend({
     'tournaments/:id/sign-up/': 'teamAdminSignUp',
     'tournaments/:id/login/': 'teamAdminLogin',
     'tournaments/:id/add-team/': 'teamAdd',
+    'tournaments/:id/admin/edit-game/:gameId/': 'editGame',
+    'tournaments/:id/admin/edit-location/:locationId/': 'editLocation',
     'tournaments/:id/:teamId/': 'teamView',
     'tournaments/:id/': 'tournamentDashboard',
     'tournaments/': 'tournamentView'
@@ -125,8 +129,19 @@ var AppRouter = Backbone.Router.extend({
       React.createElement(AdminTournamentList),
       document.getElementById('app')
     );
+  },
+  editGame: function(tournamentId, gameId){
+    ReactDOM.render(
+      React.createElement(EditGame, {tournamentId: tournamentId, gameId: gameId}),
+      document.getElementById('app')
+    );
+  },
+  editLocation: function(tournamentId, locationId){
+    ReactDOM.render(
+      React.createElement(EditLocation, {tournamentId: tournamentId, locationId: locationId}),
+      document.getElementById('app')
+    );
   }
-
 });
 
 var router = new AppRouter();
