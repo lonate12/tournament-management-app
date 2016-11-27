@@ -5766,6 +5766,20 @@ button.close {
 img {
   max-width: 100%; }
 
+.loading-parent {
+  position: relative; }
+
+.loading-div {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-image: url("../images/ring-alt.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center; }
+
 .tournament-info-div {
   background-color: #DCC7AA;
   position: relative;
@@ -5781,4 +5795,5 @@ img {
     top: 4px;
     max-width: 30%;
     padding: 5px; }
+
 /*# sourceMappingURL=app.css.map */
