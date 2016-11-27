@@ -21,6 +21,22 @@ img {
   max-width: 100%;
 }
 
+.loading-parent {
+  position: relative;
+}
+
+.loading-div {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-image: url('../images/ring-alt.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .tournament-info-div{
   background-color: $beige;
   position: relative;

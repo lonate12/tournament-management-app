@@ -76,7 +76,10 @@ var TournamentListView = React.createClass({
     setUpParse('zugzwang', 'tosche station', localStorage.getItem('sessionToken'));
 
     tournamentCollection.fetch().then(function(){
-      self.setState({tournamentCollection: tournamentCollection});
+      self.setState({
+        tournamentCollection: tournamentCollection,
+        isLoading: false
+      });
     });
   },
   loadTeams: function(e){
@@ -100,7 +103,8 @@ var TournamentListView = React.createClass({
     });
 
     return(
-      <div>
+      <div className="loading-parent">
+        <div className={this.state.isLoading ? 'show loading-div' : 'hidden loading-div'}></div>
         <ul>
           {tournaments}
         </ul>

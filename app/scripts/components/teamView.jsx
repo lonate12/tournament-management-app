@@ -36,10 +36,10 @@ var TeamViewContainer = React.createClass({
     var currentTeam = this.state.currentTeam;
 
     return(
-      <TournamentDashTemplate tournament={this.state.tournament}>
-        <div><img src="../../dist/images/ring-alt.svg"/></div>
+      <TournamentDashTemplate tournament={this.state.tournament} isLoadingWeather={this.state.isLoadingWeather}>
         <div className="row">
-          <div className="col-md-4">
+          <div className="col-md-4 loading-parent">
+            <div className={this.state.isLoadingTeam ? 'show loading-div' : 'hidden loading-div'}></div>
             <h2 className="team-name">{currentTeam.get('name')}</h2>
             <img src={currentTeam.get('logo') ? currentTeam.get('logo') : '../../dist/images/default-logo.png'} />
           </div>
