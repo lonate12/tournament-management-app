@@ -4,9 +4,11 @@ var Backbone = require('backbone');
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+
 // ****** Local Imports ******
 // Functions
 var setUpParse = require('./parseUtilities.js').setUpParse;
+
 // Components
 var AdminSignUpContainer = require('./components/adminSignUp.jsx').AdminSignUpContainer;
 var AdminLoginContainer = require('./components/adminLogin.jsx').AdminLoginContainer;
@@ -22,10 +24,12 @@ var LandingPage = require('./components/landingPage.jsx').LandingPage;
 var AdminTournamentList = require('./components/adminTournamentList.jsx').AdminTournamentList;
 var EditGame = require('./components/editGame.jsx').EditGame;
 var EditLocation = require('./components/editLocation.jsx').EditLocation;
+var Test = require('./components/test.jsx').Test;
 
 var AppRouter = Backbone.Router.extend({
   routes: {
     '': 'index',
+    'test/': 'test',
     'admin/tournaments/': 'adminTournamentList',
     'add-tournament/': 'addTournament',
     'sign-up/': 'adminSignUp',
@@ -139,6 +143,12 @@ var AppRouter = Backbone.Router.extend({
   editLocation: function(tournamentId, locationId){
     ReactDOM.render(
       React.createElement(EditLocation, {tournamentId: tournamentId, locationId: locationId}),
+      document.getElementById('app')
+    );
+  },
+  test: function(){
+    ReactDOM.render(
+      React.createElement(Test),
       document.getElementById('app')
     );
   }

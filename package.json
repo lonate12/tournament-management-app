@@ -70,6 +70,10 @@
     ]
   },
   "dependencies": {
-    "react-modal": "^1.5.2"
+    "react": "^0.14.8",
+    "react-dom": "^0.14.8",
+    "react-modal": "^1.5.2",
+    "react-sortablejs": "^1.1.2",
+    "sortablejs": "^1.5.0-rc1"
   }
 }

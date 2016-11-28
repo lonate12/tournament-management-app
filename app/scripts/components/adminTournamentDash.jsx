@@ -7,6 +7,7 @@ var GameModels = require('../models/game.js'), Game = GameModels.Game, GameColle
 var LocationModels = require('../models/location.js'), LocationModel = LocationModels.LocationModel, LocationCollection = LocationModels.LocationCollection;
 var TournamentDashTemplate = require('../display/tournamentDashTemplate.jsx').TournamentDashTemplate;
 var Modal = require('react-modal');
+var Sortable = require('sortablejs');
 
 
 /*
@@ -525,6 +526,104 @@ var LocationsTable = React.createClass({
   }
 });
 
+var GroupsDraggable = React.createClass({
+  getInitialState: function(){
+    return{
+      teams: this.props.teams
+    }
+  },
+  componentWillReceiveProps: function(nextProps){
+    this.setState({teams: nextProps.teams});
+  },
+  render: function(){
+    var teams = this.state.teams.map(function(team){
+      if(team.get('group')){
+        return;
+      }else{
+        return(
+          <li key={team.get('objectId')} id={team.get('objectId')} className="list-group-item col-sm-3">{team.get('name')}</li>
+        );
+      }
+    });
+
+    return(
+      <div>
+        <div className="row">
+          <ul id="team-list" className="col-sm-12 list-group">
+            {teams}
+          </ul>
+        </div>
+        <div className="row">
+          <ul id="group_A" className="col-sm-3 list-group">
+            Group A
+          </ul>
+          <ul id="group_B" className="col-sm-3 list-group">
+            Group B
+          </ul>
+          <ul id="group_C" className="col-sm-3 list-group">
+            Group C
+          </ul>
+          <ul id="group_D" className="col-sm-3 list-group">
+            Group D
+          </ul>
+        </div>
+      </div>
+    );
+  },
+  componentDidMount: function(){
+    var teams = document.getElementById('team-list')
+    , groupA = document.getElementById('group_A')
+    , groupB = document.getElementById('group_B')
+    , groupC = document.getElementById('group_C')
+    , groupD = document.getElementById('group_D');
+
+    Sortable.create(teams, {
+      group: 'teamGroups',
+      pull: true,
+      put: true,
+      onRemove: function(e){
+        e.item.classList.remove('col-sm-3');
+      }
+    });
+
+    Sortable.create(groupA, {
+      group: 'teamGroups',
+      pull: true,
+      put: true,
+      onAdd: function(e){
+
+      }
+    });
+
+    Sortable.create(groupB, {
+      group: 'teamGroups',
+      pull: true,
+      put: true,
+      onAdd: function(e){
+
+      }
+    });
+
+    Sortable.create(groupC, {
+      group: 'teamGroups',
+      pull: true,
+      put: true,
+      onAdd: function(e){
+
+      }
+    });
+
+    Sortable.create(groupD, {
+      group: 'teamGroups',
+      pull: true,
+      put: true,
+      onAdd: function(e){
+
+      }
+    });
+  }
+});
+
 var AdminTournamentDash = React.createClass({
   getInitialState: function(){
     var tournament = new Tournament();
@@ -613,6 +712,7 @@ var AdminTournamentDash = React.createClass({
           />
         </div>
         <div className="row">
+          {this.state.teams.length == 16 ? <GroupsDraggable teams={this.state.teams} /> : null}
           <GamesTable
             deleteGame={this.deleteGame}
             teams={this.state.teams}
