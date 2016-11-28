@@ -5796,4 +5796,9 @@ img {
     max-width: 30%;
     padding: 5px; }
 
+.list-group {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px; }
+
 /*# sourceMappingURL=app.css.map */
