@@ -657,8 +657,8 @@ var GroupsDraggable = React.createClass({
         var tableId =
         selectedTeam.set('group','A');
         selectedTeam.save().then(function(){
-          teamCollection.set(selectedTeam, {remove: false});
-          self.setState({teams: teamCollection});
+          // teamCollection.set(selectedTeam, {remove: false});
+          // self.setState({teams: teamCollection});
         });
       }
     });
@@ -673,7 +673,7 @@ var GroupsDraggable = React.createClass({
         selectedTeam.set('group','B');
         selectedTeam.save().then(function(){
           teamCollection.set(selectedTeam, {remove: false});
-          self.setState({teams: teamCollection});
+          // self.setState({teams: teamCollection});
         });
       }
     });
@@ -688,7 +688,7 @@ var GroupsDraggable = React.createClass({
         selectedTeam.set('group','C');
         selectedTeam.save().then(function(){
           teamCollection.set(selectedTeam, {remove: false});
-          self.setState({teams: teamCollection});
+          // self.setState({teams: teamCollection});
         });
       }
     });
@@ -703,7 +703,7 @@ var GroupsDraggable = React.createClass({
         selectedTeam.set('group','D');
         selectedTeam.save().then(function(){
           teamCollection.set(selectedTeam, {remove: false});
-          self.setState({teams: teamCollection});
+          // self.setState({teams: teamCollection});
         });
       }
     });

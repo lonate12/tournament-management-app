@@ -36,11 +36,11 @@ var TournamentDashboardContainer = React.createClass({
     });
   },
   render: function(){
-    var teams = this.state.teams, games = this.state.games, standings = "Placeholder";
+    var self = this, teams = this.state.teams, games = this.state.games, standings = "Placeholder";
 
     var teamsList = teams.map(function(team){
       return (
-        <li key={team.get('objectId')}>{team.get('name')}</li>
+        <li key={team.get('objectId')} className="list-group-item"><a>{team.get('name')}</a></li>
       );
     });
 
@@ -48,7 +48,9 @@ var TournamentDashboardContainer = React.createClass({
       console.log(game);
       return (
         <tr key={game.get('objectId')}>
-          <td></td>
+          <td><a href={'#/tournaments/'+self.props.tournamentId+'/'+game.get('home_team').objectId+'/'}>{game.get('home_team_name')}</a> {game.get('home_team_score')}</td>
+          <td><a href={'#/tournaments/'+self.props.tournamentId+'/'+game.get('home_team').objectId+'/'}>{game.get('away_team_name')}</a> {game.get('away_team_score')}</td>
+          <td><a href={'#/tournaments/'+self.props.tournamentId+'/fields/'+game.get('location').objectId+'/'}>{game.get('location_name')}</a></td>
         </tr>
       );
     });
@@ -57,15 +59,40 @@ var TournamentDashboardContainer = React.createClass({
       <TournamentDashTemplate tournament={this.state.tournament}>
         <div className="col-md-4">
           <h1>Teams</h1>
-          <ul>
+          <ul className="list-group">
             {teamsList}
           </ul>
         </div>
         <div className="col-md-8">
           <div className="row">
             <div className="col-md-12">
-              <h1>Standings</h1>
-              {standings}
+              <div className="row">
+                <h1>Standings</h1>
+                <div className="col-md-4">
+                  <h4>Group A</h4>
+                  <ul>
+                    <li>Group A</li>
+                  </ul>
+                </div>
+                <div className="col-md-4">
+                  <h4>Group B</h4>
+                  <ul>
+                    <li>Group B</li>
+                  </ul>
+                </div>
+                <div className="col-md-4">
+                  <h4>Group C</h4>
+                  <ul>
+                    <li>Group C</li>
+                  </ul>
+                </div>
+                <div className="col-md-4">
+                  <h4>Group D</h4>
+                  <ul>
+                    <li>Group D</li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
           <div className="row">
@@ -81,10 +108,9 @@ var TournamentDashboardContainer = React.createClass({
                   </tr>
                 </thead>
                 <tbody>
-
+                  {games}
                 </tbody>
               </table>
-              {games}
             </div>
           </div>
         </div>

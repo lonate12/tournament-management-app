@@ -86,26 +86,31 @@ var EditGameScore = React.createClass({
 
     game.set('has_been_played', true);
 
-    game.save().then(function(){
-      ajaxCounter += 1;
-      if (ajaxCounter == 3) {
+    var gamePromise = game.save();
+    var homeTeamPromise = home_team.save();
+    var awayTeamPromise = away_team.save();
+
+    Promise.all([
+      gamePromise,
+      homeTeamPromise,
+      awayTeamPromise
+    ]).then(function(){
         Backbone.history.navigate('/tournaments/'+self.props.tournamentId+'/admin/',{trigger: true});
-      }
     });
 
-    home_team.save().then(function(){
-      ajaxCounter += 1;
-      if (ajaxCounter == 3) {
-        Backbone.history.navigate('/tournaments/'+self.props.tournamentId+'/admin/',{trigger: true});
-      }
-    });
-
-    away_team.save().then(function(){
-      ajaxCounter += 1;
-      if (ajaxCounter == 3) {
-        Backbone.history.navigate('/tournaments/'+self.props.tournamentId+'/admin/',{trigger: true});
-      }
-    });
+    // home_team.save().then(function(){
+    //   ajaxCounter += 1;
+    //   if (ajaxCounter == 3) {
+    //     Backbone.history.navigate('/tournaments/'+self.props.tournamentId+'/admin/',{trigger: true});
+    //   }
+    // });
+    //
+    // away_team.save().then(function(){
+    //   ajaxCounter += 1;
+    //   if (ajaxCounter == 3) {
+    //     Backbone.history.navigate('/tournaments/'+self.props.tournamentId+'/admin/',{trigger: true});
+    //   }
+    // });
   },
   render: function(){
     var game = this.state.game, home_team = this.state.home_team, away_team = this.state.away_team;
