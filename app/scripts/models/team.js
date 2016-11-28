@@ -5,7 +5,9 @@ var ParseCollection = require('./parseModels.js').ParseCollection;
 var Team = ParseModel.extend({
   defaults: {
     have_paid: false,
-    have_waiver: false
+    have_waiver: false,
+    points: 0,
+    group: undefined
   },
   urlRoot: 'https://zugzwang.herokuapp.com/classes/Teams'
 });

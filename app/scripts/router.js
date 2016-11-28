@@ -25,6 +25,7 @@ var AdminTournamentList = require('./components/adminTournamentList.jsx').AdminT
 var EditGame = require('./components/editGame.jsx').EditGame;
 var EditLocation = require('./components/editLocation.jsx').EditLocation;
 var Test = require('./components/test.jsx').Test;
+var EditGameScore = require('./components/editGameScore.jsx').EditGameScore;
 
 var AppRouter = Backbone.Router.extend({
   routes: {
@@ -38,6 +39,7 @@ var AppRouter = Backbone.Router.extend({
     'tournaments/:id/sign-up/': 'teamAdminSignUp',
     'tournaments/:id/login/': 'teamAdminLogin',
     'tournaments/:id/add-team/': 'teamAdd',
+    'tournaments/:id/admin/edit-game-score/:gameId/': 'editGameScore',
     'tournaments/:id/admin/edit-game/:gameId/': 'editGame',
     'tournaments/:id/admin/edit-location/:locationId/': 'editLocation',
     'tournaments/:id/:teamId/': 'teamView',
@@ -149,6 +151,12 @@ var AppRouter = Backbone.Router.extend({
   test: function(){
     ReactDOM.render(
       React.createElement(Test),
+      document.getElementById('app')
+    );
+  },
+  editGameScore: function(tournamentId, gameId){
+    ReactDOM.render(
+      React.createElement(EditGameScore, {tournamentId: tournamentId, gameId: gameId}),
       document.getElementById('app')
     );
   }

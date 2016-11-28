@@ -286,13 +286,16 @@ var GamesTable = React.createClass({
   editGame: function(game){
     Backbone.history.navigate('/tournaments/'+this.props.tournamentId+'/admin/edit-game/'+game.get('objectId')+'/' , {trigger: true});
   },
+  updateScore: function(game){
+    Backbone.history.navigate('/tournaments/'+this.props.tournamentId+'/admin/edit-game-score/'+game.get('objectId')+'/', {trigger: true});
+  },
   render: function(){
     var games = this.state.games, gamesList, self=this;
 
     if (games) {
       gamesList = games.map(function(game){
         return(
-          <tr key={game.get('objectId')}>
+          <tr key={game.cid}>
             <td>{game.get('objectId')}</td>
             <td>{game.get('home_team_name')}</td>
             <td>{game.get('away_team_name')}</td>
@@ -300,6 +303,7 @@ var GamesTable = React.createClass({
             <td>{game.get('time')}</td>
             <td><button className="btn btn-danger" onClick={function(){self.props.deleteGame(game)}}>Delete Game</button></td>
             <td><button className="btn btn-success" onClick={function(){self.editGame(game)}}>Edit Game</button></td>
+            <td><button className="btn btn-primary" onClick={function(){self.updateScore(game)}}>Update Score</button></td>
           </tr>
         );
       });
@@ -309,7 +313,7 @@ var GamesTable = React.createClass({
         <div className="row">
           <div className="col-sm-12">
             <h3>Games</h3>
-            <p onClick={this.openModal}>+</p>
+            <p onClick={this.openModal} className="glyphicon glyphicon-plus-sign"></p>
             <table className="table">
               <thead>
                 <tr>
@@ -503,7 +507,7 @@ var LocationsTable = React.createClass({
         <div className="row">
           <div className="col-sm-12">
             <h3>Locations</h3>
-            <p onClick={this.openModal}>+</p>
+            <p onClick={this.openModal} className="glyphicon glyphicon-plus-sign"></p>
             <table className="table">
               <thead>
                 <tr>
@@ -570,31 +574,31 @@ var GroupsDraggable = React.createClass({
 
     noGroup = teams.map(function(team){
       return(
-        <li key={team.get('objectId')} id={team.get('objectId')} className="list-group-item col-sm-3">{team.get('name')}</li>
+        <li key={team.get('objectId')} id={team.get('objectId')} className="list-group-item col-sm-3">{team.get('name')}<span className="glyphicon glyphicon-move pull-right"></span></li>
       );
     });
 
     listA = groupA.map(function(team){
       return(
-        <li key={team.get('objectId')} id={team.get('objectId')} className="list-group-item">{team.get('name')}</li>
+        <li key={team.get('objectId')} id={team.get('objectId')} className="list-group-item">{team.get('name')}<span className="glyphicon glyphicon-move pull-right"></span></li>
       );
     });
 
     listB = groupB.map(function(team){
       return(
-        <li key={team.get('objectId')} id={team.get('objectId')} className="list-group-item">{team.get('name')}</li>
+        <li key={team.get('objectId')} id={team.get('objectId')} className="list-group-item">{team.get('name')}<span className="glyphicon glyphicon-move pull-right"></span></li>
       );
     });
 
     listC = groupC.map(function(team){
       return(
-        <li key={team.get('objectId')} id={team.get('objectId')} className="list-group-item">{team.get('name')}</li>
+        <li key={team.get('objectId')} id={team.get('objectId')} className="list-group-item">{team.get('name')}<span className="glyphicon glyphicon-move pull-right"></span></li>
       );
     });
 
     listD = groupD.map(function(team){
       return(
-        <li key={team.get('objectId')} id={team.get('objectId')} className="list-group-item">{team.get('name')}</li>
+        <li key={team.get('objectId')} id={team.get('objectId')} className="list-group-item">{team.get('name')}<span className="glyphicon glyphicon-move pull-right"></span></li>
       );
     });
 
@@ -606,19 +610,19 @@ var GroupsDraggable = React.createClass({
           </ul>
         </div>
         <div className="row">
-          <ul id="group_A" className="col-sm-3 list-group">
+          <ul id="A" className="col-sm-3 list-group">
             Group A
             {listA}
           </ul>
-          <ul id="group_B" className="col-sm-3 list-group">
+          <ul id="B" className="col-sm-3 list-group">
             Group B
             {listB}
           </ul>
-          <ul id="group_C" className="col-sm-3 list-group">
+          <ul id="C" className="col-sm-3 list-group">
             Group C
             {listC}
           </ul>
-          <ul id="group_D" className="col-sm-3 list-group">
+          <ul id="D" className="col-sm-3 list-group">
             Group D
             {listD}
           </ul>
@@ -628,10 +632,12 @@ var GroupsDraggable = React.createClass({
   },
   componentDidMount: function(){
     var teams = document.getElementById('team-list')
-    , groupA = document.getElementById('group_A')
-    , groupB = document.getElementById('group_B')
-    , groupC = document.getElementById('group_C')
-    , groupD = document.getElementById('group_D');
+    , groupA = document.getElementById('A')
+    , groupB = document.getElementById('B')
+    , groupC = document.getElementById('C')
+    , groupD = document.getElementById('D')
+    , teamCollection = this.state.teams
+    , self = this;
 
     Sortable.create(teams, {
       group: 'teamGroups',
@@ -647,7 +653,13 @@ var GroupsDraggable = React.createClass({
       pull: true,
       put: true,
       onAdd: function(e){
-
+        var selectedTeam = teamCollection.get(e.item.id);
+        var tableId =
+        selectedTeam.set('group','A');
+        selectedTeam.save().then(function(){
+          teamCollection.set(selectedTeam, {remove: false});
+          self.setState({teams: teamCollection});
+        });
       }
     });
 
@@ -656,7 +668,13 @@ var GroupsDraggable = React.createClass({
       pull: true,
       put: true,
       onAdd: function(e){
-
+        var selectedTeam = teamCollection.get(e.item.id);
+        var tableId =
+        selectedTeam.set('group','B');
+        selectedTeam.save().then(function(){
+          teamCollection.set(selectedTeam, {remove: false});
+          self.setState({teams: teamCollection});
+        });
       }
     });
 
@@ -665,7 +683,13 @@ var GroupsDraggable = React.createClass({
       pull: true,
       put: true,
       onAdd: function(e){
-
+        var selectedTeam = teamCollection.get(e.item.id);
+        var tableId =
+        selectedTeam.set('group','C');
+        selectedTeam.save().then(function(){
+          teamCollection.set(selectedTeam, {remove: false});
+          self.setState({teams: teamCollection});
+        });
       }
     });
 
@@ -674,7 +698,13 @@ var GroupsDraggable = React.createClass({
       pull: true,
       put: true,
       onAdd: function(e){
-
+        var selectedTeam = teamCollection.get(e.item.id);
+        var tableId =
+        selectedTeam.set('group','D');
+        selectedTeam.save().then(function(){
+          teamCollection.set(selectedTeam, {remove: false});
+          self.setState({teams: teamCollection});
+        });
       }
     });
   }
