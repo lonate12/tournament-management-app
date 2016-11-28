@@ -50,7 +50,10 @@ var AppRouter = Backbone.Router.extend({
     setUpParse('zugzwang', 'tosche station');
   },
   adminSessionCheck: function(){
-    if (!localStorage.getItem('sessionToken')){
+    if (!localStorage.getItem('userSession')){
+      this.navigate('/login/', {trigger: true});
+    }
+    if (JSON.parse(localStorage.getItem('userSession')).isAdmin != 'true'){
       this.navigate('/login/', {trigger: true});
     }
   },
@@ -60,7 +63,6 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   index: function(){
-    console.log('index fired');
     ReactDOM.render(
       React.createElement(LandingPage),
       document.getElementById('app')
@@ -129,24 +131,32 @@ var AppRouter = Backbone.Router.extend({
       React.createElement(AdminTournamentDash, {tournamentId: tournamentId}),
       document.getElementById('app')
     );
+
+    this.adminSessionCheck();
   },
   adminTournamentList: function(){
     ReactDOM.render(
       React.createElement(AdminTournamentList),
       document.getElementById('app')
     );
+
+    this.adminSessionCheck();
   },
   editGame: function(tournamentId, gameId){
     ReactDOM.render(
       React.createElement(EditGame, {tournamentId: tournamentId, gameId: gameId}),
       document.getElementById('app')
     );
+
+    this.adminSessionCheck();
   },
   editLocation: function(tournamentId, locationId){
     ReactDOM.render(
       React.createElement(EditLocation, {tournamentId: tournamentId, locationId: locationId}),
       document.getElementById('app')
     );
+
+    this.adminSessionCheck();
   },
   test: function(){
     ReactDOM.render(
@@ -159,6 +169,8 @@ var AppRouter = Backbone.Router.extend({
       React.createElement(EditGameScore, {tournamentId: tournamentId, gameId: gameId}),
       document.getElementById('app')
     );
+
+    this.adminSessionCheck();
   }
 });
 
