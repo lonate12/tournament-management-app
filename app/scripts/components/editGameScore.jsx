@@ -119,8 +119,8 @@ var EditGameScore = React.createClass({
               <h2>{home_team.get('name')}</h2>
               <h1>{game.get('home_team_score')}</h1>
               <div className="row">
-                <span onClick={this.addScoreHome} className="glyphicon glyphicon-plus-sign col-xs-6 add-score"></span>
-                <span onClick={this.subtractScoreHome} className="glyphicon glyphicon-minus-sign col-xs-6 minus-score"></span>
+                <button onClick={this.subtractScoreHome} className="glyphicon glyphicon-minus-sign col-xs-6 minus-score btn btn-danger"></button>
+                <button onClick={this.addScoreHome} className="glyphicon glyphicon-plus-sign col-xs-6 add-score btn btn-success"></button>
               </div>
             </div>
           </div>
@@ -129,8 +129,8 @@ var EditGameScore = React.createClass({
               <h2>{away_team.get('name')}</h2>
               <h1>{game.get('away_team_score')}</h1>
               <div className="row">
-                <span onClick={this.addScoreAway} className="glyphicon glyphicon-plus-sign col-xs-6 add-score"></span>
-                <span onClick={this.subtractScoreAway} className="glyphicon glyphicon-minus-sign col-xs-6 minus-score"></span>
+                <button onClick={this.subtractScoreAway} className="glyphicon glyphicon-minus-sign col-xs-6 minus-score btn btn-danger"></button>
+                <button onClick={this.addScoreAway} className="glyphicon glyphicon-plus-sign col-xs-6 add-score btn btn-success"></button>
               </div>
             </div>
           </div>
