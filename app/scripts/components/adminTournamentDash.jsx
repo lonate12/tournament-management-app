@@ -526,45 +526,101 @@ var LocationsTable = React.createClass({
   }
 });
 
+/*
+********************************************************************************
+********************************************************************************
+  Draggable Component
+********************************************************************************
+********************************************************************************
+*/
+
 var GroupsDraggable = React.createClass({
   getInitialState: function(){
     return{
-      teams: this.props.teams
+      teams: this.props.teams,
+      groupA: [],
+      groupB: [],
+      groupC: [],
+      groupD: []
     }
   },
   componentWillReceiveProps: function(nextProps){
-    this.setState({teams: nextProps.teams});
+    var teams = nextProps.teams
+    , teamList = teams.filter(function(team){return !team.get('group')})
+    , groupA = teams.filter(function(team){return team.get('group') == 'A'})
+    , groupB = teams.filter(function(team){return team.get('group') == 'B'})
+    , groupC = teams.filter(function(team){return team.get('group') == 'C'})
+    , groupD = teams.filter(function(team){return team.get('group') == 'D'});
+
+    this.setState({
+      teams: teamList,
+      groupA: groupA,
+      groupB: groupB,
+      groupC: groupC,
+      groupD: groupD
+    });
   },
   render: function(){
-    var teams = this.state.teams.map(function(team){
-      if(team.get('group')){
-        return;
-      }else{
-        return(
-          <li key={team.get('objectId')} id={team.get('objectId')} className="list-group-item col-sm-3">{team.get('name')}</li>
-        );
-      }
+    var groupA = this.state.groupA
+    , groupB = this.state.groupB
+    , groupC = this.state.groupC
+    , groupD = this.state.groupD
+    , teams = this.state.teams
+    , noGroup, listA, listB, listC, listD;
+
+    noGroup = teams.map(function(team){
+      return(
+        <li key={team.get('objectId')} id={team.get('objectId')} className="list-group-item col-sm-3">{team.get('name')}</li>
+      );
+    });
+
+    listA = groupA.map(function(team){
+      return(
+        <li key={team.get('objectId')} id={team.get('objectId')} className="list-group-item">{team.get('name')}</li>
+      );
+    });
+
+    listB = groupB.map(function(team){
+      return(
+        <li key={team.get('objectId')} id={team.get('objectId')} className="list-group-item">{team.get('name')}</li>
+      );
+    });
+
+    listC = groupC.map(function(team){
+      return(
+        <li key={team.get('objectId')} id={team.get('objectId')} className="list-group-item">{team.get('name')}</li>
+      );
+    });
+
+    listD = groupD.map(function(team){
+      return(
+        <li key={team.get('objectId')} id={team.get('objectId')} className="list-group-item">{team.get('name')}</li>
+      );
     });
 
     return(
       <div>
         <div className="row">
           <ul id="team-list" className="col-sm-12 list-group">
-            {teams}
+            {noGroup}
           </ul>
         </div>
         <div className="row">
           <ul id="group_A" className="col-sm-3 list-group">
             Group A
+            {listA}
           </ul>
           <ul id="group_B" className="col-sm-3 list-group">
             Group B
+            {listB}
           </ul>
           <ul id="group_C" className="col-sm-3 list-group">
             Group C
+            {listC}
           </ul>
           <ul id="group_D" className="col-sm-3 list-group">
             Group D
+            {listD}
           </ul>
         </div>
       </div>
