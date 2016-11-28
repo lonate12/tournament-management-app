@@ -5767,7 +5767,8 @@ img {
   max-width: 100%; }
 
 .loading-parent {
-  position: relative; }
+  position: relative;
+  min-height: 100px; }
 
 .loading-div {
   position: absolute;
