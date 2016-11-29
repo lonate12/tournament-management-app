@@ -5776,6 +5776,7 @@ img {
   bottom: 0;
   right: 0;
   left: 0;
+  background-color: white;
   background-image: url("../images/ring-alt.svg");
   background-size: contain;
   background-repeat: no-repeat;
@@ -5801,4 +5802,5 @@ img {
   border: 1px solid black;
   border-radius: 5px;
   padding: 5px; }
+
 /*# sourceMappingURL=app.css.map */
