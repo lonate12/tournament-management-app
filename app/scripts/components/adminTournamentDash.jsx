@@ -269,11 +269,11 @@ var GamesTable = React.createClass({
     var games = this.state.games, gamesList, self=this;
 
     var groupGames = games.filter(function(game){
-      return game.get('quarter_final') == false && game.get('semi_final') == false && game.get('final') == false;
+      return game.get('group_game') == true;
     });
 
     var quarterFinalGames = games.filter(function(game){
-      return game.get('quarter_final') == true;
+      return game.get('quarter_final');
     });
 
     var semiFinalGames = games.filter(function(game){
@@ -875,13 +875,31 @@ var AdminTournamentDash = React.createClass({
 
     playOffArray = _.flatten(playOffArray, true);
 
-    this.createQuaters(playOffArray[0], playOffArray[5]);
-    this.createQuaters(playOffArray[1], playOffArray[4]);
-    this.createQuaters(playOffArray[2], playOffArray[7]);
-    this.createQuaters(playOffArray[3], playOffArray[6]);
+    this.createGame(playOffArray[0], playOffArray[5], 1, 'quarter');
+    this.createGame(playOffArray[1], playOffArray[4], 2, 'quarter');
+    this.createGame(playOffArray[2], playOffArray[7], 3, 'quarter');
+    this.createGame(playOffArray[3], playOffArray[6], 4, 'quarter');
   },
-  createQuaters: function(team1, team2){
+  createGame: function(team1, team2, gameNum, stage){
     var newGame = new Game(), self = this;
+
+    var stageKey, stageValue;
+
+    if(stage == 'quarter') {
+      stageKey = 'quarter_final';
+      stageValue = 'QF' + gameNum;
+    }else if(stage == 'semi') {
+      stageKey = 'semi_final';
+      stageValue = 'SF' + gameNum;
+    }else if(stage == 'final') {
+      stageKey = 'final';
+      stageValue = 'F' + gameNum;
+    }else{
+      throw "Please check parameter 'stage', must be a string and can either be 'quarter', 'semi', or 'final'."
+      return;
+    }
+
+
 
     newGame.set({
       home_team: newGame.toPointer('Teams', team1.get('objectId')),
@@ -890,19 +908,74 @@ var AdminTournamentDash = React.createClass({
       away_team_name: team2.get('name'),
       tournament: newGame.toPointer('Tournaments', this.props.tournamentId),
       location: undefined,
-      quarter_final: true
+      group_game: false,
     });
+    newGame.set(stageKey, stageValue);
 
     newGame.save().then(function(){
       self.state.games.add(newGame);
       self.setState({games: self.state.games});
     });
   },
+  findWinner: function(gameId){
+    var game = this.state.games.get(gameId), winner = {}, homeScore = game.get('home_team_score')
+    , awayScore = game.get('away_team_score'), homeTeamId = game.get('home_team').objectId
+    , homeTeamName = game.get('home_team_name'), awayTeamId = game.get('away_team').objectId
+    , awayTeamName = game.get('away_team_name');
+
+    if (homeScore > awayScore) {
+      winner.objectId = homeTeamId;
+      winner.name = homeTeamName;
+    } else {
+      winner.objectId = awayTeamId;
+      winner.name = awayTeamName;
+    }
+
+    return winner;
+  },
+  createSemis: function(){
+    var quarters = this.state.games.filter(function(game){return game.get('quarter_final')});
+    var self = this;
+
+    quarters = new GameCollection(quarters);
+
+    quarters = quarters.sortBy(function(game){return game.get('quarter_final')});
+
+    //Check to see if all quarter final scores have been submitted
+    var quarterCheck = 0;
+    quarters.forEach(function(game){
+      if (game.get('has_been_played')){
+        quarterCheck += 1
+      }
+    });
+
+    if(quarterCheck < 4){
+      alert('Not all quarter final scores have been updated. Please update all scores to proceed.')
+      return
+    }
+
+    var q1 = {}, q2 = {}, q3 = {}, q4 = {}, quartersArray = [q1, q2, q3, q4];
+    quarters.forEach(function(game, i){
+      var winner = self.findWinner(game.get('objectId'));
+      var team = self.state.teams.get(winner.objectId);
+      quartersArray[i].winner = team;
+    });
+
+
+
+    this.createGame(q1.winner, q3.winner, 1, 'semi');
+    this.createGame(q2.winner, q4.winner, 2, 'semi');
+  },
+  createFinal: function(){
+
+  },
   render: function(){
     return(
       <TournamentDashTemplate tournament={this.state.tournament}>
         <h1>AdminTournamentDash</h1>
-        <button onClick={this.startPlayoffs} type="button" className="btn btn-primary">Start Playoffs</button>
+        <button onClick={this.startPlayoffs} type="button" className="btn btn-primary">Create Quarter Finals</button>
+        <button onClick={this.createSemis} type="button" className="btn btn-primary">Create Semi-Finals</button>
+        <button onClick={this.createFinal} type="button" className="btn btn-primary">Create Final</button>
         <div className="row">
           <TeamsTable
             deleteTeam={this.deleteTeam}
