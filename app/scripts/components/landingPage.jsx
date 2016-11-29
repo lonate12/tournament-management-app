@@ -6,7 +6,7 @@ var LandingPage = React.createClass({
       <div className="container-fluid">
         <div className="row">
           <div className="hero col-sm-12">
-            <img className="hero-logo img-responsive" src="../../dist/images/the-standings-logo-white-shadow.png" alt="The Standings Logo" />
+            <img className="hero-logo img-responsive" src="../../images/the-standings-logo-white-shadow.png" alt="The Standings Logo" />
             <h1 className="hero-sub-header">Helping manage tournaments since 2016</h1>
         </div>
         </div>
