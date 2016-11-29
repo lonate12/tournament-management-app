@@ -151,14 +151,6 @@ var TeamsTable = React.createClass({
 ********************************************************************************
 */
 
-// var FormOption = React.createClass({
-//   render: function(){
-//     return(
-//       <option>{this.props.team.get('name')}</option>
-//     );
-//   }
-// });
-
 var AddGameModal = React.createClass({
   getInitialState: function(){
     return {
@@ -174,23 +166,6 @@ var AddGameModal = React.createClass({
   closeModal: function(){
     this.setState({modalIsOpen: false});
   },
-  // handleChange: function(e){
-  //   var target = e.target, newGame = this.state.newGame;
-  //
-  //   if (target.name === 'home_team' || target.name === 'away_team') {
-  //     var pointer = newGame.toPointer('Teams', target.value);
-  //
-  //     newGame.set(target.name, pointer);
-  //     newGame.set(target.name + '_name', target.options[target.options.selectedIndex].text);
-  //   }
-  //
-  //   if (target.name === 'location') {
-  //     var pointer = newGame.toPointer('Locations', target.value);
-  //
-  //     newGame.set(target.name === pointer);
-  //     newGame.set(target.name + '_name', target.options[target.options.selectedIndex].text);
-  //   }
-  // },
   handleTeam: function(e){
     var target = e.target, newGame = this.state.newGame, pointer;
     pointer = newGame.toPointer('Teams', target.value);
@@ -293,8 +268,24 @@ var GamesTable = React.createClass({
   render: function(){
     var games = this.state.games, gamesList, self=this;
 
+    var groupGames = games.filter(function(game){
+      return game.get('quarter_final') == false && game.get('semi_final') == false && game.get('final') == false;
+    });
+
+    var quarterFinalGames = games.filter(function(game){
+      return game.get('quarter_final') == true;
+    });
+
+    var semiFinalGames = games.filter(function(game){
+      return game.get('semi_final');
+    });
+
+    var finalGame = games.filter(function(game){
+      return game.get('final');
+    });
+
     if (games) {
-      gamesList = games.map(function(game){
+      var groupGameList = groupGames.map(function(game){
         return(
           <tr key={game.cid}>
             <td>{game.get('objectId')}</td>
@@ -308,6 +299,53 @@ var GamesTable = React.createClass({
           </tr>
         );
       });
+
+      var quarterFinalGameList = quarterFinalGames.map(function(game){
+        return(
+          <tr key={game.cid}>
+            <td>{game.get('objectId')}</td>
+            <td>{game.get('home_team_name')}</td>
+            <td>{game.get('away_team_name')}</td>
+            <td>{game.get('location_name')}</td>
+            <td>{game.get('time')}</td>
+            <td><button className="btn btn-danger" onClick={function(){self.props.deleteGame(game)}}>Delete Game</button></td>
+            <td><button className="btn btn-success" onClick={function(){self.editGame(game)}}>Edit Game</button></td>
+            <td><button className="btn btn-primary" onClick={function(){self.updateScore(game)}}>Update Score</button></td>
+          </tr>
+        );
+      });
+
+      var semiFinalGameList = semiFinalGames.map(function(game){
+        return(
+          <tr key={game.cid}>
+            <td>{game.get('objectId')}</td>
+            <td>{game.get('home_team_name')}</td>
+            <td>{game.get('away_team_name')}</td>
+            <td>{game.get('location_name')}</td>
+            <td>{game.get('time')}</td>
+            <td><button className="btn btn-danger" onClick={function(){self.props.deleteGame(game)}}>Delete Game</button></td>
+            <td><button className="btn btn-success" onClick={function(){self.editGame(game)}}>Edit Game</button></td>
+            <td><button className="btn btn-primary" onClick={function(){self.updateScore(game)}}>Update Score</button></td>
+          </tr>
+        );
+      });
+
+      var finalGameList = finalGame.map(function(game){
+        return(
+          <tr key={game.cid}>
+            <td>{game.get('objectId')}</td>
+            <td>{game.get('home_team_name')}</td>
+            <td>{game.get('away_team_name')}</td>
+            <td>{game.get('location_name')}</td>
+            <td>{game.get('time')}</td>
+            <td><button className="btn btn-danger" onClick={function(){self.props.deleteGame(game)}}>Delete Game</button></td>
+            <td><button className="btn btn-success" onClick={function(){self.editGame(game)}}>Edit Game</button></td>
+            <td><button className="btn btn-primary" onClick={function(){self.updateScore(game)}}>Update Score</button></td>
+          </tr>
+        );
+      });
+
+
     }
     return(
       <div className="col-sm-12">
@@ -326,7 +364,14 @@ var GamesTable = React.createClass({
                 </tr>
               </thead>
               <tbody>
-                {gamesList ? gamesList : <tr><td colspan="5"><h1>Games Loading...</h1></td></tr>}
+                <tr colSpan="5"><td><strong>Final Games</strong></td></tr>
+                {finalGameList}
+                <tr colSpan="5"><td><strong>Semi-Final Games</strong></td></tr>
+                {semiFinalGameList}
+                <tr colSpan="5"><td><strong>Quarter-Final Games</strong></td></tr>
+                {quarterFinalGameList}
+                <tr colSpan="5"><td><strong>Group Games</strong></td></tr>
+                {groupGameList}
               </tbody>
             </table>
           </div>
