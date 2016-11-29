@@ -21,7 +21,7 @@ var LandingPage = React.createClass({
             </a>
           </div>
           <div className="col-md-4">
-            <a href="#/tournaments">
+            <a href="#/tournaments/">
               <div className="tile col-md-12">
                 <h3>I{"'"}m a <span className="accent">team administrator</span> looking to sign up a team</h3>
                 <i className="fa fa-users tile-icon" aria-hidden="true"></i>
