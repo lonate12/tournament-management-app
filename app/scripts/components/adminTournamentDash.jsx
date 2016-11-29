@@ -967,7 +967,36 @@ var AdminTournamentDash = React.createClass({
     this.createGame(q2.winner, q4.winner, 2, 'semi');
   },
   createFinal: function(){
+    var semis = this.state.games.filter(function(game){return game.get('semi_final')})
+    , self = this;
 
+    semis = new GameCollection(semis);
+
+    semis = semis.sortBy(function(game){return game.get('semi_final')});
+
+    // Check to see if all semi final games have been submitted
+    var semiCheck = 0;
+    semis.forEach(function(game){
+      if (game.get('has_been_played')){
+        semiCheck += 1
+      }
+    });
+
+    if(semiCheck < 2){
+      alert('Not all semi-final scores have been updated. Please update all scores to proceed.')
+      return
+    }
+
+    var s1 = {}, s2 = {}, semisArray = [s1, s2];
+    semis.forEach(function(game, i){
+      var winner = self.findWinner(game.get('objectId'));
+      var team = self.state.teams.get(winner.objectId);
+      semisArray[i].winner = team;
+    });
+
+
+
+    this.createGame(s1.winner, s2.winner, 1, 'final');
   },
   render: function(){
     return(
