@@ -26,6 +26,7 @@ var EditGame = require('./components/editGame.jsx').EditGame;
 var EditLocation = require('./components/editLocation.jsx').EditLocation;
 var Test = require('./components/test.jsx').Test;
 var EditGameScore = require('./components/editGameScore.jsx').EditGameScore;
+var PlayoffContainer = require('./components/playoffContainer.jsx').PlayoffContainer;
 
 var AppRouter = Backbone.Router.extend({
   routes: {
@@ -38,6 +39,7 @@ var AppRouter = Backbone.Router.extend({
     'tournaments/:id/admin/': 'adminDash',
     'tournaments/:id/sign-up/': 'teamAdminSignUp',
     'tournaments/:id/login/': 'teamAdminLogin',
+    'tournaments/:id/admin/playoffs-admin/': 'playoff',
     'tournaments/:id/add-team/': 'teamAdd',
     'tournaments/:id/admin/edit-game-score/:gameId/': 'editGameScore',
     'tournaments/:id/admin/edit-game/:gameId/': 'editGame',
@@ -171,6 +173,12 @@ var AppRouter = Backbone.Router.extend({
     );
 
     this.adminSessionCheck();
+  },
+  playoff: function(tournamentId){
+    ReactDOM.render(
+      React.createElement(PlayoffContainer, {tournamentId: tournamentId}),
+      document.getElementById('app')
+    );
   }
 });
 

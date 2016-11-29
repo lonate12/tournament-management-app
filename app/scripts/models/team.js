@@ -15,6 +15,13 @@ var Team = ParseModel.extend({
 var TeamCollection = ParseCollection.extend({
   model: Team,
   baseUrl: 'https://zugzwang.herokuapp.com/classes/Teams',
+  sortByPoints: function(){
+    this.sortBy(function(team){
+      return team.get('points');
+    });
+
+    return this;
+  }
 });
 
 module.exports = {

@@ -55,6 +55,9 @@ var Tournament = ParseModel.extend({
 
       callback();
     });
+  },
+  createPlayoff: function(sortedTeamsArray){
+    
   }
 });
 

@@ -8,6 +8,7 @@ var LocationModels = require('../models/location.js'), LocationModel = LocationM
 var TournamentDashTemplate = require('../display/tournamentDashTemplate.jsx').TournamentDashTemplate;
 var Modal = require('react-modal');
 var Sortable = require('sortablejs');
+var _ = require('underscore');
 
 
 /*
@@ -786,10 +787,77 @@ var AdminTournamentDash = React.createClass({
     game.destroy();
     this.setState({games: this.state.games});
   },
+  startPlayoffs: function(){
+    var teams = this.state.teams, self = this;
+    var groupA = [], groupB = [], groupC = [], groupD = [];
+    var arrayOfGroups = [groupA, groupB, groupC, groupD];
+
+    teams.forEach(function(team){
+      var group = team.get('group');
+
+      if (group == 'A'){
+        groupA.push(team);
+      }else if(group == 'B'){
+        groupB.push(team);
+      }else if(group == 'C'){
+        groupC.push(team);
+      }else{
+        groupD.push(team);
+      }
+    });
+
+    arrayOfGroups.forEach(function(group){
+      group.sort(function(a, b){
+
+        if (a.get('points') > b.get('points')) {
+          return 1;
+        }
+
+        if (a.get('points') < b.get('points')) {
+          return -1;
+        }
+
+        return 0;
+      });
+    });
+
+    var playOffArray = [];
+
+    arrayOfGroups.forEach(function(group){
+      var newArray = group.reverse().slice(0,2);
+      playOffArray.push(newArray);
+    });
+
+    playOffArray = _.flatten(playOffArray, true);
+
+    this.createQuaters(playOffArray[0], playOffArray[5]);
+    this.createQuaters(playOffArray[1], playOffArray[4]);
+    this.createQuaters(playOffArray[2], playOffArray[7]);
+    this.createQuaters(playOffArray[3], playOffArray[6]);
+  },
+  createQuaters: function(team1, team2){
+    var newGame = new Game(), self = this;
+
+    newGame.set({
+      home_team: newGame.toPointer('Teams', team1.get('objectId')),
+      home_team_name: team1.get('name'),
+      away_team: newGame.toPointer('Teams', team2.get('objectId')),
+      away_team_name: team2.get('name'),
+      tournament: newGame.toPointer('Tournaments', this.props.tournamentId),
+      location: undefined,
+      quarter_final: true
+    });
+
+    newGame.save().then(function(){
+      self.state.games.add(newGame);
+      self.setState({games: self.state.games});
+    });
+  },
   render: function(){
     return(
       <TournamentDashTemplate tournament={this.state.tournament}>
         <h1>AdminTournamentDash</h1>
+        <button onClick={this.startPlayoffs} type="button" className="btn btn-primary">Start Playoffs</button>
         <div className="row">
           <TeamsTable
             deleteTeam={this.deleteTeam}
