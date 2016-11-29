@@ -3,18 +3,41 @@ var React = require('react');
 var LandingPage = React.createClass({
   render: function(){
     return(
-      <ul>
-        <li><a href="#/sign-up/">1. Admin Sign Up</a></li>
-        <li><a href="#/add-tournament/">2. Admin Add Tournament</a></li>
-        <li><a href="#/login/">3. Admin Login</a></li>
-        <li><a href="#/tournaments/">4. Tournament List</a></li>
-        <li><a href="#/tournaments/J0puxomGRv/">5. Tournament Dashboard</a></li>
-        <li><a href="#/tournaments/J0puxomGRv/LQGVGwJWib/">6. Team Dashboard</a></li>
-        <li><a href="#/tournaments/J0puxomGRv/login/">7. Team Admin Login</a></li>
-        <li><a href="#/tournaments/J0puxomGRv/add-team/">8. Team Admin Add Team</a></li>
-        <li><a href="#/tournaments/J0puxomGRv/sign-up/">9. Team Admin Sign Up</a></li>
-        <li><a href="#/tournaments/J0puxomGRv/admin/">9. Tournament Admin Dash</a></li>
-      </ul>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="hero col-sm-12">
+            <img className="hero-logo img-responsive" src="../../dist/images/the-standings-logo-white-shadow.png" alt="The Standings Logo" />
+            <h1 className="hero-sub-header">Helping manage tournaments since 2016</h1>
+        </div>
+        </div>
+        <div className="main-bg row">
+          <h2 className="accent text-center" id="landing-prompt">What brings you by today{'?'}</h2>
+          <div className="col-md-4">
+            <a href="#/tournaments/">
+              <div className="tile col-md-12">
+                <h3>I{"'"}m a <span className="accent">guest or player</span> looking for a specific tournament</h3>
+                <i className="fa fa-user tile-icon" aria-hidden="true"></i>
+              </div>
+            </a>
+          </div>
+          <div className="col-md-4">
+            <a href="#/tournaments">
+              <div className="tile col-md-12">
+                <h3>I{"'"}m a <span className="accent">team administrator</span> looking to sign up a team</h3>
+                <i className="fa fa-users tile-icon" aria-hidden="true"></i>
+              </div>
+            </a>
+          </div>
+          <div className="col-md-4">
+            <a href="#/login/">
+              <div className="tile col-md-12">
+                <h3>I{"'"}m a <span className="accent">tournament administrator</span> looking to use The Standings</h3>
+                <i className="fa fa-lock tile-icon" aria-hidden="true"></i>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
     );
   }
 });

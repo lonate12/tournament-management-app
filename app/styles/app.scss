@@ -6,10 +6,22 @@ $icon-font-path: '../../node_modules/bootstrap-sass/assets/fonts/bootstrap/';
 @import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap';
 
 // Color Palette
-$grey: #6B7A8F;
-$orange: #F7882F;
-$yellow: #F7C331;
-$beige: #DCC7AA;
+$i200: #9FA8DA;
+$i500: #3F51B5;
+$i700: #303F9F;
+$i800: #283593;
+$accent: #FFAB40;
+$primaryText: rgba(0,0,0,.87);
+$secondaryText: rgba(0,0,0,.54);
+$disabledText: rgba(0,0,0,.38);
+$primaryWhiteText: rgba(255,255,255,1);
+$secondaryWhiteText: rgba(255,255,255,.7);
+$disabledWhiteText: rgba(255,255,255,.5);
+
+@font-face {
+  src: url('../fonts/limos.ttf');
+  font-family: 'limo';
+}
 
 *,
 *::before,
@@ -17,8 +29,17 @@ $beige: #DCC7AA;
   box-sizing: border-box;
 }
 
+a {
+  text-decoration: none !important;
+  color: inherit;
+}
+
 img {
   max-width: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'limo';
 }
 
 .loading-parent {
@@ -39,8 +60,76 @@ img {
   background-position: center;
 }
 
+.main-bg {
+  background-color: $i500;
+}
+
+.accent {
+  color: $accent;
+}
+
+.hero {
+  height: 100vh;
+  width: 100%;
+  background-image: url('../images/hero-bg.jpg');
+  background-size: cover;
+  background-position: center center;
+
+  .hero-logo {
+    margin: 0 auto;
+    margin-top: 200px;
+  }
+
+  .hero-sub-header {
+    color: $secondaryWhiteText;
+    font-family: 'limo';
+    font-size: 9vh;
+    text-align: right;
+    margin-right: 10%;
+  }
+}
+
+#landing-prompt {
+  font-size: 10vh;
+  margin-bottom: 25px;
+  padding: 7vh;
+}
+
+.tile {
+  background-color: $i800;
+  box-shadow: 1px 1px black;
+  padding: 20px 20px;
+  margin: 10px 0 5vh 0;
+  min-height: 60vh;
+  height: 100%;
+  h3 {
+    color: $primaryWhiteText;
+    font-size: 7vh;
+  }
+  i {
+    color: $primaryWhiteText;
+    font-size: 20vh;
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+  }
+}
+
+.tile:hover{
+  background-color: $i200;
+  cursor: pointer;
+  h3, i {
+    color: $i800;
+  }
+  .accent {
+    color: $primaryWhiteText;
+  }
+}
+
+
+
 .tournament-info-div{
-  background-color: $beige;
+  background-color: black;
   position: relative;
   min-height: 40px;
 
