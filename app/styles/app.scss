@@ -281,18 +281,32 @@ h1, h2, h3, h4, h5, h6 {
 
 .ReactModal__Content--after-open {
   background-color: $i200 !important;
+  padding: 0 !important;
 
   .tournament-ul-modal {
     list-style: none;
     font-family: 'limo';
     background-color: $i200;
-    padding: 20px;
+    padding: 20px 40px;
     font-size: 8vh;
+  }
+
+  .modal-li:hover{
+    color: $secondaryWhiteText;
+  }
+
+  .modal-li a:hover{
+    color: inherit;
   }
 
   .btn-accent {
     background-color: $accent;
     font-size: 18px;
     color: $i800;
+    margin: 0 0 20px 40px;
+  }
+
+  .modal-header {
+    margin-top: 0;
   }
 }

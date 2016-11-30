@@ -33,12 +33,14 @@ var ModalComponent = React.createClass({
   },
   render: function(){
     var teams;
+    var buttonClass = "btn btn-accent";
 
     if(this.state.teamCollection){
       var self = this;
+      buttonClass = this.state.teamCollection.length > 15 ? "btn btn-accent hidden" : buttonClass;
       teams = this.state.teamCollection.map(function(team){
         return(
-          <li key={team.get('objectId')}><a href={'#/tournaments/'+self.props.tournamentId+'/'+team.get('objectId')+'/'}>{team.get('name')}</a></li>
+          <li key={team.get('objectId')} className="modal-li"><a href={'#/tournaments/'+self.props.tournamentId+'/'+team.get('objectId')+'/'}>{team.get('name')}</a></li>
         );
       });
     }
@@ -49,10 +51,10 @@ var ModalComponent = React.createClass({
         onRequestClose={this.closeModal} >
 
         <ul className="tournament-ul-modal">
-          <h1>Choose your team</h1>
+          <h1 className="white modal-header">Choose your team</h1>
           {teams ? teams : null}
         </ul>
-        <button type="button" onClick={this.handleClick} className="btn btn-accent">Register Team</button>
+        <button type="button" onClick={this.handleClick} className={buttonClass}>Register Team</button>
       </Modal>
     );
   }
