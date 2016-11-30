@@ -5959,6 +5959,37 @@ h1, h2, h3, h4, h5, h6, table {
   .t-dash-pub-ul a:hover {
     color: #FFAB40; }
 
+.weather-btn {
+  position: absolute;
+  background-color: #3F51B5;
+  border: none;
+  font-family: 'limo';
+  bottom: 0; }
+
+.weather-btn:focus {
+  background-color: inherit;
+  outline: 0;
+  color: #FFAB40; }
+
+.weather-btn:hover {
+  background-color: inherit;
+  color: #FFAB40; }
+
+.weather-btn:active {
+  background-color: inherit;
+  outline: 0;
+  color: #FFAB40; }
+
+.weather-div {
+  background-color: white;
+  color: #303F9F;
+  position: absolute;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-left: 1px solid #283593;
+  border-bottom: 1px solid #283593;
+  border-right: 1px solid #283593; }
+
 .t-list-header {
   background-color: #303F9F; }
   .t-list-header .logo-small {
@@ -6009,5 +6040,13 @@ h1, h2, h3, h4, h5, h6, table {
     margin: 0 0 20px 40px; }
   .ReactModal__Content--after-open .modal-header {
     margin-top: 0; }
+
+.team-detail-name {
+  font-size: 9vh;
+  text-align: center; }
+
+.team-detail-img {
+  display: block;
+  margin: 0 auto; }
 
 /*# sourceMappingURL=app.css.map */
