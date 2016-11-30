@@ -40,7 +40,7 @@ var ModalComponent = React.createClass({
       buttonClass = this.state.teamCollection.length > 15 ? "btn btn-accent hidden" : buttonClass;
       teams = this.state.teamCollection.map(function(team){
         return(
-          <a href={'#/tournaments/'+self.props.tournamentId+'/'+team.get('objectId')+'/'}><li key={team.get('objectId')} className="modal-li">{team.get('name')}</li></a>
+          <a href={'#/tournaments/'+self.props.tournamentId+'/'+team.get('objectId')+'/'} key={team.get('objectId')}><li className="modal-li">{team.get('name')}</li></a>
         );
       });
     }
