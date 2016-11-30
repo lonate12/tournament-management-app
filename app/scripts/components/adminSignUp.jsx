@@ -16,7 +16,7 @@ var AdminSignUpContainer = React.createClass({
       'phone_number': '',
       'username': '',
       'password': '',
-
+      isLoading: false
     };
   },
   handleInputChangeAdmin: function(e){
@@ -33,6 +33,7 @@ var AdminSignUpContainer = React.createClass({
   },
   handleAdminSubmit: function(e){
     e.preventDefault();
+    var self = this;
 
     if (e.target[4].value != e.target[5].value){
       alert("Passwords do not match, please re-enter password.")
@@ -40,7 +41,10 @@ var AdminSignUpContainer = React.createClass({
       return;
     }
 
+    this.setState({isLoading: true});
+
     this.state.admin.signUp(function(){
+      self.setState({isLoading: false});
       Backbone.history.navigate('/add-tournament/', {trigger: true});
     });
 
@@ -55,7 +59,8 @@ var AdminSignUpContainer = React.createClass({
     return(
       <div className="container">
         <div className="row">
-          <div className="col-sm-8 col-sm-offset-2">
+          <div className="col-sm-8 col-sm-offset-2 loading-parent">
+            <div className={this.state.isLoading ? 'show loading-div' : 'hidden loading-div'}></div>
             <form onSubmit={this.handleAdminSubmit} className="form" id="captain-sign-up">
               <h1>Tournament Admin Sign Up</h1>
               <div className="form-group">

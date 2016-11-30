@@ -53,11 +53,12 @@ h1, h2, h3, h4, h5, h6 {
   bottom: 0;
   right: 0;
   left: 0;
-  background-color: white;
+  background-color: $i200;
   background-image: url('../images/ring-alt.svg');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+  border-radius: 4px;
 }
 
 .main-bg {
@@ -67,6 +68,17 @@ h1, h2, h3, h4, h5, h6 {
 .accent {
   color: $accent;
 }
+
+.white {
+  color: $primaryWhiteText;
+}
+
+.bg-blue {
+  background-color: $i800;
+  color: $accent;
+}
+
+////////////////////////////////////////////////////////// Landing Page Styles
 
 .hero {
   height: 100vh;
@@ -126,12 +138,79 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/////////////////////////////////////// Tournament Header and Footer Template
 
+.main-body {
+  background-color: $i200;
+}
 
-.tournament-info-div{
-  background-color: black;
+.tournament-nav{
+  background-color: $i500;
   position: relative;
-  min-height: 40px;
+  min-height: 8vh;
+
+  .navbar-brand {
+    margin-top: 8px;
+    margin-bottom: 20px;
+  }
+
+  .tournament-name {
+    position: relative;
+    color: $primaryWhiteText;
+    font-family: 'limo';
+    font-size: 50px;
+    text-align: center;
+    padding-top: 16px;
+  }
+  .tournament-name a:hover {
+    color: $accent;
+  }
+
+  .nav-list {
+    color: $primaryWhiteText;
+    font-family: 'limo';
+    font-size: 20px;
+    padding: 18px 30px;
+    position: relative;
+    z-index: 50;
+    li {
+      margin-left: 20px;
+    }
+    a:hover{
+      color: $accent;
+    }
+    a:active{
+      color: $accent;
+    }
+    a:focus{
+      color: $accent;
+    }
+    .toggle-parent{
+      position: relative;
+      .toggle-child{
+        background-color: $i200;
+        position: absolute;
+        list-style: none;
+        padding: 5px;
+        top: 30px;
+        right: 0px;
+        min-width: 240px;
+        z-index: 51;
+        li {
+          margin: 3px 14px 3px 3px;
+          color: $i700;
+        }
+      }
+    }
+  }
+
+  .dropdown-link:hover{
+    color: $secondaryWhiteText !important;
+  }
+
+  .logo-small {
+    height: 40px;
+  }
 
   .tournament-name-h1{
     text-align: center;
@@ -153,4 +232,9 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid black;
   border-radius: 5px;
   padding: 5px;
+}
+
+////////////////////////////////////////////////////////////// Tournament Dash
+.dark-blue {
+  color: $i700;
 }

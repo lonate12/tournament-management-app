@@ -37,15 +37,55 @@ var TournamentDashboardContainer = React.createClass({
   },
   render: function(){
     var self = this, teams = this.state.teams, games = this.state.games, standings = "Placeholder";
+    var gA = new TeamCollection(), gB = new TeamCollection(), gC = new TeamCollection, gD = new TeamCollection;
+    var groupArray = [gA, gB, gC, gD];
+
+    teams.each(function(team){
+      var group = team.get('group');
+      if(group == 'A'){
+        groupArray[0].add(team);
+      }else if(group == 'B'){
+        groupArray[1].add(team);
+      }else if(group == 'C'){
+        groupArray[2].add(team);
+      }else{
+        groupArray[3].add(team);
+      }
+    });
+
+    groupArray.forEach(function(group,i){
+      group = group.sortBy(function(team){
+        return -team.get('points');
+      });
+      return groupArray[i] = group;
+    });
+
+    groupArray.forEach(function(group,i){
+      group = group.map(function(team,i){
+        var classes;
+        if (i > 1){
+          classes = 'list-group-item list-group-item-danger';
+        }else{
+          classes = 'list-group-item list-group-item-success';
+        }
+
+        return(
+          <li key={team.get('objectId')} className={classes}>
+            {team.get('name')}
+            <span className="tag tag-default tag-pill pull-right">{team.get('points') + ' pts'}</span>
+          </li>
+        );
+      });
+      return groupArray[i] = group;
+    });
 
     var teamsList = teams.map(function(team){
       return (
-        <li key={team.get('objectId')} className="list-group-item"><a>{team.get('name')}</a></li>
+        <li key={team.get('objectId')} className="list-group-item bg-blue"><a>{team.get('name')}</a></li>
       );
     });
 
     var games = games.map(function(game){
-      console.log(game);
       return (
         <tr key={game.get('objectId')}>
           <td><a href={'#/tournaments/'+self.props.tournamentId+'/'+game.get('home_team').objectId+'/'}>{game.get('home_team_name')}</a> {game.get('home_team_score')}</td>
@@ -56,9 +96,9 @@ var TournamentDashboardContainer = React.createClass({
     });
 
     return(
-      <TournamentDashTemplate tournament={this.state.tournament}>
+      <TournamentDashTemplate teams={this.state.teams} tournament={this.state.tournament}>
         <div className="col-md-4">
-          <h1>Teams</h1>
+          <h1 className="white">Teams</h1>
           <ul className="list-group">
             {teamsList}
           </ul>
@@ -67,37 +107,39 @@ var TournamentDashboardContainer = React.createClass({
           <div className="row">
             <div className="col-md-12">
               <div className="row">
-                <h1>Standings</h1>
-                <div className="col-md-4">
-                  <h4>Group A</h4>
-                  <ul>
-                    <li>Group A</li>
-                  </ul>
-                </div>
-                <div className="col-md-4">
-                  <h4>Group B</h4>
-                  <ul>
-                    <li>Group B</li>
-                  </ul>
-                </div>
-                <div className="col-md-4">
-                  <h4>Group C</h4>
-                  <ul>
-                    <li>Group C</li>
-                  </ul>
-                </div>
-                <div className="col-md-4">
-                  <h4>Group D</h4>
-                  <ul>
-                    <li>Group D</li>
-                  </ul>
+                <h1 className="white">Standings</h1>
+                <div className="row">
+                  <div className="col-md-3">
+                    <h4 className="white">Group A</h4>
+                    <ul className="list-group">
+                      {groupArray[0]}
+                    </ul>
+                  </div>
+                  <div className="col-md-3">
+                    <h4 className="white">Group B</h4>
+                    <ul className="list-group">
+                      {groupArray[1]}
+                    </ul>
+                  </div>
+                  <div className="col-md-3">
+                    <h4 className="white">Group C</h4>
+                    <ul className="list-group">
+                      {groupArray[2]}
+                    </ul>
+                  </div>
+                  <div className="col-md-3">
+                    <h4 className="white">Group D</h4>
+                    <ul className="list-group">
+                      {groupArray[3]}
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
           <div className="row">
             <div className="col-md-12">
-              <h1>Games</h1>
+              <h1 className="white">Games</h1>
               <table className="table">
                 <thead>
                   <tr>

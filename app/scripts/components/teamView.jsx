@@ -2,6 +2,7 @@ var React = require('react');
 var TournamentDashTemplate = require('../display/tournamentDashTemplate.jsx').TournamentDashTemplate;
 var Tournament = require('../models/tournament.js').Tournament;
 var Team = require('../models/team.js').Team;
+var TeamCollection = require('../models/team.js').TeamCollection;
 
 var TeamViewContainer = React.createClass({
   getInitialState: function(){
@@ -11,12 +12,14 @@ var TeamViewContainer = React.createClass({
     return{
       tournament: tournament,
       currentTeam: currentTeam,
+      teams: new TeamCollection(),
       isLoadingWeather: true,
       isLoadingTeam: true
     }
   },
   componentWillMount: function(){
-    var self = this, tournament = this.state.tournament, team = this.state.currentTeam;
+    var self = this, tournament = this.state.tournament, team = this.state.currentTeam
+    , teams = this.state.teams;
 
     tournament.set('objectId', this.props.tournamentId);
     tournament.fetch().then(function(){
@@ -30,13 +33,17 @@ var TeamViewContainer = React.createClass({
       self.setState({isLoadingTeam: false});
     });
 
+    teams.parseWhere('tournament', 'Tournaments', this.props.tournamentId).fetch().then(function(){
+      self.setState({teams: teams});
+    });
+
 
   },
   render: function(){
     var currentTeam = this.state.currentTeam;
 
     return(
-      <TournamentDashTemplate tournament={this.state.tournament} isLoadingWeather={this.state.isLoadingWeather}>
+      <TournamentDashTemplate teams={this.state.teams} tournament={this.state.tournament} isLoadingWeather={this.state.isLoadingWeather}>
         <div className="row">
           <div className="col-md-4 loading-parent">
             <div className={this.state.isLoadingTeam ? 'show loading-div' : 'hidden loading-div'}></div>

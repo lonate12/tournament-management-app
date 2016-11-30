@@ -1,29 +1,64 @@
 var $ = require('jquery');
+var Backbone = require('backbone');
 var React = require('react');
 
 var TournamentDashTemplate = React.createClass({
   getInitialState: function(){
     return{
       tournament: this.props.tournament,
-      isLoadingWeather: true
+      isLoadingWeather: true,
+      dropDownToggled: false
     }
   },
   componentWillReceiveProps: function(nextProps){
     this.setState({tournament: nextProps.tournament, isLoadingWeather: nextProps.isLoadingWeather});
   },
+  toggleDropDown: function(e){
+    var tId = this.state.tournament.get('objectId');
+    var teamId;
+
+    if(e.target.id){
+      teamId = e.target.id;
+
+      Backbone.history.navigate('/tournaments/'+tId+'/'+teamId+'/', {trigger:true});
+      return;
+    }
+
+    this.setState({dropDownToggled: !this.state.dropDownToggled});
+    console.log(this.state.dropDownToggled);
+  },
   render: function(){
+    var self = this;
+    var teams = this.props.teams.map(function(team){
+      return(
+        <li key={team.cid} id={team.get('objectId')}>
+          {team.get('name')}
+        </li>
+      );
+    });
 
     return(
-      <div className="container">
-        <div className="row tournament-info-div">
-          <h1 className="col-sm-12 tournament-name-h1"><a href={'#/tournaments/'+this.state.tournament.get('objectId')+'/'}>{this.state.tournament.get('tournament_name') ? this.state.tournament.get('tournament_name') : 'Welcome'}</a></h1>
-          <div className="weather-info-div loading-parent">
-            <div className={this.props.isLoadingWeather ? 'show loading-div' : 'hidden loading-div'}></div>
-            <h4>Weather Info for {this.state.tournament.get('city')}, {this.state.tournament.get('state')}</h4>
-            <p>{this.state.tournament.get('weather_summary') ? this.state.tournament.get('weather_summary') : "Updating Weather"}</p>
-          </div>
-        </div>
-        <div className="row">
+      <div className="container-fluid">
+          <nav className="row tournament-nav">
+              <a className="navbar-brand" href="#">
+                <img className="logo-small img-fluid" alt="The Standings Logo" src="../../dist/images/the-standings-logo-white.png" />
+              </a>
+            <ul className="list-inline nav-list pull-right">
+              <li><a href={'#/tournaments/'+this.state.tournament.get('objectId')+'/'}>Overview</a></li>
+              <li onClick={this.toggleDropDown} className="toggle-parent"><a>Teams <i className="fa fa-caret-down"></i></a>
+                <ul className={this.state.dropDownToggled ? "show toggle-child" : "hidden toggle-child"}>
+                  {teams}
+                </ul>
+              </li>
+              <li><a href="#">Locations</a></li>
+            </ul>
+            <p className="tournament-name">
+              <a href={'#/tournaments/'+this.state.tournament.get('objectId')+'/'}>
+                {this.state.tournament.get('tournament_name') ? this.state.tournament.get('tournament_name') : 'Welcome'}
+              </a>
+            </p>
+          </nav>
+        <div className="row main-body">
           {this.props.children}
         </div>
       </div>
@@ -34,3 +69,10 @@ var TournamentDashTemplate = React.createClass({
 module.exports = {
   TournamentDashTemplate: TournamentDashTemplate
 };
+/*
+Weather Div
+  <div className={this.props.isLoadingWeather ? 'show loading-div' : 'hidden loading-div'}></div>
+  <h4>Weather Info for {this.state.tournament.get('city')}, {this.state.tournament.get('state')}</h4>
+  <p>{this.state.tournament.get('weather_summary') ? this.state.tournament.get('weather_summary') : "Updating Weather"}</p>
+  </div>
+*/
