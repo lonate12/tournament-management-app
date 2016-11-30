@@ -117,7 +117,7 @@ var TeamsTable = React.createClass({
             <td onClick={self.selectTeam} id={team.get('objectId')}>{team.get('name')}</td>
             <td className={team.get('have_paid') ? 'success' : 'danger'}>{team.get('have_paid') ? 'Have Paid' : 'Have Not Paid'}</td>
             <td className={team.get('have_waiver') ? 'success' : 'danger'}>{team.get('have_waiver') ? 'Have Turned in Waiver' : 'Have not turned in Waiver'}</td>
-            <td><button onClick={function(){self.props.deleteTeam(team)}} className="btn btn-danger">Delete Team</button></td>
+            <td><button onClick={function(){self.props.deleteTeam(team)}} className="btn btn-accent pull-right">Delete Team</button></td>
           </tr>
         );
       });
@@ -1000,17 +1000,19 @@ var AdminTournamentDash = React.createClass({
   },
   render: function(){
     return(
-      <TournamentDashTemplate tournament={this.state.tournament}>
+      <TournamentDashTemplate teams={this.state.teams} tournament={this.state.tournament}>
         <h1>AdminTournamentDash</h1>
         <button onClick={this.startPlayoffs} type="button" className="btn btn-primary">Create Quarter Finals</button>
         <button onClick={this.createSemis} type="button" className="btn btn-primary">Create Semi-Finals</button>
         <button onClick={this.createFinal} type="button" className="btn btn-primary">Create Final</button>
         <div className="row">
-          <TeamsTable
-            deleteTeam={this.deleteTeam}
-            teams={this.state.teams}
-            updateSelected={this.updateSelected}
-          />
+          <div className="col-md-10 col-md-offset-1">
+            <TeamsTable
+              deleteTeam={this.deleteTeam}
+              teams={this.state.teams}
+              updateSelected={this.updateSelected}
+            />
+          </div>
         </div>
         <div className="row">
           {this.state.teams.length == 16 ? <GroupsDraggable teams={this.state.teams} /> : null}

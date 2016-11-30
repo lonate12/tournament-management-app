@@ -46,6 +46,10 @@ h1, h2, h3, h4, h5, h6, table {
   font-family: 'limo';
 }
 
+.limo {
+  font-family: 'limo';
+}
+
 .loading-parent {
   position: relative;
   min-height: 100px;
@@ -65,10 +69,6 @@ h1, h2, h3, h4, h5, h6, table {
   border-radius: 4px;
   padding: 0;
   margin: 0;
-}
-
-.list-group {
-
 }
 
 .main-bg {
@@ -105,6 +105,22 @@ h1, h2, h3, h4, h5, h6, table {
 .top-level{
   position: relative;
   z-index: 52;
+}
+
+.btn-accent {
+  background-color: $accent;
+}
+
+.parent{
+  position: relative;
+}
+
+.child{
+  position: absolute;
+}
+
+.inline-block{
+  display: inline-block;
 }
 
 ////////////////////////////////////////////////////////// Landing Page Styles
@@ -171,6 +187,9 @@ h1, h2, h3, h4, h5, h6, table {
 
 .main-body {
   background-color: $i200;
+  height: 100%;
+  padding-bottom: 40px;
+  min-height: 100vh;
 }
 
 .tournament-nav{
@@ -263,6 +282,25 @@ h1, h2, h3, h4, h5, h6, table {
   padding: 5px;
 }
 
+.footer{
+  height: 60px;
+
+  .logo-small{
+    width: 200px;
+    margin-top: 25px;
+    padding-left: 25px;
+  }
+  .parent{
+    width: 500px;
+  }
+
+  .copyright {
+    padding-left: 15px;
+    color: $secondaryWhiteText;
+    bottom: 0;
+  }
+
+}
 ////////////////////////////////////////////////////////////// Tournament Dash Pub
 
 .list-group-item-danger{
@@ -323,6 +361,11 @@ h1, h2, h3, h4, h5, h6, table {
   border-left: 1px solid $i800;
   border-bottom: 1px solid $i800;
   border-right: 1px solid $i800;
+}
+
+.temp{
+  font-size: 6vh;
+  margin-top: 6vh;
 }
 
 ////////////////////////////////////////////////////////////// Tournament List
@@ -406,3 +449,5 @@ h1, h2, h3, h4, h5, h6, table {
   display: block;
   margin: 0 auto;
 }
+
+////////////////////////////////////////////////////////////// Tournament Admin
