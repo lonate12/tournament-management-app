@@ -38,7 +38,11 @@ img {
   max-width: 100%;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, table {
+  font-family: 'limo';
+}
+
+.list-group-item{
   font-family: 'limo';
 }
 
@@ -53,12 +57,14 @@ h1, h2, h3, h4, h5, h6 {
   bottom: 0;
   right: 0;
   left: 0;
-  background-color: $i200;
+  background-color: $i500;
   background-image: url('../images/ring-alt.svg');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   border-radius: 4px;
+  padding: 0;
+  margin: 0;
 }
 
 .list-group {
@@ -78,7 +84,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .bg-blue {
-  background-color: $i800;
+  background-color: $i700;
   color: $accent;
 }
 
@@ -94,6 +100,11 @@ h1, h2, h3, h4, h5, h6 {
 
 .dark-blue {
   color: $i700;
+}
+
+.top-level{
+  position: relative;
+  z-index: 52;
 }
 
 ////////////////////////////////////////////////////////// Landing Page Styles
@@ -149,7 +160,7 @@ h1, h2, h3, h4, h5, h6 {
   background-color: $i200;
   cursor: pointer;
   h3, i {
-    color: $i800;
+    color: $i700;
   }
   .accent {
     color: $primaryWhiteText;
@@ -252,12 +263,46 @@ h1, h2, h3, h4, h5, h6 {
   padding: 5px;
 }
 
-////////////////////////////////////////////////////////////// Tournament Dash
+////////////////////////////////////////////////////////////// Tournament Dash Pub
+
+.list-group-item-danger{
+  background-color: white;
+  color: $primaryText;
+}
+.t-dash-pub-ul{
+  border: none;
+
+  .list-group-item{
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid $secondaryWhiteText;
+    color: $primaryWhiteText;
+  }
+  li:hover{
+    color: $accent;
+    background-color: $i800;
+  }
+
+  a:hover{
+    color: $accent;
+  }
+}
+
 ////////////////////////////////////////////////////////////// Tournament List
+.t-list-header{
+  background-color: $i700;
+
+  .logo-small{
+    padding-top: 8px;
+    width: 15vw;
+    height: 100%;
+  }
+}
 .list-view-header {
   background-color: $i700;
   color: $primaryWhiteText;
-  font-size: 20vh;
+  font-size: 16vh;
   margin: 0;
   padding: 20px;
 }
@@ -268,9 +313,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .tournament-li{
-  font-size: 12vh;
+  font-size: 8vh;
   border-bottom: 1px solid rgba(63,81,181,.25);
-  padding: 20px 15px;
+  padding: 20px 5px 20px 25px;
 }
 
 .tournament-li:hover{
@@ -280,19 +325,23 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .ReactModal__Content--after-open {
-  background-color: $i200 !important;
+  background-color: $i500 !important;
   padding: 0 !important;
 
   .tournament-ul-modal {
     list-style: none;
     font-family: 'limo';
-    background-color: $i200;
+    background-color: $i500;
     padding: 20px 40px;
     font-size: 8vh;
   }
 
-  .modal-li:hover{
+  .modal-li{
     color: $secondaryWhiteText;
+  }
+
+  .modal-li:hover{
+    color: $primaryWhiteText;
   }
 
   .modal-li a:hover{

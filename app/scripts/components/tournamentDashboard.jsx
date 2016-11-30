@@ -3,6 +3,7 @@ var TournamentDashTemplate = require('../display/tournamentDashTemplate.jsx').To
 var Tournament = require('../models/tournament.js').Tournament;
 var TeamCollection = require('../models/team.js').TeamCollection;
 var GameCollection = require('../models/game.js').GameCollection;
+var moment = require('moment');
 
 var TournamentDashboardContainer = React.createClass({
   getInitialState: function(){
@@ -81,16 +82,24 @@ var TournamentDashboardContainer = React.createClass({
 
     var teamsList = teams.map(function(team){
       return (
-        <li key={team.get('objectId')} className="list-group-item bg-blue"><a>{team.get('name')}</a></li>
+        <a key={team.get('objectId')} href={'#/tournaments/'+self.props.tournamentId+'/'+team.get('objectId')+'/'}>
+          <li className="list-group-item bg-blue">
+            {team.get('name')}
+          </li>
+        </a>
       );
     });
 
     var games = games.map(function(game){
+      var time = game.get('time');
+
       return (
         <tr key={game.get('objectId')}>
           <td><a href={'#/tournaments/'+self.props.tournamentId+'/'+game.get('home_team').objectId+'/'}>{game.get('home_team_name')}</a> {game.get('home_team_score')}</td>
           <td><a href={'#/tournaments/'+self.props.tournamentId+'/'+game.get('home_team').objectId+'/'}>{game.get('away_team_name')}</a> {game.get('away_team_score')}</td>
           <td><a href={'#/tournaments/'+self.props.tournamentId+'/fields/'+game.get('location').objectId+'/'}>{game.get('location_name')}</a></td>
+          <td>{time ? moment(time).format("dddd, MM/DD") : "TBD"}</td>
+          <td>{time ? moment(time).format("h:mm a") : "TBD"}</td>
         </tr>
       );
     });
@@ -99,53 +108,46 @@ var TournamentDashboardContainer = React.createClass({
       <TournamentDashTemplate teams={this.state.teams} tournament={this.state.tournament}>
         <div className="col-md-4">
           <h1 className="white">Teams</h1>
-          <ul className="list-group">
+          <ul className="list-group t-dash-pub-ul">
             {teamsList}
           </ul>
         </div>
         <div className="col-md-8">
-          <div className="row">
-            <div className="col-md-12">
-              <div className="row">
-                <h1 className="white">Standings</h1>
-                <div className="row">
-                  <div className="col-md-3">
-                    <h4 className="white">Group A</h4>
-                    <ul className="list-group">
-                      {groupArray[0]}
-                    </ul>
-                  </div>
-                  <div className="col-md-3">
-                    <h4 className="white">Group B</h4>
-                    <ul className="list-group">
-                      {groupArray[1]}
-                    </ul>
-                  </div>
-                  <div className="col-md-3">
-                    <h4 className="white">Group C</h4>
-                    <ul className="list-group">
-                      {groupArray[2]}
-                    </ul>
-                  </div>
-                  <div className="col-md-3">
-                    <h4 className="white">Group D</h4>
-                    <ul className="list-group">
-                      {groupArray[3]}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <h1 className="col-md-12 white">Standings</h1>
+          <div className="col-md-3">
+            <h4 className="white">Group A</h4>
+            <ul className="list-group">
+              {groupArray[0]}
+            </ul>
+          </div>
+          <div className="col-md-3">
+            <h4 className="white">Group B</h4>
+            <ul className="list-group">
+              {groupArray[1]}
+            </ul>
+          </div>
+          <div className="col-md-3">
+            <h4 className="white">Group C</h4>
+            <ul className="list-group">
+              {groupArray[2]}
+            </ul>
+          </div>
+          <div className="col-md-3">
+            <h4 className="white">Group D</h4>
+            <ul className="list-group">
+              {groupArray[3]}
+            </ul>
           </div>
           <div className="row">
             <div className="col-md-12">
               <h1 className="white">Games</h1>
-              <table className="table">
+              <table className="table col-md-12">
                 <thead>
                   <tr>
                     <th>Home Team</th>
                     <th>Away Team</th>
                     <th>Location</th>
+                    <th>Date</th>
                     <th>Time</th>
                   </tr>
                 </thead>

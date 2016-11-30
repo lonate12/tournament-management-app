@@ -40,7 +40,7 @@ var ModalComponent = React.createClass({
       buttonClass = this.state.teamCollection.length > 15 ? "btn btn-accent hidden" : buttonClass;
       teams = this.state.teamCollection.map(function(team){
         return(
-          <li key={team.get('objectId')} className="modal-li"><a href={'#/tournaments/'+self.props.tournamentId+'/'+team.get('objectId')+'/'}>{team.get('name')}</a></li>
+          <a href={'#/tournaments/'+self.props.tournamentId+'/'+team.get('objectId')+'/'}><li key={team.get('objectId')} className="modal-li">{team.get('name')}</li></a>
         );
       });
     }
@@ -112,9 +112,14 @@ var TournamentListView = React.createClass({
     return(
       <div className="container-fluid">
         <div className="row">
-          <h1 className="col-sm-12 text-center list-view-header">Choose your tournament</h1>
+          <div className="col-md-12 t-list-header">
+            <a href="#">
+              <img className="logo-small img-fluid" alt="The Standings Logo" src="../../dist/images/the-standings-logo-white.png" />
+            </a>
+            <h1 className="col-sm-12 text-center list-view-header">Choose your tournament</h1>
+          </div>
         </div>
-        <div className="row bg-light loading-parent">
+        <div className="row bg-blue loading-parent">
           <div className={this.state.isLoading ? 'show loading-div' : 'hidden loading-div'}></div>
           <ul className="col-md-10 col-md-offset-1 bg-white tournament-ul">
             {tournaments}

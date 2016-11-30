@@ -14,20 +14,6 @@ var TournamentDashTemplate = React.createClass({
   componentWillReceiveProps: function(nextProps){
     this.setState({tournament: nextProps.tournament, isLoadingWeather: nextProps.isLoadingWeather});
   },
-  // toggleDropDown: function(e){
-  //   var tId = this.state.tournament.get('objectId');
-  //   var teamId;
-  //
-  //   if(e.target.id){
-  //     teamId = e.target.id;
-  //
-  //     Backbone.history.navigate('/tournaments/'+tId+'/'+teamId+'/', {trigger:true});
-  //     return;
-  //   }
-  //
-  //   this.setState({dropDownToggled: !this.state.dropDownToggled});
-  //   console.log(this.state.dropDownToggled);
-  // },
   render: function(){
     var self = this;
     var teams = this.props.teams.map(function(team){
@@ -43,11 +29,11 @@ var TournamentDashTemplate = React.createClass({
     return(
       <div className="container-fluid">
           <nav className="row tournament-nav">
-              <a className="navbar-brand" href="#">
+              <a className="navbar-brand top-level" href="#/">
                 <img className="logo-small img-fluid" alt="The Standings Logo" src="../../dist/images/the-standings-logo-white.png" />
               </a>
             <ul className="list-inline nav-list pull-right">
-              <li><a href={'#/tournaments/'+this.state.tournament.get('objectId')+'/'}>Overview</a></li>
+              <li><a href={'#/tournaments/'+this.state.tournament.get('objectId')+'/'}>Tournament Overview</a></li>
               <li className="dropdown">
                 <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                   Teams <i className="fa fa-caret-down"></i></a>
