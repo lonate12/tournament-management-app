@@ -289,6 +289,42 @@ h1, h2, h3, h4, h5, h6, table {
   }
 }
 
+.weather-btn{
+  position: absolute;
+  background-color: $i500;
+  border: none;
+  font-family: 'limo';
+  bottom: 0;
+}
+
+.weather-btn:focus{
+  background-color: inherit;
+  outline: 0;
+  color: $accent;
+}
+
+.weather-btn:hover{
+  background-color: inherit;
+  color: $accent;
+}
+
+.weather-btn:active{
+  background-color: inherit;
+  outline: 0;
+  color: $accent;
+}
+
+.weather-div{
+  background-color: white;
+  color: $i700;
+  position: absolute;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-left: 1px solid $i800;
+  border-bottom: 1px solid $i800;
+  border-right: 1px solid $i800;
+}
+
 ////////////////////////////////////////////////////////////// Tournament List
 .t-list-header{
   background-color: $i700;

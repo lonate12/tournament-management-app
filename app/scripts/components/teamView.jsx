@@ -82,8 +82,6 @@ var TeamViewContainer = React.createClass({
       var opponent = opponentArray[0];
       opponent = self.state.teams.get(opponent);
 
-      console.log(game);
-
       return (
         <tr key={game.get('objectId')}>
           <td>{opponent ? opponent.get('name') : 'Loading...'}</td>

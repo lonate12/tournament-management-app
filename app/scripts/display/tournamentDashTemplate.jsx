@@ -29,9 +29,9 @@ var TournamentDashTemplate = React.createClass({
     return(
       <div className="container-fluid">
           <nav className="row tournament-nav">
-              <a className="navbar-brand top-level" href="#/">
-                <img className="logo-small img-fluid" alt="The Standings Logo" src="../../dist/images/the-standings-logo-white.png" />
-              </a>
+            <a className="navbar-brand top-level" href="#/">
+              <img className="logo-small img-fluid" alt="The Standings Logo" src="../../dist/images/the-standings-logo-white.png" />
+            </a>
             <ul className="list-inline nav-list pull-right">
               <li><a href={'#/tournaments/'+this.state.tournament.get('objectId')+'/'}>Tournament Overview</a></li>
               <li className="dropdown">
@@ -39,7 +39,7 @@ var TournamentDashTemplate = React.createClass({
                   Teams <i className="fa fa-caret-down"></i></a>
                 <ul className="dropdown-menu">
                     {teams}
-                  </ul>
+                </ul>
               </li>
               <li><a href="#">Locations</a></li>
             </ul>
@@ -48,6 +48,14 @@ var TournamentDashTemplate = React.createClass({
                 {this.state.tournament.get('tournament_name') ? this.state.tournament.get('tournament_name') : 'Welcome'}
               </a>
             </p>
+            <button className="btn btn-primary weather-btn top-level" type="button" data-toggle="collapse" data-target="#weather-info" aria-expanded="false" aria-controls="collapseExample">
+              Weather Forcast <i className="fa fa-caret-down" aria-hidden="true"></i>
+            </button>
+            <div className="weather-div collapse col-md-10 col-md-offset-1 loading-parent top-level" id="weather-info">
+              <h4>Weather Info for {this.state.tournament.get('city')}, {this.state.tournament.get('state')}</h4>
+              <p>{this.state.tournament.get('weather_summary') ? this.state.tournament.get('weather_summary') : "Updating Weather..."}</p>
+              <div className={this.props.isLoadingWeather ? 'show loading-div' : 'hidden loading-div'}></div>
+            </div>
           </nav>
         <div className="row main-body">
           {this.props.children}
@@ -60,10 +68,3 @@ var TournamentDashTemplate = React.createClass({
 module.exports = {
   TournamentDashTemplate: TournamentDashTemplate
 };
-/*
-Weather Div
-  <div className={this.props.isLoadingWeather ? 'show loading-div' : 'hidden loading-div'}></div>
-  <h4>Weather Info for {this.state.tournament.get('city')}, {this.state.tournament.get('state')}</h4>
-  <p>{this.state.tournament.get('weather_summary') ? this.state.tournament.get('weather_summary') : "Updating Weather"}</p>
-  </div>
-*/
