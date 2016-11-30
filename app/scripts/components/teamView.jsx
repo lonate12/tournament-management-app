@@ -6,6 +6,7 @@ var TeamCollection = require('../models/team.js').TeamCollection;
 
 var TeamViewContainer = React.createClass({
   getInitialState: function(){
+    console.log('check');
     var tournament = new Tournament();
     var currentTeam = new Team();
 
@@ -18,6 +19,7 @@ var TeamViewContainer = React.createClass({
     }
   },
   componentWillMount: function(){
+    console.log("willMount");
     var self = this, tournament = this.state.tournament, team = this.state.currentTeam
     , teams = this.state.teams;
 
