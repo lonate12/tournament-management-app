@@ -5806,6 +5806,17 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #283593;
   color: #FFAB40; }
 
+.bg-light {
+  background-color: #9FA8DA;
+  color: rgba(0, 0, 0, 0.87); }
+
+.bg-white {
+  background-color: white;
+  color: #303F9F; }
+
+.dark-blue {
+  color: #303F9F; }
+
 .hero {
   height: 100vh;
   width: 100%;
@@ -5921,7 +5932,38 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 5px;
   padding: 5px; }
 
-.dark-blue {
-  color: #303F9F; }
+.list-view-header {
+  background-color: #303F9F;
+  color: white;
+  font-size: 20vh;
+  margin: 0;
+  padding: 20px; }
+
+.tournament-ul {
+  list-style: none;
+  font-family: 'limo'; }
+
+.tournament-li {
+  font-size: 12vh;
+  border-bottom: 1px solid rgba(63, 81, 181, 0.25);
+  padding: 20px 15px; }
+
+.tournament-li:hover {
+  background-color: #303F9F;
+  color: #FFAB40;
+  cursor: pointer; }
+
+.ReactModal__Content--after-open {
+  background-color: #9FA8DA !important; }
+  .ReactModal__Content--after-open .tournament-ul-modal {
+    list-style: none;
+    font-family: 'limo';
+    background-color: #9FA8DA;
+    padding: 20px;
+    font-size: 8vh; }
+  .ReactModal__Content--after-open .btn-accent {
+    background-color: #FFAB40;
+    font-size: 18px;
+    color: #283593; }
 
 /*# sourceMappingURL=app.css.map */
