@@ -31,7 +31,7 @@ var TournamentDashTemplate = React.createClass({
       <div className="container-fluid">
           <nav className="row tournament-nav">
             <a className="navbar-brand top-level" href="#/">
-              <img className="logo-small img-fluid" alt="The Standings Logo" src="../../dist/images/the-standings-logo-white.png" />
+              <img className="logo-small img-fluid" alt="The Standings Logo" src="images/the-standings-logo-white.png" />
             </a>
             <ul className="list-inline nav-list pull-right">
               <li><a href={'#/tournaments/'+this.state.tournament.get('objectId')+'/'}>Tournament Overview</a></li>
@@ -76,7 +76,7 @@ var TournamentDashTemplate = React.createClass({
           <footer className="footer bg-blue">
             <a href="#">
               <div className="parent inline-block">
-                <img src="../../dist/images/the-standings-logo-white.png" className="logo-small" />
+                <img src="images/the-standings-logo-white.png" className="logo-small" />
                 <span className="limo copyright child">Copyright &copy; 2016 Luis Rene Onate</span>
               </div>
             </a>

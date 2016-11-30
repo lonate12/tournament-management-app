@@ -114,7 +114,7 @@ var TournamentListView = React.createClass({
         <div className="row">
           <div className="col-md-12 t-list-header">
             <a href="#">
-              <img className="logo-small img-fluid" alt="The Standings Logo" src="../../dist/images/the-standings-logo-white.png" />
+              <img className="logo-small img-fluid" alt="The Standings Logo" src="images/the-standings-logo-white.png" />
             </a>
             <h1 className="col-sm-12 text-center list-view-header">Choose your tournament</h1>
           </div>

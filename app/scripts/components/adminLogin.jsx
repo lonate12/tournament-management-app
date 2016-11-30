@@ -54,7 +54,7 @@ var AdminLoginContainer = React.createClass({
           </form>
           <div className="row">
             <div className="col-md-8 col-md-offset-2">
-              <p className="pull-right">Don't have an account? Contact <a href="mailto:lonate12@gmail.com?Subject=Interest%20in%20using%20manageTourney!">Rene</a> for a special link to sign up!</p>
+              <p className="pull-right">Don't have an account? Contact <a href="mailto:lonate12@gmail.com?Subject=Interested%20in%20using%20The%20Standings!"><span className="accent">Rene</span></a> for a special link to sign up!</p>
             </div>
           </div>
         </div>
