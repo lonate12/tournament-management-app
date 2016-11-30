@@ -5773,7 +5773,10 @@ a {
 img {
   max-width: 100%; }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, table {
+  font-family: 'limo'; }
+
+.list-group-item {
   font-family: 'limo'; }
 
 .loading-parent {
@@ -5786,12 +5789,14 @@ h1, h2, h3, h4, h5, h6 {
   bottom: 0;
   right: 0;
   left: 0;
-  background-color: #9FA8DA;
+  background-color: #3F51B5;
   background-image: url("../images/ring-alt.svg");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  border-radius: 4px; }
+  border-radius: 4px;
+  padding: 0;
+  margin: 0; }
 
 .main-bg {
   background-color: #3F51B5; }
@@ -5803,7 +5808,7 @@ h1, h2, h3, h4, h5, h6 {
   color: white; }
 
 .bg-blue {
-  background-color: #283593;
+  background-color: #303F9F;
   color: #FFAB40; }
 
 .bg-light {
@@ -5816,6 +5821,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .dark-blue {
   color: #303F9F; }
+
+.top-level {
+  position: relative;
+  z-index: 52; }
 
 .hero {
   height: 100vh;
@@ -5859,7 +5868,7 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #9FA8DA;
   cursor: pointer; }
   .tile:hover h3, .tile:hover i {
-    color: #283593; }
+    color: #303F9F; }
   .tile:hover .accent {
     color: white; }
 
@@ -5932,10 +5941,35 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 5px;
   padding: 5px; }
 
+.list-group-item-danger {
+  background-color: white;
+  color: rgba(0, 0, 0, 0.87); }
+
+.t-dash-pub-ul {
+  border: none; }
+  .t-dash-pub-ul .list-group-item {
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+    color: white; }
+  .t-dash-pub-ul li:hover {
+    color: #FFAB40;
+    background-color: #283593; }
+  .t-dash-pub-ul a:hover {
+    color: #FFAB40; }
+
+.t-list-header {
+  background-color: #303F9F; }
+  .t-list-header .logo-small {
+    padding-top: 8px;
+    width: 15vw;
+    height: 100%; }
+
 .list-view-header {
   background-color: #303F9F;
   color: white;
-  font-size: 20vh;
+  font-size: 16vh;
   margin: 0;
   padding: 20px; }
 
@@ -5944,9 +5978,9 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'limo'; }
 
 .tournament-li {
-  font-size: 12vh;
+  font-size: 8vh;
   border-bottom: 1px solid rgba(63, 81, 181, 0.25);
-  padding: 20px 15px; }
+  padding: 20px 5px 20px 25px; }
 
 .tournament-li:hover {
   background-color: #303F9F;
@@ -5954,16 +5988,26 @@ h1, h2, h3, h4, h5, h6 {
   cursor: pointer; }
 
 .ReactModal__Content--after-open {
-  background-color: #9FA8DA !important; }
+  background-color: #3F51B5 !important;
+  padding: 0 !important; }
   .ReactModal__Content--after-open .tournament-ul-modal {
     list-style: none;
     font-family: 'limo';
-    background-color: #9FA8DA;
-    padding: 20px;
+    background-color: #3F51B5;
+    padding: 20px 40px;
     font-size: 8vh; }
+  .ReactModal__Content--after-open .modal-li {
+    color: rgba(255, 255, 255, 0.7); }
+  .ReactModal__Content--after-open .modal-li:hover {
+    color: white; }
+  .ReactModal__Content--after-open .modal-li a:hover {
+    color: inherit; }
   .ReactModal__Content--after-open .btn-accent {
     background-color: #FFAB40;
     font-size: 18px;
-    color: #283593; }
+    color: #283593;
+    margin: 0 0 20px 40px; }
+  .ReactModal__Content--after-open .modal-header {
+    margin-top: 0; }
 
 /*# sourceMappingURL=app.css.map */
