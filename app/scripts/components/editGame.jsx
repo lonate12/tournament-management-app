@@ -77,7 +77,7 @@ var EditGame = React.createClass({
     });
   },
   render: function(){
-    var teams = 'Teams Loading...', locations = 'Locations Loading...';
+    var teams = 'Teams Loading...', locations = 'Locations Loading...', game = this.state.game;
 
     teams = this.state.teams.map(function(team){
       return(
@@ -91,18 +91,26 @@ var EditGame = React.createClass({
       );
     });
 
+    var isPlayoff = function(){
+      if (game.get('quarter_final') || game.get('semi_final') || game.get('final')){
+        return true;
+      }else{
+        return false;
+      }
+    };
+
     return(
       <form onSubmit={this.updateGame}>
         <div className="form-group">
           <label htmlFor="home_team">Home Team</label>
-          <select value={this.state.home_team} onChange={this.handleTeam} className="form-control" name="home_team">
+          <select disabled={isPlayoff ? "disabled" : false} value={this.state.home_team} onChange={this.handleTeam} className="form-control" name="home_team">
             <option>--Home Team--</option>
             {teams}
           </select>
         </div>
         <div className="form-group">
           <label htmlFor="away_team">Away Team</label>
-          <select value={this.state.away_team} onChange={this.handleTeam} className="form-control" name="away_team">
+          <select disabled={isPlayoff ? "disabled" : false} value={this.state.away_team} onChange={this.handleTeam} className="form-control" name="away_team">
             <option>--Away Team--</option>
             {teams}
           </select>

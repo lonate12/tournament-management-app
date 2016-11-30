@@ -97,20 +97,6 @@ var EditGameScore = React.createClass({
     ]).then(function(){
         Backbone.history.navigate('/tournaments/'+self.props.tournamentId+'/admin/',{trigger: true});
     });
-
-    // home_team.save().then(function(){
-    //   ajaxCounter += 1;
-    //   if (ajaxCounter == 3) {
-    //     Backbone.history.navigate('/tournaments/'+self.props.tournamentId+'/admin/',{trigger: true});
-    //   }
-    // });
-    //
-    // away_team.save().then(function(){
-    //   ajaxCounter += 1;
-    //   if (ajaxCounter == 3) {
-    //     Backbone.history.navigate('/tournaments/'+self.props.tournamentId+'/admin/',{trigger: true});
-    //   }
-    // });
   },
   render: function(){
     var game = this.state.game, home_team = this.state.home_team, away_team = this.state.away_team;
@@ -124,8 +110,8 @@ var EditGameScore = React.createClass({
               <h2>{home_team.get('name')}</h2>
               <h1>{game.get('home_team_score')}</h1>
               <div className="row">
-                <button onClick={this.subtractScoreHome} className="glyphicon glyphicon-minus-sign col-xs-6 minus-score btn btn-danger"></button>
-                <button onClick={this.addScoreHome} className="glyphicon glyphicon-plus-sign col-xs-6 add-score btn btn-success"></button>
+                <button onClick={this.subtractScoreHome} className="fa fa-minus-circle col-xs-6 minus-score btn btn-danger"></button>
+                <button onClick={this.addScoreHome} className="fa fa-plus-circle col-xs-6 add-score btn btn-success"></button>
               </div>
             </div>
           </div>
@@ -134,8 +120,8 @@ var EditGameScore = React.createClass({
               <h2>{away_team.get('name')}</h2>
               <h1>{game.get('away_team_score')}</h1>
               <div className="row">
-                <button onClick={this.subtractScoreAway} className="glyphicon glyphicon-minus-sign col-xs-6 minus-score btn btn-danger"></button>
-                <button onClick={this.addScoreAway} className="glyphicon glyphicon-plus-sign col-xs-6 add-score btn btn-success"></button>
+                <button onClick={this.subtractScoreAway} className="fa fa-minus-circle col-xs-6 minus-score btn btn-danger"></button>
+                <button onClick={this.addScoreAway} className="fa fa-plus-circle col-xs-6 add-score btn btn-success"></button>
               </div>
             </div>
           </div>

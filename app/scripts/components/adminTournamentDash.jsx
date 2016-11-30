@@ -620,31 +620,31 @@ var GroupsDraggable = React.createClass({
 
     noGroup = teams.map(function(team){
       return(
-        <li key={team.get('objectId')} id={team.get('objectId')} className="list-group-item col-sm-3">{team.get('name')}<span className="glyphicon glyphicon-move pull-right"></span></li>
+        <li key={team.get('objectId')} id={team.get('objectId')} className="list-group-item col-sm-3">{team.get('name')}<i className="fa fa-arrows pull-right"></i></li>
       );
     });
 
     listA = groupA.map(function(team){
       return(
-        <li key={team.get('objectId')} id={team.get('objectId')} className="list-group-item">{team.get('name')}<span className="glyphicon glyphicon-move pull-right"></span></li>
+        <li key={team.get('objectId')} id={team.get('objectId')} className="list-group-item">{team.get('name')}<i className="fa fa-arrows pull-right"></i></li>
       );
     });
 
     listB = groupB.map(function(team){
       return(
-        <li key={team.get('objectId')} id={team.get('objectId')} className="list-group-item">{team.get('name')}<span className="glyphicon glyphicon-move pull-right"></span></li>
+        <li key={team.get('objectId')} id={team.get('objectId')} className="list-group-item">{team.get('name')}<i className="fa fa-arrows pull-right"></i></li>
       );
     });
 
     listC = groupC.map(function(team){
       return(
-        <li key={team.get('objectId')} id={team.get('objectId')} className="list-group-item">{team.get('name')}<span className="glyphicon glyphicon-move pull-right"></span></li>
+        <li key={team.get('objectId')} id={team.get('objectId')} className="list-group-item">{team.get('name')}<i className="fa fa-arrows pull-right"></i></li>
       );
     });
 
     listD = groupD.map(function(team){
       return(
-        <li key={team.get('objectId')} id={team.get('objectId')} className="list-group-item">{team.get('name')}<span className="glyphicon glyphicon-move pull-right"></span></li>
+        <li key={team.get('objectId')} id={team.get('objectId')} className="list-group-item">{team.get('name')}<i className="fa fa-arrows pull-right"></i></li>
       );
     });
 
