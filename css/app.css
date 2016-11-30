@@ -5779,6 +5779,9 @@ h1, h2, h3, h4, h5, h6, table {
 .list-group-item {
   font-family: 'limo'; }
 
+.limo {
+  font-family: 'limo'; }
+
 .loading-parent {
   position: relative;
   min-height: 100px; }
@@ -5825,6 +5828,18 @@ h1, h2, h3, h4, h5, h6, table {
 .top-level {
   position: relative;
   z-index: 52; }
+
+.btn-accent {
+  background-color: #FFAB40; }
+
+.parent {
+  position: relative; }
+
+.child {
+  position: absolute; }
+
+.inline-block {
+  display: inline-block; }
 
 .hero {
   height: 100vh;
@@ -5873,7 +5888,10 @@ h1, h2, h3, h4, h5, h6, table {
     color: white; }
 
 .main-body {
-  background-color: #9FA8DA; }
+  background-color: #9FA8DA;
+  height: 100%;
+  padding-bottom: 40px;
+  min-height: 100vh; }
 
 .tournament-nav {
   background-color: #3F51B5;
@@ -5941,6 +5959,19 @@ h1, h2, h3, h4, h5, h6, table {
   border-radius: 5px;
   padding: 5px; }
 
+.footer {
+  height: 60px; }
+  .footer .logo-small {
+    width: 200px;
+    margin-top: 25px;
+    padding-left: 25px; }
+  .footer .parent {
+    width: 500px; }
+  .footer .copyright {
+    padding-left: 15px;
+    color: rgba(255, 255, 255, 0.7);
+    bottom: 0; }
+
 .list-group-item-danger {
   background-color: white;
   color: rgba(0, 0, 0, 0.87); }
@@ -5989,6 +6020,10 @@ h1, h2, h3, h4, h5, h6, table {
   border-left: 1px solid #283593;
   border-bottom: 1px solid #283593;
   border-right: 1px solid #283593; }
+
+.temp {
+  font-size: 6vh;
+  margin-top: 6vh; }
 
 .t-list-header {
   background-color: #303F9F; }
