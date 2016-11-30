@@ -61,6 +61,10 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 4px;
 }
 
+.list-group {
+
+}
+
 .main-bg {
   background-color: $i500;
 }
@@ -76,6 +80,20 @@ h1, h2, h3, h4, h5, h6 {
 .bg-blue {
   background-color: $i800;
   color: $accent;
+}
+
+.bg-light {
+  background-color: $i200;
+  color: $primaryText;
+}
+
+.bg-white {
+  background-color: $primaryWhiteText;
+  color: $i700;
+}
+
+.dark-blue {
+  color: $i700;
 }
 
 ////////////////////////////////////////////////////////// Landing Page Styles
@@ -235,6 +253,46 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ////////////////////////////////////////////////////////////// Tournament Dash
-.dark-blue {
-  color: $i700;
+////////////////////////////////////////////////////////////// Tournament List
+.list-view-header {
+  background-color: $i700;
+  color: $primaryWhiteText;
+  font-size: 20vh;
+  margin: 0;
+  padding: 20px;
+}
+
+.tournament-ul{
+  list-style: none;
+  font-family: 'limo';
+}
+
+.tournament-li{
+  font-size: 12vh;
+  border-bottom: 1px solid rgba(63,81,181,.25);
+  padding: 20px 15px;
+}
+
+.tournament-li:hover{
+  background-color: $i700;
+  color: $accent;
+  cursor: pointer;
+}
+
+.ReactModal__Content--after-open {
+  background-color: $i200 !important;
+
+  .tournament-ul-modal {
+    list-style: none;
+    font-family: 'limo';
+    background-color: $i200;
+    padding: 20px;
+    font-size: 8vh;
+  }
+
+  .btn-accent {
+    background-color: $accent;
+    font-size: 18px;
+    color: $i800;
+  }
 }

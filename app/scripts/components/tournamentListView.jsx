@@ -48,11 +48,11 @@ var ModalComponent = React.createClass({
         isOpen={this.state.modalIsOpen}
         onRequestClose={this.closeModal} >
 
-        <ul>
+        <ul className="tournament-ul-modal">
           <h1>Choose your team</h1>
           {teams ? teams : null}
         </ul>
-        <button type="button" onClick={this.handleClick} className="btn btn-success">Register Team</button>
+        <button type="button" onClick={this.handleClick} className="btn btn-accent">Register Team</button>
       </Modal>
     );
   }
@@ -98,16 +98,26 @@ var TournamentListView = React.createClass({
 
     var tournaments = this.state.tournamentCollection.map(function(tournament){
       return (
-        <li onClick={self.loadTeams} key={tournament.cid} id={tournament.get('objectId')}>{tournament.get('tournament_name')}</li>
+        <li
+          onClick={self.loadTeams}
+          key={tournament.cid}
+          id={tournament.get('objectId')}
+          className="row tournament-li"
+        >{tournament.get('tournament_name')}</li>
       );
     });
 
     return(
-      <div className="loading-parent">
-        <div className={this.state.isLoading ? 'show loading-div' : 'hidden loading-div'}></div>
-        <ul>
-          {tournaments}
-        </ul>
+      <div className="container-fluid">
+        <div className="row">
+          <h1 className="col-sm-12 text-center list-view-header">Choose your tournament</h1>
+        </div>
+        <div className="row bg-light loading-parent">
+          <div className={this.state.isLoading ? 'show loading-div' : 'hidden loading-div'}></div>
+          <ul className="col-md-10 col-md-offset-1 bg-white tournament-ul">
+            {tournaments}
+          </ul>
+        </div>
         <ModalComponent tournamentId={this.state.tournamentId} teamCollection = {this.state.teamCollection}/>
       </div>
     );
