@@ -572,7 +572,7 @@ h1, h2, h3, h4, h5, h6, table {
   }
 }
 
-/////////////////////////////////////////////////////////// Game Component
+//////////////////////////////////////////////////////////////// Game Component
 
 .game-component-modal {
   padding: 20px;
@@ -586,4 +586,25 @@ h1, h2, h3, h4, h5, h6, table {
   font-size: 30px;
   background-color: $i800;
   color: $primaryWhiteText;
+}
+
+//////////////////////////////////////////////////////////////// Game Component
+
+.edit-game-container {
+  min-height: 100vh;
+}
+
+.edit-game-header {
+  margin-top: 20px;
+}
+
+/////////////////////////////////////////////////////////// Score Edit Component
+
+.edit-score-container{
+  min-height: 100vh;
+
+  .btn {
+    margin-right: 20px;
+    margin-top: 20px;
+  }
 }

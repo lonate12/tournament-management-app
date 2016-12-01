@@ -353,7 +353,6 @@ var GamesTable = React.createClass({
           </tr>
         );
       });
-console.log(finalGameList.length);
 
     }
     return(

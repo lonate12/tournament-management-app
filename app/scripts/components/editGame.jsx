@@ -100,34 +100,41 @@ var EditGame = React.createClass({
     };
 
     return(
-      <form onSubmit={this.updateGame}>
-        <div className="form-group">
-          <label htmlFor="home_team">Home Team</label>
-          <select disabled={isPlayoff ? "disabled" : false} value={this.state.home_team} onChange={this.handleTeam} className="form-control" name="home_team">
-            <option>--Home Team--</option>
-            {teams}
-          </select>
+      <div className="container-fluid edit-game-container bg-blue">
+        <div className="row">
+          <div className="col-md-10 col-md-offset-1">
+            <h1 id="edit-game-header">Edit game</h1>
+            <form onSubmit={this.updateGame}>
+              <div className="form-group">
+                <label htmlFor="home_team">Home Team</label>
+                <select disabled={isPlayoff ? "disabled" : false} value={this.state.home_team} onChange={this.handleTeam} className="form-control" name="home_team">
+                  <option>--Home Team--</option>
+                  {teams}
+                </select>
+              </div>
+              <div className="form-group">
+                <label htmlFor="away_team">Away Team</label>
+                <select disabled={isPlayoff ? "disabled" : false} value={this.state.away_team} onChange={this.handleTeam} className="form-control" name="away_team">
+                  <option>--Away Team--</option>
+                  {teams}
+                </select>
+              </div>
+              <div className="form-group">
+                <label htmlFor="location">Location</label>
+                <select value={this.state.location} onChange={this.handleLocation} className="form-control" name="location">
+                  <option>--Location--</option>
+                  {locations}
+                </select>
+              </div>
+              <div className="form-group">
+                <label htmlFor="time">Date and Time</label>
+                <input value={this.state.time} onChange={this.handleDate} className="form-control" type="datetime-local" name="time" />
+              </div>
+              <button type="submit" className="btn btn-accent dark-blue">Add Game</button>
+            </form>
+          </div>
         </div>
-        <div className="form-group">
-          <label htmlFor="away_team">Away Team</label>
-          <select disabled={isPlayoff ? "disabled" : false} value={this.state.away_team} onChange={this.handleTeam} className="form-control" name="away_team">
-            <option>--Away Team--</option>
-            {teams}
-          </select>
-        </div>
-        <div className="form-group">
-          <label htmlFor="location">Location</label>
-          <select value={this.state.location} onChange={this.handleLocation} className="form-control" name="location">
-            <option>--Location--</option>
-            {locations}
-          </select>
-        </div>
-        <div className="form-group">
-          <label htmlFor="time">Date and Time</label>
-          <input value={this.state.time} onChange={this.handleDate} className="form-control" type="datetime-local" name="time" />
-        </div>
-        <button type="submit" className="btn btn-success">Add Game</button>
-      </form>
+      </div>
     );
   }
 });
