@@ -15,6 +15,7 @@ var TeamAdminSignUpContainer = React.createClass({
       'phone_number': '',
       'username': '',
       'password': '',
+      isLoading: false
     };
   },
   handleInputChangeAdmin: function(e){
@@ -39,6 +40,8 @@ var TeamAdminSignUpContainer = React.createClass({
       return;
     }
 
+    this.setState({isLoading: true});
+
     this.state.teamAdmin.signUp(function(){
       Backbone.history.navigate('/tournaments/'+self.props.tournamentId+'/add-team/', {trigger: true});
     });
@@ -49,7 +52,8 @@ var TeamAdminSignUpContainer = React.createClass({
       'email': '',
       'phone_number': '',
       'username': '',
-      'password': ''
+      'password': '',
+      isLoading: false
     });
   },
   componentWillMount: function(){
@@ -57,11 +61,16 @@ var TeamAdminSignUpContainer = React.createClass({
   },
   render: function(){
     return(
-      <div className="container">
+      <div className="container-fluid bg-blue" id="team-admin-sign-up">
         <div className="row">
+          <div className="col-sm-8 col-sm-offset-2 login-logo-div clearfix">
+            <a href="#">
+              <img className="login-logo" src="images/the-standings-logo-white.png" alt="The Standings Logo" />
+            </a>
+          </div>
           <div className="col-sm-8 col-sm-offset-2">
-            <form onSubmit={this.handleAdminSubmit} className="form" id="captain-sign-up">
-              <h1>Sign up to register your team</h1>
+            <form onSubmit={this.handleAdminSubmit} className="form loading-parent" id="captain-sign-up">
+              <h1>Sign up to register your team <i className="fa fa-clipboard white" aria-hidden="true"></i></h1>
               <div className="form-group">
                 <label htmlFor="first_name">First Name</label>
                 <input onChange={this.handleInputChangeAdmin} type="text" className="form-control" name="first_name" id="first_name" placeholder="First Name" value={this.state.first_name} required="required"/>
@@ -76,7 +85,8 @@ var TeamAdminSignUpContainer = React.createClass({
                 <label htmlFor="password2">Re-enter Password</label>
                 <input onChange={this.handleInputChangeAdmin} type="password" className="form-control" name="password2" id="password2" placeholder="Re-enter password" value={this.state.password2} required="required"/>
               </div>
-              <button type="submit" className="btn btn-default">Sign Up</button>
+              <button type="submit" className="btn btn-accent dark-blue">Sign Up</button>
+              <div className={this.state.isLoading ? 'show loading-div' : 'hidden loading-div'}></div>
             </form>
           </div>
         </div>

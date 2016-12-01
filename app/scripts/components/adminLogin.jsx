@@ -48,7 +48,7 @@ var AdminLoginContainer = React.createClass({
             </a>
           </div>
           <form onSubmit={this.handleSubmit} className="col-sm-8 col-sm-offset-2">
-            <h1>Login <i className="fa fa-lock white"></i></h1>
+            <h1>Login <i className="fa fa-lock white" aria-hidden="true"></i></h1>
             <div className="form-group">
               <label htmlFor="username">Email</label>
               <input onChange={this.handleInput} type="email" className="form-control" name="username" id="username" placeholder="Enter email" required="required"/>

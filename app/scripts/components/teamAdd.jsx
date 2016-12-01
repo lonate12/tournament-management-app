@@ -21,7 +21,8 @@ var TeamAddContainer = React.createClass({
       'last_name': '',
       'email': '',
       'phone_number':'',
-      'logo': logo
+      'logo': logo,
+      isLoading: false
     }
   },
   handleInput: function(e){
@@ -33,7 +34,6 @@ var TeamAddContainer = React.createClass({
     newData[target.id] = target.value;
 
     this.setState(newData);
-    console.log(this.state);
   },
   componentWillMount: function(){
     var currentUser = this.state.currentUser;
@@ -59,6 +59,7 @@ var TeamAddContainer = React.createClass({
     var self = this;
 
     setUpParse('zugzwang', 'tosche station', localStorage.getItem('sessionToken'));
+    this.setState({isLoading: true});
 
     this.state.logo.save().then(function(response){
       newTeam.set({
@@ -83,8 +84,7 @@ var TeamAddContainer = React.createClass({
         currentUser.set({team: currentUser.toPointer('Teams', teamId)});
         currentUser.unset('createdAt');
         currentUser.unset('updatedAt');
-        currentUser.save().then(function(response){
-          console.log(currentUser.get('team').objectId);
+        currentUser.save().then(function(){
           Backbone.history.navigate('/tournaments/'+self.props.tournamentId+'/'+currentUser.get('team').objectId+'/', {trigger: true});
         });
       });
@@ -106,33 +106,39 @@ var TeamAddContainer = React.createClass({
   },
   render: function(){
     return(
-      <div className="container">
+      <div className="container-fluid bg-blue" id="team-add-body">
         <div className="row">
-            <form onSubmit={this.handleSubmit} className="form team-info-form col-sm-8 col-sm-offset-2">
-              <h1>Register your team!</h1>
-              <div className="form-group">
-                <label htmlFor="name"><h3>Team Name</h3></label>
-                <input onChange={this.handleInput} type="text" className="form-control" id="name" placeholder="Team Name" value={this.state.name} required="required"/>
-              </div>
-              <div className="form-group">
-                <h3>Primary Team Contact Info</h3>
-                <label><input onChange={this.hanleCheckedInput} type="checkbox"/> I am the primary contact</label>
-                <br/>
-                <label htmlFor="first_name">First Name</label>
-                <input onChange={this.handleInput} type="text" className="form-control" id="first_name" placeholder="First Name" value={this.state.first_name} required="required"/>
-                <label htmlFor="last_name">Last Name</label>
-                <input onChange={this.handleInput} type="text" className="form-control" id="last_name" placeholder="Last Name" value={this.state.last_name} required="required"/>
-                <label htmlFor="email">Email</label>
-                <input onChange={this.handleInput} type="email" className="form-control" id="email" placeholder="Email" value={this.state.email} required="required"/>
-                <label htmlFor="phone_number">Contact Number</label>
-                <input onChange={this.handleInput} type="text" className="form-control" id="phone_number" placeholder="(###) ###-####" value={this.state.phone_number} required="required"/>
-              </div>
-              <div className="form-group">
-                <label htmlFor="team_logo"><h3>Team Logo</h3></label>
-                <input onChange={this.handleLogo} type="file" id="team_logo" name="team_logo"/>
-              </div>
-              <button type="submit" className="btn btn-success">Submit Team Info</button>
-            </form>
+          <div className="col-sm-8 col-sm-offset-2 login-logo-div clearfix">
+            <a href="#">
+              <img className="login-logo" src="images/the-standings-logo-white.png" alt="The Standings Logo" />
+            </a>
+          </div>
+          <form onSubmit={this.handleSubmit} className="form team-info-form col-sm-8 col-sm-offset-2 loading-parent">
+            <h1>Register your team! <i className="fa fa-users white" aria-hidden="true"></i></h1>
+            <div className="form-group">
+              <label htmlFor="name"><h3>Team Name</h3></label>
+              <input onChange={this.handleInput} type="text" className="form-control" id="name" placeholder="Team Name" value={this.state.name} required="required"/>
+            </div>
+            <div className="form-group">
+              <h3>Primary Team Contact Info</h3>
+              <label className="white"><input onChange={this.hanleCheckedInput} type="checkbox"/> I am the primary contact</label>
+              <br/>
+              <label htmlFor="first_name">First Name</label>
+              <input onChange={this.handleInput} type="text" className="form-control" id="first_name" placeholder="First Name" value={this.state.first_name} required="required"/>
+              <label htmlFor="last_name">Last Name</label>
+              <input onChange={this.handleInput} type="text" className="form-control" id="last_name" placeholder="Last Name" value={this.state.last_name} required="required"/>
+              <label htmlFor="email">Email</label>
+              <input onChange={this.handleInput} type="email" className="form-control" id="email" placeholder="Email" value={this.state.email} required="required"/>
+              <label htmlFor="phone_number">Contact Number</label>
+              <input onChange={this.handleInput} type="text" className="form-control" id="phone_number" placeholder="(###) ###-####" value={this.state.phone_number} required="required"/>
+            </div>
+            <div className="form-group">
+              <label htmlFor="team_logo"><h3>Team Logo</h3></label>
+              <input onChange={this.handleLogo} type="file" id="team_logo" name="team_logo"/>
+            </div>
+            <button type="submit" className="btn btn-accent dark-blue">Submit Team Info</button>
+            <div className={this.state.isLoading ? 'show loading-div' : 'hidden loading-div'}></div>
+          </form>
         </div>
       </div>
     );

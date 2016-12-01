@@ -63,7 +63,7 @@ var TeamViewContainer = React.createClass({
     var group = this.state.group.map(function(team){
       return(
         <li key={team.get('objectId')} className="list-group-item">
-          <a href={'/tournaments/'+self.props.tournamentId+'/'+team.get('objectId')+'/'}>
+          <a href={'#/tournaments/'+self.props.tournamentId+'/'+team.get('objectId')+'/'}>
             {team.get('name')}
           </a>
           <span className="pull-right">{team.get('points')}</span>

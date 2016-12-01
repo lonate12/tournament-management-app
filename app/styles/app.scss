@@ -473,3 +473,27 @@ h1, h2, h3, h4, h5, h6, table {
     margin-bottom: 30px;
   }
 }
+
+////////////////////////////////////////////////////////////////////// Team Add
+
+#team-add-body{
+  min-height: 100vh;
+
+  form {
+    margin-bottom: 30px;
+  }
+}
+
+//////////////////////////////////////////////////////////// Team Admin Sign Up
+
+#team-admin-sign-up{
+  min-height: 100vh;
+
+  form {
+    margin-bottom: 30px;
+  }
+
+  label {
+    margin-top: 20px;
+  }
+}

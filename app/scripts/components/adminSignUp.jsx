@@ -66,7 +66,7 @@ var AdminSignUpContainer = React.createClass({
           </div>
           <div className="col-sm-8 col-sm-offset-2 loading-parent">
             <form onSubmit={this.handleAdminSubmit} className="form" id="captain-sign-up">
-              <h1 className="col-sm-12 text-center sign-up-header">Tournament Admin Sign Up <i className="fa fa-user-plus"></i></h1>
+              <h1 className="col-sm-12 text-center sign-up-header">Tournament Admin Sign Up <i className="fa fa-user-plus white" aria-hidden="true"></i></h1>
               <div className="form-group">
                 <label htmlFor="first_name">First Name</label>
                 <input onChange={this.handleInputChangeAdmin} type="text" className="form-control" name="first_name" id="first_name" required="required"/>
