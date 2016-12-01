@@ -57,28 +57,35 @@ var AdminSignUpContainer = React.createClass({
   },
   render: function(){
     return(
-      <div className="container">
+      <div className="container-fluid bg-blue" id="sign-up-body-container">
         <div className="row">
+          <div className="col-sm-8 col-sm-offset-2 login-logo-div clearfix">
+            <a href="#">
+              <img className="login-logo" src="images/the-standings-logo-white.png" alt="The Standings Logo" />
+            </a>
+          </div>
           <div className="col-sm-8 col-sm-offset-2 loading-parent">
-            <div className={this.state.isLoading ? 'show loading-div' : 'hidden loading-div'}></div>
             <form onSubmit={this.handleAdminSubmit} className="form" id="captain-sign-up">
-              <h1>Tournament Admin Sign Up</h1>
+              <h1 className="col-sm-12 text-center sign-up-header">Tournament Admin Sign Up <i className="fa fa-user-plus"></i></h1>
               <div className="form-group">
                 <label htmlFor="first_name">First Name</label>
-                <input onChange={this.handleInputChangeAdmin} type="text" className="form-control" name="first_name" id="first_name" placeholder="First Name" required="required"/>
+                <input onChange={this.handleInputChangeAdmin} type="text" className="form-control" name="first_name" id="first_name" required="required"/>
                 <label htmlFor="last_name">Last Name</label>
-                <input onChange={this.handleInputChangeAdmin} type="text" className="form-control" name="last_name" id="last_name" placeholder="Last Name" required="required"/>
+                <input onChange={this.handleInputChangeAdmin} type="text" className="form-control" name="last_name" id="last_name" required="required"/>
                 <label htmlFor="phone_number">Contact Number</label>
-                <input onChange={this.handleInputChangeAdmin} type="text" className="form-control" name="phone_number" id="phone_number" placeholder="(###) ###-####" required="required"/>
+                <input onChange={this.handleInputChangeAdmin} type="text" className="form-control" name="phone_number" id="phone_number" required="required"/>
                 <label htmlFor="email">Email</label>
-                <input onChange={this.handleInputChangeAdmin} type="email" className="form-control" name="email" id="email" placeholder="Enter email" required="required"/>
-                <label htmlFor="password">Password</label>
-                <input onChange={this.handleInputChangeAdmin} type="password" className="form-control" name="password" id="password" placeholder="Password" required="required"/>
-                <label htmlFor="password2">Re-enter Password</label>
-                <input onChange={this.handleInputChangeAdmin} type="password" className="form-control" name="password2" id="password2" placeholder="Re-enter password" required="required"/>
+                <input onChange={this.handleInputChangeAdmin} type="email" className="form-control" name="email" id="email" required="required"/>
+                <div className="form-group">
+                  <label htmlFor="password">Password</label>
+                  <input onChange={this.handleInputChangeAdmin} type="password" className="form-control" name="password" id="password" required="required"/>
+                  <label htmlFor="password2">Re-enter Password</label>
+                  <input onChange={this.handleInputChangeAdmin} type="password" className="form-control" name="password2" id="password2" required="required"/>
+                </div>
               </div>
-              <button type="submit" className="btn btn-default">Sign Up</button>
+              <button type="submit" className="btn btn-accent dark-blue">Sign Up</button>
             </form>
+            <div className={this.state.isLoading ? 'show loading-div' : 'hidden loading-div'}></div>
           </div>
         </div>
       </div>

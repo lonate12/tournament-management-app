@@ -455,3 +455,21 @@ h1, h2, h3, h4, h5, h6, table {
 #admin-login-body{
   min-height: 100vh;
 }
+
+////////////////////////////////////////////////////// Tournament Admin Sign Up
+
+#sign-up-body-container{
+  min-height: 100vh;
+
+  label{
+    margin-top: 15px;
+  }
+
+  .sign-up-header{
+    margin-bottom: 20px;
+  }
+
+  form {
+    margin-bottom: 30px;
+  }
+}

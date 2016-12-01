@@ -48,14 +48,14 @@ var AdminLoginContainer = React.createClass({
             </a>
           </div>
           <form onSubmit={this.handleSubmit} className="col-sm-8 col-sm-offset-2">
-            <h1>Login</h1>
+            <h1>Login <i className="fa fa-lock white"></i></h1>
             <div className="form-group">
               <label htmlFor="username">Email</label>
               <input onChange={this.handleInput} type="email" className="form-control" name="username" id="username" placeholder="Enter email" required="required"/>
               <label htmlFor="password">Password</label>
               <input onChange={this.handleInput} type="password" className="form-control" name="password" id="password" placeholder="Password" required="required"/>
             </div>
-            <button type="submit" className="btn btn-default">Login</button>
+            <button type="submit" className="btn btn-accent dark-blue">Login</button>
           </form>
           <div className="row">
             <div className="col-md-8 col-md-offset-2">
