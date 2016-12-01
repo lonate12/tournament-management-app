@@ -6087,4 +6087,62 @@ h1, h2, h3, h4, h5, h6, table {
 #admin-login-body {
   min-height: 100vh; }
 
+#sign-up-body-container {
+  min-height: 100vh; }
+  #sign-up-body-container label {
+    margin-top: 15px; }
+  #sign-up-body-container .sign-up-header {
+    margin-bottom: 20px; }
+  #sign-up-body-container form {
+    margin-bottom: 30px; }
+
+#team-add-body {
+  min-height: 100vh; }
+  #team-add-body form {
+    margin-bottom: 30px; }
+  #team-add-body label {
+    margin-top: 20px; }
+
+#team-admin-sign-up {
+  min-height: 100vh; }
+  #team-admin-sign-up form {
+    margin-bottom: 30px; }
+  #team-admin-sign-up label {
+    margin-top: 20px; }
+
+.admin-team-modal-overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.75);
+  z-index: 100; }
+
+.admin-team-modal {
+  position: absolute;
+  top: 120px;
+  left: 40px;
+  right: 40px;
+  bottom: 40px;
+  background: #9FA8DA;
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px; }
+  .admin-team-modal .modal-team-name {
+    margin-left: 20px;
+    color: white;
+    font-size: 40px; }
+  .admin-team-modal .btn {
+    margin-right: 40px; }
+  .admin-team-modal label {
+    color: white;
+    font-family: 'limo';
+    margin-left: 40px;
+    font-size: 25px; }
+
+.playoff-btn {
+  margin-left: 20px; }
+
 /*# sourceMappingURL=app.css.map */
