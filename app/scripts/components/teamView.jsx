@@ -99,7 +99,7 @@ var TeamViewContainer = React.createClass({
             <div className="col-md-12">
               <div className={this.state.isLoadingTeam ? 'show loading-div' : 'hidden loading-div'}></div>
               <h2 className="team-name team-detail-name">{currentTeam.get('name')}</h2>
-              <img className="img-thumbnail img-fluid team-detail-img" src={currentTeam.get('logo') ? currentTeam.get('logo') : '../../dist/images/default-logo.png'} />
+              <img className="img-thumbnail img-fluid team-detail-img" src={currentTeam.get('logo') ? currentTeam.get('logo') : 'images/default-logo.png'} />
             </div>
           </div>
           <div className="col-md-8">
