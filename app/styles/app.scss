@@ -561,3 +561,29 @@ h1, h2, h3, h4, h5, h6, table {
     color: $i800;
   }
 }
+
+/////////////////////////////////////////////////////////// Location Component
+
+.location-modal-form{
+  padding: 20px;
+
+  label {
+    color: white;
+  }
+}
+
+/////////////////////////////////////////////////////////// Game Component
+
+.game-component-modal {
+  padding: 20px;
+
+  label {
+    color: white;
+  }
+}
+
+.game-headers {
+  font-size: 30px;
+  background-color: $i800;
+  color: $primaryWhiteText;
+}

@@ -212,34 +212,40 @@ var AddGameModal = React.createClass({
       <Modal
         isOpen={this.state.modalIsOpen}
         onRequestClose={this.closeModal} >
-        <form onSubmit={this.handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="home_team">Home Team</label>
-            <select onChange={this.handleTeam} className="form-control" name="home_team">
-              <option>--Home Team--</option>
-              {teams}
-            </select>
+        <div className="row">
+          <div className="col-md-12">
+            <div className="col-md-10 col-md-offset-1">
+              <form onSubmit={this.handleSubmit} className="game-component-modal">
+                <div className="form-group">
+                  <label htmlFor="home_team">Home Team</label>
+                  <select onChange={this.handleTeam} className="form-control" name="home_team">
+                    <option>--Home Team--</option>
+                    {teams}
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="away_team">Away Team</label>
+                  <select onChange={this.handleTeam} className="form-control" name="away_team">
+                    <option>--Away Team--</option>
+                    {teams}
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="location">Location</label>
+                  <select onChange={this.handleLocation} className="form-control" name="location">
+                    <option>--Location--</option>
+                    {locations}
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="time">Date and Time</label>
+                  <input onChange={this.handleDate} className="form-control" type="datetime-local" name="time" />
+                </div>
+                <button type="submit" className="btn btn-accent dark-blue">Add Game</button>
+              </form>
+            </div>
           </div>
-          <div className="form-group">
-            <label htmlFor="away_team">Away Team</label>
-            <select onChange={this.handleTeam} className="form-control" name="away_team">
-              <option>--Away Team--</option>
-              {teams}
-            </select>
-          </div>
-          <div className="form-group">
-            <label htmlFor="location">Location</label>
-            <select onChange={this.handleLocation} className="form-control" name="location">
-              <option>--Location--</option>
-              {locations}
-            </select>
-          </div>
-          <div className="form-group">
-            <label htmlFor="time">Date and Time</label>
-            <input onChange={this.handleDate} className="form-control" type="datetime-local" name="time" />
-          </div>
-          <button type="submit" className="btn btn-success">Add Game</button>
-        </form>
+        </div>
       </Modal>
     );
   }
@@ -347,7 +353,7 @@ var GamesTable = React.createClass({
           </tr>
         );
       });
-
+console.log(finalGameList.length);
 
     }
     return(
@@ -355,7 +361,7 @@ var GamesTable = React.createClass({
         <div className="row">
           <div className="col-sm-12">
             <h3>Games</h3>
-            <p onClick={this.openModal} className="glyphicon glyphicon-plus-sign"></p>
+            <p onClick={this.openModal} className="fa fa-plus-circle" aria-hiden="true"></p>
             <table className="table">
               <thead>
                 <tr>
@@ -367,13 +373,13 @@ var GamesTable = React.createClass({
                 </tr>
               </thead>
               <tbody>
-                <tr colSpan="5"><td><strong>Final Games</strong></td></tr>
+                <tr><td colSpan="5" className="game-headers"><strong>Final Games</strong></td></tr>
                 {finalGameList}
-                <tr colSpan="5"><td><strong>Semi-Final Games</strong></td></tr>
+                <tr><td colSpan="5" className="game-headers"><strong>Semi-Final Games</strong></td></tr>
                 {semiFinalGameList}
-                <tr colSpan="5"><td><strong>Quarter-Final Games</strong></td></tr>
+                <tr><td colSpan="5" className="game-headers"><strong>Quarter-Final Games</strong></td></tr>
                 {quarterFinalGameList}
-                <tr colSpan="5"><td><strong>Group Games</strong></td></tr>
+                <tr><td colSpan="5" className="game-headers"><strong>Group Games</strong></td></tr>
                 {groupGameList}
               </tbody>
             </table>
@@ -430,81 +436,87 @@ var AddLocationModal = React.createClass({
       <Modal
         isOpen={this.state.modalIsOpen}
         onRequestClose={this.closeModal} >
-        <form onSubmit={this.addLocation}>
-          <div className="form-group">
-            <label htmlFor="name">Name and Sub-Location</label>
-            <input onChange={this.handleChange} className="form-control" type="text" name="name" placeholder="Name of Location and Sub-Location (i.e. Nettles Park, Field 1)" required="required"/>
+        <div className="row">
+          <div className="col-md-12">
+            <div className="col-md-10 col-md-offset-1">
+              <form onSubmit={this.addLocation} className="location-modal-form">
+                <div className="form-group">
+                  <label htmlFor="name">Name and Sub-Location</label>
+                  <input onChange={this.handleChange} className="form-control" type="text" name="name" placeholder="Name of Location and Sub-Location (i.e. Nettles Park, Field 1)" required="required"/>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="street_address">Street Address</label>
+                  <input onChange={this.handleChange} className="form-control" type="text" name="street_address" placeholder="Street Address" required="required"/>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="city">City</label>
+                  <input onChange={this.handleChange} className="form-control" type="text" name="city" placeholder="City" required="required"/>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="state">State</label>
+                  <select onChange={this.handleChange} className="form-control" name="state" id="state" required="required">
+                    <option value="AL">Alabama</option>
+                    <option value="AK">Alaska</option>
+                    <option value="AZ">Arizona</option>
+                    <option value="AR">Arkansas</option>
+                    <option value="CA">California</option>
+                    <option value="CO">Colorado</option>
+                    <option value="CT">Connecticut</option>
+                    <option value="DE">Delaware</option>
+                    <option value="DC">District Of Columbia</option>
+                    <option value="FL">Florida</option>
+                    <option value="GA">Georgia</option>
+                    <option value="HI">Hawaii</option>
+                    <option value="ID">Idaho</option>
+                    <option value="IL">Illinois</option>
+                    <option value="IN">Indiana</option>
+                    <option value="IA">Iowa</option>
+                    <option value="KS">Kansas</option>
+                    <option value="KY">Kentucky</option>
+                    <option value="LA">Louisiana</option>
+                    <option value="ME">Maine</option>
+                    <option value="MD">Maryland</option>
+                    <option value="MA">Massachusetts</option>
+                    <option value="MI">Michigan</option>
+                    <option value="MN">Minnesota</option>
+                    <option value="MS">Mississippi</option>
+                    <option value="MO">Missouri</option>
+                    <option value="MT">Montana</option>
+                    <option value="NE">Nebraska</option>
+                    <option value="NV">Nevada</option>
+                    <option value="NH">New Hampshire</option>
+                    <option value="NJ">New Jersey</option>
+                    <option value="NM">New Mexico</option>
+                    <option value="NY">New York</option>
+                    <option value="NC">North Carolina</option>
+                    <option value="ND">North Dakota</option>
+                    <option value="OH">Ohio</option>
+                    <option value="OK">Oklahoma</option>
+                    <option value="OR">Oregon</option>
+                    <option value="PA">Pennsylvania</option>
+                    <option value="RI">Rhode Island</option>
+                    <option value="SC">South Carolina</option>
+                    <option value="SD">South Dakota</option>
+                    <option value="TN">Tennessee</option>
+                    <option value="TX">Texas</option>
+                    <option value="UT">Utah</option>
+                    <option value="VT">Vermont</option>
+                    <option value="VA">Virginia</option>
+                    <option value="WA">Washington</option>
+                    <option value="WV">West Virginia</option>
+                    <option value="WI">Wisconsin</option>
+                    <option value="WY">Wyoming</option>
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="zip_code">Zip Code</label>
+                  <input onChange={this.handleChange} className="form-control" type="text" name="zip_code" placeholder="Zip Code" required="required"/>
+                </div>
+                <button type="submit" className="btn btn-success">Add Location</button>
+              </form>
+            </div>
           </div>
-          <div className="form-group">
-            <label htmlFor="street_address">Street Address</label>
-            <input onChange={this.handleChange} className="form-control" type="text" name="street_address" placeholder="Street Address" required="required"/>
-          </div>
-          <div className="form-group">
-            <label htmlFor="city">City</label>
-            <input onChange={this.handleChange} className="form-control" type="text" name="city" placeholder="City" required="required"/>
-          </div>
-          <div className="form-group">
-            <label htmlFor="state">State</label>
-            <select onChange={this.handleChange} className="form-control" name="state" id="state" required="required">
-              <option value="AL">Alabama</option>
-              <option value="AK">Alaska</option>
-              <option value="AZ">Arizona</option>
-              <option value="AR">Arkansas</option>
-              <option value="CA">California</option>
-              <option value="CO">Colorado</option>
-              <option value="CT">Connecticut</option>
-              <option value="DE">Delaware</option>
-              <option value="DC">District Of Columbia</option>
-              <option value="FL">Florida</option>
-              <option value="GA">Georgia</option>
-              <option value="HI">Hawaii</option>
-              <option value="ID">Idaho</option>
-              <option value="IL">Illinois</option>
-              <option value="IN">Indiana</option>
-              <option value="IA">Iowa</option>
-              <option value="KS">Kansas</option>
-              <option value="KY">Kentucky</option>
-              <option value="LA">Louisiana</option>
-              <option value="ME">Maine</option>
-              <option value="MD">Maryland</option>
-              <option value="MA">Massachusetts</option>
-              <option value="MI">Michigan</option>
-              <option value="MN">Minnesota</option>
-              <option value="MS">Mississippi</option>
-              <option value="MO">Missouri</option>
-              <option value="MT">Montana</option>
-              <option value="NE">Nebraska</option>
-              <option value="NV">Nevada</option>
-              <option value="NH">New Hampshire</option>
-              <option value="NJ">New Jersey</option>
-              <option value="NM">New Mexico</option>
-              <option value="NY">New York</option>
-              <option value="NC">North Carolina</option>
-              <option value="ND">North Dakota</option>
-              <option value="OH">Ohio</option>
-              <option value="OK">Oklahoma</option>
-              <option value="OR">Oregon</option>
-              <option value="PA">Pennsylvania</option>
-              <option value="RI">Rhode Island</option>
-              <option value="SC">South Carolina</option>
-              <option value="SD">South Dakota</option>
-              <option value="TN">Tennessee</option>
-              <option value="TX">Texas</option>
-              <option value="UT">Utah</option>
-              <option value="VT">Vermont</option>
-              <option value="VA">Virginia</option>
-              <option value="WA">Washington</option>
-              <option value="WV">West Virginia</option>
-              <option value="WI">Wisconsin</option>
-              <option value="WY">Wyoming</option>
-            </select>
-          </div>
-          <div className="form-group">
-            <label htmlFor="zip_code">Zip Code</label>
-            <input onChange={this.handleChange} className="form-control" type="text" name="zip_code" placeholder="Zip Code" required="required"/>
-          </div>
-          <button type="submit" className="btn btn-success">Add Location</button>
-        </form>
+        </div>
       </Modal>
     );
   }
@@ -556,7 +568,7 @@ var LocationsTable = React.createClass({
         <div className="row">
           <div className="col-sm-12">
             <h3>Locations</h3>
-            <p onClick={this.openModal} className="glyphicon glyphicon-plus-sign"></p>
+            <p onClick={this.openModal} className="fa fa-plus-circle" aria-hidden="true"></p>
             <table className="table">
               <thead>
                 <tr>
