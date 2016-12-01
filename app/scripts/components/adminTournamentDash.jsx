@@ -58,9 +58,13 @@ var TeamUpdateModal = React.createClass({
     return(
       <Modal
         isOpen={this.state.modalIsOpen}
-        onRequestClose={this.closeModal} >
-        <h2>{team.get('name')}</h2>
+        onRequestClose={this.closeModal}
+        className={'admin-team-modal'}
+        overlayClassName={'admin-team-modal-overlay'}
+      >
+        <h2 className="modal-team-name">{team.get('name')}</h2>
         <form onSubmit={this.saveChanges}>
+          <button type="submit" className="btn btn-accent dark-blue pull-right">Save Changes</button>
           <div className="form-group">
             <label htmlFor="have_paid">
               Paid <input onChange={this.handleChange} defaultChecked={team.get('have_paid')} type="checkbox" name="have_paid"/>
@@ -71,7 +75,6 @@ var TeamUpdateModal = React.createClass({
               Submitted Waiver <input onChange={this.handleChange} defaultChecked={team.get('have_waiver')} type="checkbox" name="have_waiver"/>
             </label>
           </div>
-          <button type="submit" className="btn btn-success">Save Changes</button>
         </form>
       </Modal>
     );
@@ -1001,37 +1004,39 @@ var AdminTournamentDash = React.createClass({
   render: function(){
     return(
       <TournamentDashTemplate teams={this.state.teams} tournament={this.state.tournament}>
-        <h1>AdminTournamentDash</h1>
-        <button onClick={this.startPlayoffs} type="button" className="btn btn-primary">Create Quarter Finals</button>
-        <button onClick={this.createSemis} type="button" className="btn btn-primary">Create Semi-Finals</button>
-        <button onClick={this.createFinal} type="button" className="btn btn-primary">Create Final</button>
-        <div className="row">
-          <div className="col-md-10 col-md-offset-1">
-            <TeamsTable
-              deleteTeam={this.deleteTeam}
+        <div className="container-fluid admin-dash-container">
+          <h1>AdminTournamentDash</h1>
+          <button onClick={this.startPlayoffs} type="button" className="btn btn-accent dark-blue playoff-btn">Create Quarter Finals</button>
+          <button onClick={this.createSemis} type="button" className="btn btn-accent dark-blue playoff-btn">Create Semi-Finals</button>
+          <button onClick={this.createFinal} type="button" className="btn btn-accent dark-blue playoff-btn">Create Final</button>
+          <div className="row">
+            <div className="col-md-10 col-md-offset-1">
+              <TeamsTable
+                deleteTeam={this.deleteTeam}
+                teams={this.state.teams}
+                updateSelected={this.updateSelected}
+              />
+            </div>
+          </div>
+          <div className="row">
+            {this.state.teams.length == 16 ? <GroupsDraggable teams={this.state.teams} /> : null}
+            <GamesTable
+              deleteGame={this.deleteGame}
               teams={this.state.teams}
-              updateSelected={this.updateSelected}
+              locations={this.state.locations}
+              games={this.state.games}
+              addGame={this.addGame}
+              tournamentId={this.props.tournamentId}
             />
           </div>
-        </div>
-        <div className="row">
-          {this.state.teams.length == 16 ? <GroupsDraggable teams={this.state.teams} /> : null}
-          <GamesTable
-            deleteGame={this.deleteGame}
-            teams={this.state.teams}
-            locations={this.state.locations}
-            games={this.state.games}
-            addGame={this.addGame}
-            tournamentId={this.props.tournamentId}
-          />
-        </div>
-        <div className="row">
-          <LocationsTable
-            tournamentId={this.props.tournamentId}
-            deleteLocation={this.deleteLocation}
-            locations={this.state.locations}
-            addLocation={this.addLocation}
-          />
+          <div className="row">
+            <LocationsTable
+              tournamentId={this.props.tournamentId}
+              deleteLocation={this.deleteLocation}
+              locations={this.state.locations}
+              addLocation={this.addLocation}
+            />
+          </div>
         </div>
       </TournamentDashTemplate>
     );

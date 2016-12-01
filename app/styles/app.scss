@@ -482,6 +482,10 @@ h1, h2, h3, h4, h5, h6, table {
   form {
     margin-bottom: 30px;
   }
+
+  label {
+    margin-top: 20px;
+  }
 }
 
 //////////////////////////////////////////////////////////// Team Admin Sign Up
@@ -496,4 +500,54 @@ h1, h2, h3, h4, h5, h6, table {
   label {
     margin-top: 20px;
   }
+}
+
+//////////////////////////////////////////////////// Tournament Admin Dashboard
+
+.admin-dash-container {
+
+}
+
+.admin-team-modal-overlay{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(255,255,255,.75);
+  z-index: 100;
+}
+
+.admin-team-modal {
+  position: absolute;
+  top: 120px;
+  left: 40px;
+  right: 40px;
+  bottom: 40px;
+  background: $i200;
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+
+  .modal-team-name{
+    margin-left: 20px;
+    color: $primaryWhiteText;
+    font-size: 40px;
+  }
+
+  .btn {
+    margin-right: 40px;
+  }
+
+  label {
+    color: $primaryWhiteText;
+    font-family: 'limo';
+    margin-left: 40px;
+    font-size: 25px;
+  }
+}
+
+.playoff-btn {
+  margin-left: 20px;
 }
