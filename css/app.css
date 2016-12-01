@@ -6151,4 +6151,32 @@ h1, h2, h3, h4, h5, h6, table {
   border: none; }
   .draggable-list li {
     color: #283593; }
+
+.location-modal-form {
+  padding: 20px; }
+  .location-modal-form label {
+    color: white; }
+
+.game-component-modal {
+  padding: 20px; }
+  .game-component-modal label {
+    color: white; }
+
+.game-headers {
+  font-size: 30px;
+  background-color: #283593;
+  color: white; }
+
+.edit-game-container {
+  min-height: 100vh; }
+
+.edit-game-header {
+  margin-top: 20px; }
+
+.edit-score-container {
+  min-height: 100vh; }
+  .edit-score-container .btn {
+    margin-right: 20px;
+    margin-top: 20px; }
+
 /*# sourceMappingURL=app.css.map */
