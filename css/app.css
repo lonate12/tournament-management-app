@@ -6083,4 +6083,8 @@ h1, h2, h3, h4, h5, h6, table {
 .team-detail-img {
   display: block;
   margin: 0 auto; }
+
+#admin-login-body {
+  min-height: 100vh; }
+
 /*# sourceMappingURL=app.css.map */
