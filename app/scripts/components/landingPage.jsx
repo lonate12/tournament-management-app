@@ -23,7 +23,7 @@ var LandingPage = React.createClass({
           <div className="col-md-4">
             <a href="#/tournaments/">
               <div className="tile col-md-12">
-                <h3>I{"'"}m a <span className="accent">team administrator</span> looking to sign up a team</h3>
+                <h3>I{"'"}m a <span className="accent">team manager</span> looking to sign up a team</h3>
                 <i className="fa fa-users tile-icon" aria-hidden="true"></i>
               </div>
             </a>
@@ -31,7 +31,7 @@ var LandingPage = React.createClass({
           <div className="col-md-4">
             <a href="#/login/">
               <div className="tile col-md-12">
-                <h3>I{"'"}m a <span className="accent">tournament administrator</span> looking to use The Standings</h3>
+                <h3>I{"'"}m a <span className="accent">tournament administrator</span> on The Standings</h3>
                 <i className="fa fa-lock tile-icon" aria-hidden="true"></i>
               </div>
             </a>

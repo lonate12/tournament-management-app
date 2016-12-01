@@ -40,8 +40,13 @@ var AdminLoginContainer = React.createClass({
   },
   render: function(){
     return(
-      <div className="container">
+      <div className="container-fluid bg-blue" id="admin-login-body">
         <div className="row">
+          <div className="col-sm-8 col-sm-offset-2 login-logo-div">
+            <a href="#">
+              <img className="login-logo" src="images/the-standings-logo-white.png" alt="The Standings Logo" />
+            </a>
+          </div>
           <form onSubmit={this.handleSubmit} className="col-sm-8 col-sm-offset-2">
             <h1>Login</h1>
             <div className="form-group">
@@ -54,7 +59,7 @@ var AdminLoginContainer = React.createClass({
           </form>
           <div className="row">
             <div className="col-md-8 col-md-offset-2">
-              <p className="pull-right">Don't have an account? Contact <a href="mailto:lonate12@gmail.com?Subject=Interested%20in%20using%20The%20Standings!"><span className="accent">Rene</span></a> for a special link to sign up!</p>
+              <p className="pull-right">Don't have an account? Contact <a href="mailto:lonate12@gmail.com?Subject=Interested%20in%20using%20The%20Standings!"><span className="white">Rene</span></a> for a special link to sign up!</p>
             </div>
           </div>
         </div>
