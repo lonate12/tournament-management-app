@@ -6145,4 +6145,11 @@ h1, h2, h3, h4, h5, h6, table {
 .playoff-btn {
   margin-left: 20px; }
 
+.draggable-list {
+  background-color: #283593;
+  color: #FFAB40;
+  border: none; }
+  .draggable-list li {
+    color: #283593; }
+
 /*# sourceMappingURL=app.css.map */
