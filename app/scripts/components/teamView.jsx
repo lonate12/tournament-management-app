@@ -44,18 +44,17 @@ var TeamViewContainer = React.createClass({
     team.set('objectId', this.props.teamId);
     team.fetch().then(function(response){
       self.setState({isLoadingTeam: false});
+
+      teams.parseWhere('tournament', 'Tournaments', self.props.tournamentId).fetch().then(function(){
+        var group = new TeamCollection();
+        var thisGroup = teams.filter(function(team){return team.get('group') === self.state.currentTeam.get('group')});
+        group.set(thisGroup);
+        var sortedGroup = group.sortBy(function(team){return -team.get('points')});
+        group.set(sortedGroup);
+
+        self.setState({teams: teams, group: group, isLoadingGroup: false});
+      });
     });
-
-    teams.parseWhere('tournament', 'Tournaments', this.props.tournamentId).fetch().then(function(){
-      var group = new TeamCollection();
-      var thisGroup = teams.filter(function(team){return team.get('group') === 'A'});
-      group.set(thisGroup);
-      var sortedGroup = group.sortBy(function(team){return -team.get('points')});
-      group.set(sortedGroup);
-
-      self.setState({teams: teams, group: group, isLoadingGroup: false});
-    });
-
 
   },
   render: function(){
