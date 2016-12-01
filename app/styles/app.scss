@@ -551,3 +551,13 @@ h1, h2, h3, h4, h5, h6, table {
 .playoff-btn {
   margin-left: 20px;
 }
+
+.draggable-list {
+  background-color: $i800;
+  color: $accent;
+  border: none;
+
+  li {
+    color: $i800;
+  }
+}

@@ -652,29 +652,39 @@ var GroupsDraggable = React.createClass({
     });
 
     return(
-      <div>
+      <div className="col-md-12">
         <div className="row">
           <ul id="team-list" className="col-sm-12 list-group">
             {noGroup}
           </ul>
         </div>
         <div className="row">
-          <ul id="A" className="col-sm-3 list-group">
-            Group A
-            {listA}
-          </ul>
-          <ul id="B" className="col-sm-3 list-group">
-            Group B
-            {listB}
-          </ul>
-          <ul id="C" className="col-sm-3 list-group">
-            Group C
-            {listC}
-          </ul>
-          <ul id="D" className="col-sm-3 list-group">
-            Group D
-            {listD}
-          </ul>
+          <div className="col-md-12">
+            <div className="col-sm-3">
+              <ul id="A" className="col-sm-12 list-group draggable-list">
+                Group A
+                {listA}
+              </ul>
+            </div>
+            <div className="col-sm-3">
+              <ul id="B" className="col-sm-12 list-group draggable-list">
+                Group B
+                {listB}
+              </ul>
+            </div>
+            <div className="col-sm-3">
+              <ul id="C" className="col-sm-12 list-group draggable-list">
+                Group C
+                {listC}
+              </ul>
+            </div>
+            <div className="col-sm-3">
+              <ul id="D" className="col-sm-12 list-group draggable-list">
+                Group D
+                {listD}
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     );
