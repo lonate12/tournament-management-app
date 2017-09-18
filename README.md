@@ -25,7 +25,7 @@ When I was in grad school at Clemson University, I was the president of the Men'
 * **[JQuery](https://jquery.com)**
 * **[NPM.js](https://www.npmjs.com)**
 * **[SCSS](https://sass-lang.com)**
-* **[Dark Sky API] (https://darksky.net/dev)**
-* **[Google Maps API] (https://developers.google.com/maps/)**
-* **[Heroku] (https://www.heroku.com)**
-* **[Google Fonts] (https://fonts.google.com/)**
+* **[Dark Sky API](https://darksky.net/dev)**
+* **[Google Maps API](https://developers.google.com/maps/)**
+* **[Heroku](https://www.heroku.com)**
+* **[Google Fonts](https://fonts.google.com/)**
