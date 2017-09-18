@@ -19,6 +19,9 @@ When I was in grad school at Clemson University, I was the president of the Men'
 
 ## Tech Used
 
+* **[HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)**
+* **[CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)**
+* **[](https://developer.mozilla.org/en-US/docs/Web/JavaScript)**
 * **[React](https://facebook.github.io/react/)**
 * **[Boostrap](https://getbootstrap.com/)**
 * **[Backbone](http://backbonejs.org)**
